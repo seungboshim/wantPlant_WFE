@@ -1,5 +1,6 @@
 ### ⚠️ 관련 이슈
 ex) [FEAT] #1
+> 
 
 ### ✅ PR checklist
 ex) OOO 기능 정상 작동하는 지 확인
