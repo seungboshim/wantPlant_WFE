@@ -11,7 +11,7 @@ function App() {
         <Header />
         <Layout>
           <Routes>
-            <Route path="/" element={MainPage} />
+            <Route path="/" element={<MainPage />} />
           </Routes>
         </Layout>
         <Footer />
