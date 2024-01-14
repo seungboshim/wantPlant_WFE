@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import kakaoImage from "../../assets/images/kakao_login_large_narrow.svg"
-import googleImage from "../../assets/images/web_neutral_sq_SU.svg"
 import logo from "../../assets/images/logo.svg"
 import cat from "../../assets/images/cat_ai.svg"
 import dog from "../../assets/images/dog_ai.svg"
+import KakaoLoginButton from "../../components/button/KakaoLoginButton";
+import GoogleLoginButton from "../../components/button/GoogleLoginButton";
 
 export default function LoginPage() {
     return (
@@ -24,8 +24,8 @@ export default function LoginPage() {
                     <img src={logo} height={120} alt="logo" />
                     <RightBorder />
                     <LoginWrapper>
-                        <img src={kakaoImage} height={48} alt="kakao" />
-                        <img src={googleImage} height={48} alt="google" />
+                        <KakaoLoginButton />
+                        <GoogleLoginButton />
                     </LoginWrapper>
                 </RightWrapper>
             </RightFrame>
@@ -98,4 +98,5 @@ const LoginWrapper = styled.div`
     flex-direction: column;
     height: 30%;
     justify-content: space-between;
+    align-items: center;
 `
