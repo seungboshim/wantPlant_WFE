@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+/** green 07 버튼 */
 export default function JoinButton({ label, onClick }) {
     return (
         <Wrapper onClick={onClick}>

@@ -1,3 +1,4 @@
+/** 카카오 JavaScript SDK key값 초기화하여 리턴 */
 const kakaoInit = () => {
     const kakao = window.Kakao;
     
