@@ -6,6 +6,7 @@ import { Footer } from "./components/layout/Footer";
 import MainPage from "./pages/main/MainPage";
 import LoginPage from "./pages/login/LoginPage";
 import KakaoAuthPage from "./pages/login/KakaoAuthPage";
+import TestPage from "./pages/component/TestPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/auth/kakao/callback" element={<KakaoAuthPage />} />
+            <Route path="/test" element={<TestPage />} />
           </Routes>
         </Layout>
         {/** <Footer /> */}
