@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import GardernHeader from "../../components/gardenHeader/GardenHeader";
+import GardenDeleteButton from "../../components/button/GardenDeleteButton";
 
 export default function TestPage() {
     return (
@@ -8,8 +9,13 @@ export default function TestPage() {
                 <GardernHeader category="study"/>
                 <Content>
                     <ContentHeader>
-                        <GardenText></GardenText>
-                        <DeleteBtn></DeleteBtn>
+                        <TextWrapper>
+                            <GardenTitle>정원 이름이름이름</GardenTitle>
+                            <GardenDescription>정원 설명설명</GardenDescription>
+                        </TextWrapper>
+                        <DeleteBtn>
+                            <GardenDeleteButton label="정원 삭제하기"/>
+                        </DeleteBtn>
                     </ContentHeader>
                     <ContentInner>
                         <LeftContent></LeftContent>
@@ -46,20 +52,27 @@ const ContentHeader = styled.div`
     width: 100%;
     height: 20%;
     display: flex;
+    justify-content: space-between;
 `
 
-const GardenText = styled.div`
-    width: 70%;
-    flex-grow: 1;
-    border: 1px solid blue;
-    margin: 10px;
+const TextWrapper = styled.div`
+    margin: 40px 0 0 40px;
+    display: flex;
+    flex-direction: column;
+`
+
+const GardenTitle = styled.span`
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 12px;
+`
+
+const GardenDescription = styled.span`
+    font-size: 16px;
 `
 
 const DeleteBtn = styled.div`
-    width: 30%;
-    flex-grow: 1;
-    border: 1px solid blue;
-    margin: 10px;
+    margin: 12px;
 `
 
 const ContentInner = styled.div`
