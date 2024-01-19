@@ -1,17 +1,19 @@
 import styled from "styled-components";
 import logo from "../../assets/images/logo.svg"
 
-export default function Pot() {
+export default function Pot({ pot_title, period, pot_type, pot_img, progress }) {
     return (
         <Container>
             <Wrapper>
                 <img src={logo} alt="화분"/>
                 <PotInfoWrapper>
-                    <PotPeriod>진행기간</PotPeriod>
-                    <PotTitle>화분이름</PotTitle>
+                    <PotPeriod>{period}</PotPeriod>
+                    <PotTitle>{pot_title}</PotTitle>
                     <PotProgressWrapper>
-                        <PotProgressBar />
-                        <PotProgressText>100%</PotProgressText>
+                        <PotProgressBar>
+                            <PotProgressDealt width={progress} color={pot_type}/>
+                        </PotProgressBar>
+                        <PotProgressText color={pot_type}>{progress}%</PotProgressText>
                     </PotProgressWrapper>
                 </PotInfoWrapper>
             </Wrapper>
@@ -62,12 +64,20 @@ const PotProgressWrapper = styled.div`
 const PotProgressBar = styled.div`
     width: 80%;
     height: 20px;
-    border: 1px solid grey;
+    border: 2px solid #BDBDBD;
     border-radius: 12px;
+`
+
+const PotProgressDealt = styled.div`
+    width: ${({width}) => width}%;
+    height: 100%;
+    border-radius: 12px;
+    background-color: ${({color, theme}) => theme.colors[color].bg};
 `
 
 const PotProgressText = styled.span`
     font-size: 24px;
     width: 20%;
     text-align: end;
+    color: ${({color, theme}) => theme.colors[color].text}
 `

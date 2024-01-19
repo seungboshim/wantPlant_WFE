@@ -17,12 +17,16 @@ const theme = {
         purpleText: '#7932C0',
         greenBg: '#E4FFDF',
         greenText: '#22A337',
-        redBg: '#FFEBEB',
-        redText: '#E92C2C',
+        potRed: {
+            bg: '#FFEBEB',
+            text: '#E92C2C',
+        },
         orangeBg: '#FFF4E8',
         orangeText: '#FF9F2D',
-        blueBg: '#E5F3FF',
-        blueText: '#0085FF',
+        potBlue: {
+            bg: '#E5F3FF',
+            text: '#0085FF',
+        },
         pinkBg: '#FCDFFF',
         pinkText: '#E03AC5',
 
