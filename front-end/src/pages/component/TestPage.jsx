@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import GardernHeader from "../../components/gardenHeader/GardenHeader";
 import GardenDeleteButton from "../../components/button/GardenDeleteButton";
+import Pot from "../../components/gardenContent/Pot";
+import EmptyPot from "../../components/gardenContent/EmptyPot";
 
 export default function TestPage() {
     return (
@@ -19,7 +21,10 @@ export default function TestPage() {
                     </ContentHeader>
                     <ContentInner>
                         <LeftContent>
-                            
+                            <Pot />
+                            <Pot />
+                            <EmptyPot />
+                            <EmptyPot />
                         </LeftContent>
                         <RightContent></RightContent>
                     </ContentInner>
@@ -84,10 +89,11 @@ const ContentInner = styled.div`
 `
 
 const LeftContent = styled.div`
+    display: flex;
+    flex-direction: column;
     width: 532px;
-    background-color: white;
-    border-radius: 32px;
     margin-right: 60px;
+    justify-content: space-between;
 `
 
 const RightContent = styled.div`
