@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import GardernHeader from "../../components/garden/GardenHeader";
 
 export default function TestPage() {
     return (
         <Wrapper>
             <Container>
-                <Header />
+                <GardernHeader />
                 <Content>
                     <ContentHeader>
                         <GardenText></GardenText>
