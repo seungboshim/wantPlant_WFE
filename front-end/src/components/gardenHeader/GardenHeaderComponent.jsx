@@ -47,6 +47,6 @@ const Text = styled.span`
 `
 
 const SelectedText = styled.span`
-    font-size: 20px;
+    font-size: 22px;
     color: ${({textColor}) => textColor};
 `

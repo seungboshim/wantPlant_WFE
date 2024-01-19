@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import GardenHeaderComponent from "./GardenHeaderComponent";
-import CalendarHeaderComponent from "../Calendar/CalendarHeaderComponent";
+import CalendarHeaderComponent from "./CalendarHeaderComponent";
 
 /** 정원 헤더 (카테고리를 인자로 받음) */
 export default function GardernHeader({ category }) {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import GardernHeader from "../../components/garden/GardenHeader";
+import GardernHeader from "../../components/gardenHeader/GardenHeader";
 
 export default function TestPage() {
     return (
@@ -27,7 +27,6 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
     margin: 0 80px;
-    border: 1px solid red;
     height: 800px;
     display: flex;
     flex-direction: column;
@@ -37,9 +36,10 @@ const Container = styled.div`
 const Content = styled.div`
     width: 100%;
     height: 100%;
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
+    background-color: ${({theme}) => theme.colors.green01};
+    border-radius: 20px;
 `
 
 const ContentHeader = styled.div`
