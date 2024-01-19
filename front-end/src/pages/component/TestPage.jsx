@@ -2,26 +2,31 @@ import styled from "styled-components";
 
 export default function TestPage() {
     return (
-        <Container>
-            <Header />
-            <Content>
-                <ContentHeader>
-                    <GardenText></GardenText>
-                    <DeleteBtn></DeleteBtn>
-                </ContentHeader>
-                <ContentInner>
-                    <LeftContent></LeftContent>
-                    <RightContent></RightContent>
-                </ContentInner>
-            </Content> 
-        </Container>
+        <Wrapper>
+            <Container>
+                <Header />
+                <Content>
+                    <ContentHeader>
+                        <GardenText></GardenText>
+                        <DeleteBtn></DeleteBtn>
+                    </ContentHeader>
+                    <ContentInner>
+                        <LeftContent></LeftContent>
+                        <RightContent></RightContent>
+                    </ContentInner>
+                </Content> 
+            </Container>
+        </Wrapper>
     )
 }
+
+const Wrapper = styled.div`
+    width: 1280px;
+`
 
 const Container = styled.div`
     margin: 0 80px;
     border: 1px solid red;
-    width: auto;
     height: 800px;
     display: flex;
     flex-direction: column;
