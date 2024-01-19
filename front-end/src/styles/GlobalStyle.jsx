@@ -15,6 +15,8 @@ const GlobalStyle = createGlobalStyle`
     :root {
         /* 최대 가로축 길이 1280px */
         --max-width: 1280px; 
+        --display: flex;
+        --justify-content: center;
     }
 `
 
