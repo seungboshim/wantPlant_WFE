@@ -1,17 +1,17 @@
 import styled from "styled-components";
 
 /** 정원 헤더 컴포넌트. 라벨, 배경색, 텍스트색 인자로 받음 */
-export default function GardenHeaderComponent({ label, bgColor, textColor, selected }) {
+export default function CalendarHeaderComponent({ selected }) {
     if (selected) {
         return (
-            <SelectedWrapper bgColor={bgColor}>
-                <SelectedText textColor={textColor}>{label}</SelectedText>
+            <SelectedWrapper>
+                <SelectedText>캘린더</SelectedText>
             </SelectedWrapper>
         )
     } else { 
         return (
-            <Wrapper bgColor={bgColor}>
-                <Text textColor={textColor}>{label}</Text>
+            <Wrapper>
+                <Text>캘린더</Text>
             </Wrapper>
         )
     }
@@ -22,9 +22,9 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 15px 15px 0 0;
-    width: 60px;
+    width: 68px;
     height: 30px;
-    background-color: ${({ bgColor, theme }) => theme.colors[bgColor]};
+    background-color: ${({ theme }) => theme.colors.pink01};
     margin: 0 2px;
     cursor: pointer;
 `
@@ -34,19 +34,19 @@ const SelectedWrapper = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 15px 15px 0 0;
-    width: 60px;
+    width: 68px;
     height: 40px;
-    background-color: ${({ bgColor, theme }) => theme.colors[bgColor]};
+    background-color: ${({ theme }) => theme.colors.pink01};
     margin: 0 2px;
     cursor: pointer;
 `
 
 const Text = styled.span`
     font-size: 16px;
-    color: ${({textColor}) => textColor};
+    color: black;
 `
 
 const SelectedText = styled.span`
-    font-size: 20px;
-    color: ${({textColor}) => textColor};
+    font-size: 18px;
+    color: black;
 `

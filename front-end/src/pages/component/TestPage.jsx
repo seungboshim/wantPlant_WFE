@@ -5,7 +5,7 @@ export default function TestPage() {
     return (
         <Wrapper>
             <Container>
-                <GardernHeader />
+                <GardernHeader category="study"/>
                 <Content>
                     <ContentHeader>
                         <GardenText></GardenText>
@@ -32,12 +32,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-`
-
-const Header = styled.div`
-    width: 400px;
-    height: 40px;
-    border: 1px solid red;
 `
 
 const Content = styled.div`
