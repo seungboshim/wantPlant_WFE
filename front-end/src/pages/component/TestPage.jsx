@@ -18,7 +18,9 @@ export default function TestPage() {
                         </DeleteBtn>
                     </ContentHeader>
                     <ContentInner>
-                        <LeftContent></LeftContent>
+                        <LeftContent>
+                            
+                        </LeftContent>
                         <RightContent></RightContent>
                     </ContentInner>
                 </Content> 
@@ -68,7 +70,7 @@ const GardenTitle = styled.span`
 `
 
 const GardenDescription = styled.span`
-    font-size: 16px;
+    font-size: 18px;
 `
 
 const DeleteBtn = styled.div`
@@ -78,18 +80,18 @@ const DeleteBtn = styled.div`
 const ContentInner = styled.div`
     display: flex;
     height: 80%;
+    margin: 28px 56px 80px 56px;
 `
 
 const LeftContent = styled.div`
-    width: 50%;
-    flex-grow: 1;
-    border: 1px solid green;
-    margin: 10px;
+    width: 532px;
+    background-color: white;
+    border-radius: 32px;
+    margin-right: 60px;
 `
 
 const RightContent = styled.div`
-    width: 50%;
     flex-grow: 1;
-    border: 1px solid green;
-    margin: 10px;
+    background-color: white;
+    border-radius: 32px;
 `
