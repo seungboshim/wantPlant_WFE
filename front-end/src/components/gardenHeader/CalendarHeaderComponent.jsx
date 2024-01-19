@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-/** 정원 헤더 컴포넌트. 라벨, 배경색, 텍스트색 인자로 받음 */
+/** 정원 헤더 컴포넌트의 캘린더 부분 */
 export default function CalendarHeaderComponent({ selected }) {
+    // 선택되었을 때엔 커진 버튼
     if (selected) {
         return (
             <SelectedWrapper>

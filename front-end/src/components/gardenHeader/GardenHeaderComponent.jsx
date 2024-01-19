@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-/** 정원 헤더 컴포넌트. 라벨, 배경색, 텍스트색 인자로 받음 */
+/** 정원 헤더 컴포넌트 (라벨, 배경색, 텍스트색 인자로 받음) */
 export default function GardenHeaderComponent({ label, bgColor, textColor, selected }) {
+    // 선택되었을 때엔 커진 버튼
     if (selected) {
         return (
             <SelectedWrapper bgColor={bgColor}>
@@ -47,6 +48,6 @@ const Text = styled.span`
 `
 
 const SelectedText = styled.span`
-    font-size: 22px;
+    font-size: 20px;
     color: ${({textColor}) => textColor};
 `

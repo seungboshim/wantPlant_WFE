@@ -21,6 +21,7 @@ export default function TestPage() {
                     </ContentHeader>
                     <ContentInner>
                         <LeftContent>
+                            {/** TODO : 화분 데이터에 따른 페이지네이션 */}
                             <Pot pot_title="화분제목1" period="2024/02/28" pot_type="potRed" progress="50"/>
                             <Pot pot_title="화분제목2" period="2024/02/15" pot_type="potBlue" progress="30"/>
                             <EmptyPot />

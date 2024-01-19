@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
+/** 빈 화분 */
 export default function EmptyPot() {
     return (
         <Container>
             <Wrapper>
+                {/** TODO : 아이콘 넣기, onClick으로 새 화분 추가 */}
             </Wrapper>
         </Container>
     )

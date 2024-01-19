@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import logo from "../../assets/images/logo.svg"
 
+/** 화분 데이터를 인자로 받는 화분 컴포넌트 */
 export default function Pot({ pot_title, period, pot_type, pot_img, progress }) {
+    // TODO : onClick으로 투두 컴포넌트 불러오기
     return (
         <Container>
             <Wrapper>
