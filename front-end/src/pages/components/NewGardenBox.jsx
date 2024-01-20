@@ -15,7 +15,7 @@ const StyledNewGardenBox = styled.div`
   width: 350px;
   height: 350px;
   border-radius: 10px;
-  border: 10px dashed rgba(0, 200, 0, 0.2);
+  border: 7px dashed ${({theme}) => theme.colors.green01};
   margin: 0 10px;
   display: flex;
   flex-direction: column;
@@ -25,7 +25,7 @@ const StyledNewGardenBox = styled.div`
 `;
 
 const NewGardenBoxTitle = styled.span`
-  font-size: 36px;
+  font-size: 35px;
   font-weight: 500;
 `
 
