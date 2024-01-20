@@ -18,6 +18,6 @@ const GlobalStyle = createGlobalStyle`
         --display: flex;
         --justify-content: center;
     }
-`
+`;
 
 export default GlobalStyle;
