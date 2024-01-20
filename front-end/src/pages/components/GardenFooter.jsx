@@ -7,33 +7,37 @@ import NewGardenBox from "./NewGardenBox";
 
 export default function GardenFooter() {
   return (
-    <Wrapper>
-      <WrapperTitleContainer>
-        <WrapperTitle fontSize={15}>FROM OUR GARDEN</WrapperTitle>
-        <WrapperTitle fontSize={35}>심어둔 정원으로 이동하기!</WrapperTitle>
-      </WrapperTitleContainer>
-      <WrapperGardenContainer>
-        <GardenBox></GardenBox>
-        <NewGardenBox></NewGardenBox>
-        <NewGardenBox></NewGardenBox>
-      </WrapperGardenContainer>
-      <PaginationContainer>
-        <PaginationLeftArrow />
-        <PageNumber>1</PageNumber>
-        <PaginationRightArrow />
-      </PaginationContainer>
-    </Wrapper>
+    <Wrap>
+      <Wrapper>
+        <WrapperTitleContainer>
+          <WrapperTitle fontSize={15}>FROM OUR GARDEN</WrapperTitle>
+          <WrapperTitle fontSize={35}>심어둔 정원으로 이동하기!</WrapperTitle>
+        </WrapperTitleContainer>
+        <WrapperGardenContainer>
+          <GardenBox></GardenBox>
+          <NewGardenBox></NewGardenBox>
+          <NewGardenBox></NewGardenBox>
+        </WrapperGardenContainer>
+        <PaginationContainer>
+          <PaginationLeftArrow />
+          <PageNumber>1</PageNumber>
+          <PaginationRightArrow />
+        </PaginationContainer>
+      </Wrapper>
+    </Wrap>
   );
 }
 
+const Wrap = styled.div`
+  width: 1280px;
+  margin-top: 70px;
+`
+
 const Wrapper = styled.div`
   margin: 0 80px;
-  margin-top: 1409px;
-  width: 1280px;
-  height: 100%;
+  height: 600px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 `;
 
@@ -48,8 +52,8 @@ const WrapperTitleContainer = styled.div`
 
 const WrapperTitle = styled.div`
   font-size: ${(props) => props.fontSize}px;
-  font-weight: 1000;
-  color: #739073;
+  font-weight: 600;
+  color: ${({theme}) => theme.colors.green05}
 `;
 
 const WrapperGardenContainer = styled.div`
@@ -65,16 +69,22 @@ const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 40px;
   margin-bottom: 30px;
 `;
 
 const PaginationLeftArrow = styled(IoIosArrowBack)`
   margin-right: 20px;
   cursor: pointer;
+  color: ${({theme}) => theme.colors.gray}
 `;
 
 const PaginationRightArrow = styled(IoIosArrowForward)`
   margin-left: 20px;
   cursor: pointer;
+  color: ${({theme}) => theme.colors.gray}
 `;
-const PageNumber = styled.div``;
+
+const PageNumber = styled.div`
+  color: ${({theme}) => theme.colors.gray}
+`;

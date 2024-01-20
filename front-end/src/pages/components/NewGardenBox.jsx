@@ -5,17 +5,15 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 export default function NewGardenBox() {
   return (
     <StyledNewGardenBox>
-      <h1 style={{ margin: 0 }}>새 정원 만들기</h1>
-      <AiOutlinePlusCircle
-        style={{ fontSize: "40px", color: "green", marginBottom: "1.5em" }}
-      />
+      <NewGardenBoxTitle>새 정원 만들기</NewGardenBoxTitle>
+      <StyledPlusCircle />
     </StyledNewGardenBox>
   );
 }
 
 const StyledNewGardenBox = styled.div`
-  width: 30vw;
-  height: 25vw;
+  width: 350px;
+  height: 350px;
   border-radius: 10px;
   border: 10px dashed rgba(0, 200, 0, 0.2);
   margin: 0 10px;
@@ -23,5 +21,14 @@ const StyledNewGardenBox = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  color: #739073;
+  color: ${({theme}) => theme.colors.green05};
+`;
+
+const NewGardenBoxTitle = styled.span`
+  font-size: 36px;
+  font-weight: 500;
+`
+
+const StyledPlusCircle = styled(AiOutlinePlusCircle)`
+  font-size: 40px;
 `;

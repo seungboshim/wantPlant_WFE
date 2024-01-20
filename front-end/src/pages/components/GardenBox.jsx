@@ -25,8 +25,8 @@ export default function GardenBox() {
 }
 
 const StyledGardenBox = styled.div`
-  width: 30vw;
-  height: 26vw;
+  width: 350px;
+  height: 350px;
   border-radius: 10px;
   border: 1px solid black;
   margin: 0 10px;
