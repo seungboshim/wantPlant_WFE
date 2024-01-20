@@ -12,7 +12,7 @@ export default function MainPage() {
                 <img src={logoContainer} height={28} alt="logo Container"/>
                 <LoginWrapper>
                     <JoinButton label={'로그인'} onClick={() => navigate('/login')}/>
-                    <JoinButton label={'회원가입'} onClick={() => navigate('/login')}/>
+                    <JoinButton label={'회원가입'} onClick={() => navigate('/join')}/>
                 </LoginWrapper>
             </LandingHeader>
             <LandingImage>랜딩이미지 들어갈곳</LandingImage>

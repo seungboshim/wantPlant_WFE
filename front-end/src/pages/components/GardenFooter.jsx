@@ -5,7 +5,7 @@ import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import GardenBox from "./GardenBox";
 import NewGardenBox from "./NewGardenBox";
 
-export default function gardenFooter() {
+export default function GardenFooter() {
   return (
     <Wrapper>
       <WrapperTitleContainer>
