@@ -8,23 +8,43 @@ const theme = {
         green06: '#4F6F53',
         green07: '#3A4E39',
         green08: '#707769',
-        gray01: '#757373',
-        gray02: '#BDBDBD',
+        green09: '#A9B388',
+
+        brown01: '#EDE3CE',
+        brown02: '#D4C29E',
+        brown03: '#7A6740',
+
+        gray: '#757373',
+        strokeGray: '#BDBDBD',
+        lightGray: '#E8E8E8',
+
         pink01: '#FFD3C0',
         pink02: '#FFF5EE',
 
-        purpleBg: '#EFDFFF',
-        purpleText: '#7932C0',
-        greenBg: '#E4FFDF',
-        greenText: '#22A337',
-        redBg: '#FFEBEB',
-        redText: '#E92C2C',
-        orangeBg: '#FFF4E8',
-        orangeText: '#FF9F2D',
-        blueBg: '#E5F3FF',
-        blueText: '#0085FF',
-        pinkBg: '#FCDFFF',
-        pinkText: '#E03AC5',
+        potRed: {
+            bg: '#FFEBEB',
+            text: '#E92C2C',
+        },
+        potBlue: {
+            bg: '#E5F3FF',
+            text: '#0085FF',
+        },
+        potGreen: {
+            bg: '#E4FFDF',
+            text: '#22A337',
+        },
+        potOrange: {
+            bg: '#FFF4E8',
+            text: '#FF9F2D',
+        },
+        potPurple: {
+            bg: '#EFDFFF',
+            text: '#7932C0',
+        },
+        potPink: {
+            bg: '#FCDFFF',
+            text: '#E03AC5',
+        },
 
         tag01: '#B8CDBF',
         tag02: '#A9B388',
@@ -34,9 +54,6 @@ const theme = {
         tag06: '#D4C29E',
         tag07: '#AD9972',
         tag08: '#7A6740',
-
-        grayBg: '#E8E8E8',
-        grayText: '#585757',
 
         alert: '#FF0000',
     }
