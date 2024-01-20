@@ -6,11 +6,12 @@ import kakaoLogin from "../../apis/kakao/KakaoLogin";
 export default function KakaoLoginButton() {
     return (
         <Wrapper onClick={kakaoLogin}>
-            <img src={kakaoImage} height={48} alt="kakao" />
+            <img src={kakaoImage} width={131} height={33} alt="kakao" />
         </Wrapper>
     )
 }
 
 const Wrapper = styled.div`
     cursor: pointer;
+    margin-top: 25px;
 `
