@@ -1,40 +1,38 @@
 import React from "react";
 import styled from "styled-components";
-import { AiOutlinePlusCircle, AiFillEdit } from "react-icons/ai";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import GardenBox from "./GardenBox";
-import NewGardenBox from "./NewGardenBox";
+import GardenBox from "../../components/gardenContent/GardenBox";
+import NewGardenBox from "../../components/gardenContent/NewGardenBox";
 
-export default function GardenFooter() {
+/** 정원페이지 하단 컴포넌트 */
+export default function GardenSecond() {
   return (
-    <Wrap>
       <Wrapper>
         <WrapperTitleContainer>
           <WrapperTitle fontSize={15}>FROM OUR GARDEN</WrapperTitle>
           <WrapperTitle fontSize={35}>심어둔 정원으로 이동하기!</WrapperTitle>
         </WrapperTitleContainer>
+
+        {/** TODO : 정원 배열 받고 반복 및 페이지네이션 처리 */}
         <WrapperGardenContainer>
           <GardenBox></GardenBox>
           <NewGardenBox></NewGardenBox>
           <NewGardenBox></NewGardenBox>
         </WrapperGardenContainer>
+        
         <PaginationContainer>
           <PaginationLeftArrow />
           <PageNumber>1</PageNumber>
           <PaginationRightArrow />
         </PaginationContainer>
       </Wrapper>
-    </Wrap>
   );
 }
 
-const Wrap = styled.div`
-  width: 1280px;
-  margin-top: 70px;
-`
 
 const Wrapper = styled.div`
   margin: 0 80px;
+  margin-top: 70px;
   height: 600px;
   display: flex;
   flex-direction: column;

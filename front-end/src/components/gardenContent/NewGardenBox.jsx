@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
+/** 새 정원 만들기 Box */
 export default function NewGardenBox() {
   return (
     <StyledNewGardenBox>

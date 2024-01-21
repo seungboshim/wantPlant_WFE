@@ -4,42 +4,38 @@ import GardenDeleteButton from "../../components/button/GardenDeleteButton";
 import Pot from "../../components/gardenContent/Pot";
 import EmptyPot from "../../components/gardenContent/EmptyPot";
 
-export default function TestPage() {
+/** 정원페이지 상단 컴포넌트 */
+export default function GardenFirst() {
+    // TODO : 현재 정원의 카테고리에 따라 다른 컴포넌트 불러오기
     return (
         <Wrapper>
-            <Container>
-                <GardernHeader category="study"/>
-                <Content>
-                    <ContentHeader>
-                        <TextWrapper>
-                            <GardenTitle>정원 이름이름이름</GardenTitle>
-                            <GardenDescription>정원 설명설명</GardenDescription>
-                        </TextWrapper>
-                        <DeleteBtn>
-                            <GardenDeleteButton label="정원 삭제하기"/>
-                        </DeleteBtn>
-                    </ContentHeader>
-                    <ContentInner>
-                        <LeftContent>
-                            {/** TODO : 화분 데이터에 따른 페이지네이션 */}
-                            <Pot pot_title="화분제목1" period="2024/02/28" pot_type="potRed" progress="50"/>
-                            <Pot pot_title="화분제목2" period="2024/02/15" pot_type="potBlue" progress="30"/>
-                            <EmptyPot />
-                            <EmptyPot />
-                        </LeftContent>
-                        <RightContent></RightContent>
-                    </ContentInner>
-                </Content> 
-            </Container>
+            <GardernHeader category="study"/>
+            <Content>
+                <ContentHeader>
+                    <TextWrapper>
+                        <GardenTitle>정원 이름이름이름</GardenTitle>
+                        <GardenDescription>정원 설명설명</GardenDescription>
+                    </TextWrapper>
+                    <DeleteBtn>
+                        <GardenDeleteButton label="정원 삭제하기"/>
+                    </DeleteBtn>
+                </ContentHeader>
+                <ContentInner>
+                    <LeftContent>
+                        {/** TODO : 화분 데이터에 따른 페이지네이션 */}
+                        <Pot pot_title="화분제목1" period="2024/02/28" pot_type="potRed" progress="50"/>
+                        <Pot pot_title="화분제목2" period="2024/02/15" pot_type="potBlue" progress="30"/>
+                        <EmptyPot />
+                        <EmptyPot />
+                    </LeftContent>
+                    <RightContent></RightContent>
+                </ContentInner>
+            </Content> 
         </Wrapper>
     )
 }
 
 const Wrapper = styled.div`
-    width: 1280px;
-`
-
-const Container = styled.div`
     margin: 0 80px;
     height: 800px;
     display: flex;

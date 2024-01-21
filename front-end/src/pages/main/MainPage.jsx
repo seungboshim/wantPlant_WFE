@@ -25,6 +25,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     background-color: ${({theme}) => theme.colors.green01};
     padding: 40px 0px;
+    width: 1280px;
 `
 
 const LandingHeader = styled.div`

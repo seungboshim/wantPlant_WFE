@@ -2,7 +2,9 @@ import React from "react";
 import { AiFillEdit } from "react-icons/ai";
 import styled from "styled-components";
 
+/** 다른 정원 가기 Box */
 export default function GardenBox() {
+  // TODO : garden_id 받기
   return (
     <StyledGardenBox>
       <GardenBoxContentContainer>
