@@ -1,28 +1,30 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Header } from "./components/layout/Header";
 import { Layout } from "./components/layout/Layout";
+// import { Footer } from "./components/layout/Footer";
 
+import MainPage from "./pages/main/MainPage";
 import LoginPage from "./pages/login/LoginPage";
 import JoinPage from "./pages/join/JoinPage";
 import KakaoAuthPage from "./pages/login/KakaoAuthPage";
-import GardenFooter from "./pages/components/GardenFooter";
-import TestPage from "./pages/component/TestPage";
+import GardenPage from "./pages/garden/GardenPage";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        {/** <Header /> */}
+        {/** TODO : isLoggedIn일 때만 헤더 보이게 */}
+        <Header />
         <Layout>
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/join" element={<JoinPage />} />
             <Route path="/auth/kakao/callback" element={<KakaoAuthPage />} />
-            <Route path="/gardenFooter" element={<GardenFooter />} />
-            <Route path="/test" element={<TestPage />} />
+            <Route path="/garden" element={<GardenPage />} />
           </Routes>
         </Layout>
-        {/** <Footer /> */}
+        {/* <Footer /> */}
       </BrowserRouter>
     </>
   );

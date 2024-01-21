@@ -2,33 +2,39 @@ import React from "react";
 import { AiFillEdit } from "react-icons/ai";
 import styled from "styled-components";
 
-export default function GardenBox() {
+/** 다른 정원 가기 Box */
+export default function GardenBox({ garden_title, garden_category, garden_description }) {
+  // TODO : garden_id 받기
   return (
     <StyledGardenBox>
+      <GardenBoxContentContainer>
+        <GardenBoxContentTitle>
+          {garden_title}
+          <GardenBoxContentTitleIcon />
+          {/** TODO : 정원 수정은 각 정원 들어가서만 가능할 수도 있어서 일단 기달 */}
+        </GardenBoxContentTitle>
+        <GardenBoxContentCategoryText>
+          {garden_category}
+        </GardenBoxContentCategoryText>
+        <GardenBoxContentDesContainer>
+          {garden_description}
+        </GardenBoxContentDesContainer>
+      </GardenBoxContentContainer>
+      {/** TODO : 정원의 화분 id 받아 각 id에 맞는 화분 이미지 출력 */}
       <GardenBoxImageContaier>
         <GardenBoxImage></GardenBoxImage>
         <GardenBoxImage></GardenBoxImage>
         <GardenBoxImage></GardenBoxImage>
       </GardenBoxImageContaier>
-      <GardenBoxContentContainer>
-        <GardenBoxContentTitle>
-          정원 이름
-          <GardenBoxContentTitleIcon />
-        </GardenBoxContentTitle>
-        <GardenBoxContentCategoryText>카테고리</GardenBoxContentCategoryText>
-        <GardenBoxContentDesContainer>
-          ● 정원에 대한 설명을 입력해주세요.
-        </GardenBoxContentDesContainer>
-      </GardenBoxContentContainer>
     </StyledGardenBox>
   );
 }
 
 const StyledGardenBox = styled.div`
-  width: 30vw;
-  height: 26vw;
+  width: 360px;
+  height: 360px;
   border-radius: 10px;
-  border: 1px solid black;
+  border: 1px solid ${({theme}) => theme.colors.strokeGray};
   margin: 0 10px;
   display: flex;
   flex-direction: column;
@@ -39,9 +45,6 @@ const StyledGardenBox = styled.div`
 const GardenBoxImageContaier = styled.div`
   width: 100%;
   height: 20%;
-  border: 1px solid black;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
   align-self: flex-start;
   display: flex;
   justify-content: space-evenly;
@@ -56,7 +59,7 @@ const GardenBoxImage = styled.img`
 const GardenBoxContentContainer = styled.div`
   width: 100%;
   height: 80%;
-  border: 1px solid black;
+  margin: 12px;
 `;
 
 const GardenBoxContentTitle = styled.div`
@@ -68,12 +71,12 @@ const GardenBoxContentTitleIcon = styled(AiFillEdit)`
   position: relative;
   top: 4px;
   left: 2px;
-  font-size: 15px;
+  font-size: 10px;
 `;
 
 const GardenBoxContentCategoryText = styled.div`
-  margin-left: 10px;
-  font-size: 10px;
+  margin: 10px 0 0 10px;
+  font-size: 12px;
 `;
 
 const GardenBoxContentDesContainer = styled.div`

@@ -6,6 +6,7 @@ import LoginError from "../../components/button/LoginError";
 import AutoButton from "../../components/button/AutoButton";
 import AutoCheck from "../../components/button/CheckAuto";
 
+/** 일반로그인 페이지 */
 export default function LoginPage() {
     //const navigate = useNavigate();
 

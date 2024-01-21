@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 /** 빈 화분 */
-export default function EmptyPot() {
+export default function EmptyPotItem() {
     return (
         <Container>
             <Wrapper>
