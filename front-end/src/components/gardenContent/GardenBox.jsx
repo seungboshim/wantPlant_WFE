@@ -3,22 +3,24 @@ import { AiFillEdit } from "react-icons/ai";
 import styled from "styled-components";
 
 /** 다른 정원 가기 Box */
-export default function GardenBox() {
+export default function GardenBox({ garden_title, garden_category, garden_description }) {
   // TODO : garden_id 받기
   return (
     <StyledGardenBox>
       <GardenBoxContentContainer>
         <GardenBoxContentTitle>
-          정원 이름
+          {garden_title}
           <GardenBoxContentTitleIcon />
+          {/** TODO : 정원 수정은 각 정원 들어가서만 가능할 수도 있어서 일단 기달 */}
         </GardenBoxContentTitle>
         <GardenBoxContentCategoryText>
-          카테고리
+          {garden_category}
         </GardenBoxContentCategoryText>
         <GardenBoxContentDesContainer>
-          정원에 대한 설명을 입력해주세요.
+          {garden_description}
         </GardenBoxContentDesContainer>
       </GardenBoxContentContainer>
+      {/** TODO : 정원의 화분 id 받아 각 id에 맞는 화분 이미지 출력 */}
       <GardenBoxImageContaier>
         <GardenBoxImage></GardenBoxImage>
         <GardenBoxImage></GardenBoxImage>

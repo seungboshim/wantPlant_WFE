@@ -1,5 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Header } from "./components/layout/Header";
 import { Layout } from "./components/layout/Layout";
+// import { Footer } from "./components/layout/Footer";
+
 import MainPage from "./pages/main/MainPage";
 import LoginPage from "./pages/login/LoginPage";
 import JoinPage from "./pages/join/JoinPage";
@@ -10,7 +13,8 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        {/** <Header /> */}
+        {/** TODO : isLoggedIn일 때만 헤더 보이게 */}
+        <Header />
         <Layout>
           <Routes>
             <Route path="/" element={<MainPage />} />
@@ -20,7 +24,7 @@ function App() {
             <Route path="/garden" element={<GardenPage />} />
           </Routes>
         </Layout>
-        {/** <Footer /> */}
+        {/* <Footer /> */}
       </BrowserRouter>
     </>
   );

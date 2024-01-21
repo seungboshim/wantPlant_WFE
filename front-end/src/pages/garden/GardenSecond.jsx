@@ -15,11 +15,11 @@ export default function GardenSecond() {
 
         {/** TODO : 정원 배열 받고 반복 및 페이지네이션 처리 */}
         <WrapperGardenContainer>
-          <GardenBox></GardenBox>
+          <GardenBox garden_title="정원 1" garden_category="공부" garden_description="정원 1에 대한 설명이에요"/>
           <NewGardenBox></NewGardenBox>
           <NewGardenBox></NewGardenBox>
         </WrapperGardenContainer>
-        
+
         <PaginationContainer>
           <PaginationLeftArrow />
           <PageNumber>1</PageNumber>

@@ -4,12 +4,14 @@ import social from "../../assets/images/socialLogin.svg"
 import AccessTermsButton from "../../components/button/TermsButton";
 import KakaoLoginButton from "../../components/button/KakaoLoginButton";
 
-export default function LoginPage() {
+/** 회원가입 페이지 */
+export default function JoinPage() {
     return (
         <Wrapper>
             <PotWrapper>
                 <img src={pot} width={96} height={118} alt="pot" />
             </PotWrapper>
+            {/** TODO : 입력값 valiation */}
             <JoinWrapper>
                 <Input type="text" id="Id"/>
                 <Input type="tel" id="Tel"/>
