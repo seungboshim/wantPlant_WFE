@@ -8,7 +8,9 @@ import LoginPage from "./pages/login/LoginPage";
 import JoinPage from "./pages/join/JoinPage";
 import KakaoAuthPage from "./pages/login/KakaoAuthPage";
 import GardenPage from "./pages/garden/GardenPage";
-
+import StudyGardenPage from "./pages/garden/StudyGardenPage";
+import HobbyGardenPage from "./pages/garden/HobbyGardenPage";
+import ExerciseGardenPage from "./pages/garden/ExerciseGardenPage";
 function App() {
   return (
     <>
@@ -21,7 +23,11 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/join" element={<JoinPage />} />
             <Route path="/auth/kakao/callback" element={<KakaoAuthPage />} />
-            <Route path="/garden" element={<GardenPage />} />
+            <Route path="/garden" element={<GardenPage />}>
+              <Route path="/garden/study" element={<StudyGardenPage />} />  
+              <Route path="/garden/hobby" element={<HobbyGardenPage />} />  
+              <Route path="/garden/exercise" element={<ExerciseGardenPage />} />
+            </Route>
           </Routes>
         </Layout>
         {/* <Footer /> */}

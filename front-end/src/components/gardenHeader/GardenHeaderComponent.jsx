@@ -1,17 +1,32 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 /** 정원 헤더 컴포넌트 (라벨, 배경색, 텍스트색 인자로 받음) */
 export default function GardenHeaderComponent({ label, bgColor, textColor, selected }) {
+    const navigate = useNavigate();
+
+    /** 각 label에 해당하는 정원으로 navigate */
+    const handleClick = () => {
+        // TODO : 카테고리에 정원이 없다면 /garden/add로 ㄱㄱ
+        if (label === "공부") {
+            navigate("/garden/study");
+        } else if (label === "취미") {
+            navigate("/garden/hobby");
+        } else if (label === "운동") {
+            navigate("/garden/exercise");
+        }
+    };
+    
     // 선택되었을 때엔 커진 버튼
     if (selected) {
         return (
-            <SelectedWrapper bgColor={bgColor}>
+            <SelectedWrapper bgColor={bgColor} onClick={handleClick}>
                 <SelectedText textColor={textColor}>{label}</SelectedText>
             </SelectedWrapper>
         )
     } else { 
         return (
-            <Wrapper bgColor={bgColor}>
+            <Wrapper bgColor={bgColor} onClick={handleClick}>
                 <Text textColor={textColor}>{label}</Text>
             </Wrapper>
         )
