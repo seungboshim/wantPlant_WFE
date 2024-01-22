@@ -1,22 +1,22 @@
 import styled from "styled-components";
-import mainLogo from "./MainLogo";
-import profile from "./Profile";
-import question from "./Question";
-import welcome from "./Welcome";
+import MainLogo from "./MainLogo";
+import Profile from "./Profile";
+import Question from "./Question";
+import WelcomeBox from "./Welcome";
 
 /**헤더 */
 export default function Header() {
     return (
         <Container>
             <Logo>
-                <mainLogo/>
+                <MainLogo/>
             </Logo>
             <Welcome>
-                <welcome/>
+                <WelcomeBox/>
             </Welcome>
             <Tool>
-                <question/>
-                <profile/>
+                <Question/>
+                <Profile/>
             </Tool>
         </Container>
     )
