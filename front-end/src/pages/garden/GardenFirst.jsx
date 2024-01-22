@@ -3,6 +3,7 @@ import GardernHeader from "../../components/gardenHeader/GardenHeader";
 import GardenDeleteButton from "../../components/button/GardenDeleteButton";
 import PotItem from "../../components/gardenContent/PotItem";
 import EmptyPotItem from "../../components/gardenContent/EmptyPotItem";
+import Information from "../../components/gardenContent/Information";
 
 /** 정원페이지 상단 컴포넌트 */
 export default function GardenFirst() {
@@ -28,7 +29,9 @@ export default function GardenFirst() {
                         <EmptyPotItem />
                         <EmptyPotItem />
                     </LeftContent>
-                    <RightContent></RightContent>
+                    <RightContent>
+                        <Information />
+                    </RightContent>
                 </ContentInner>
             </Content> 
         </Wrapper>
