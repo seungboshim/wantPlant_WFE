@@ -6,12 +6,18 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AiFillCalendar } from "react-icons/ai";
 import { FaRegTrashAlt } from "react-icons/fa";
+import DeleteAlertModal from "./DeleteAlertModal";
 
 export default function EditTodoModal({ isOpen, EditTodoModalHandler }) {
   Modal.setAppElement("#root");
   const [calenderDate, setCalenderDate] = useState("");
   const [timeStartDate, setTimeStartDate] = useState(new Date());
   const [timeEndDate, setTimeEndDate] = useState(new Date());
+  const [isDeleteAlertModalOpen, setIsDeleteAlertModalOpen] = useState(false);
+
+  const DeleteAlertModalHandler = (isOpen) => {
+    setIsDeleteAlertModalOpen(isOpen);
+  };
 
   /* react-modal style props 속성 */
   const customStyles = {
@@ -101,7 +107,7 @@ export default function EditTodoModal({ isOpen, EditTodoModalHandler }) {
             />
           </ModalTodoTimeRightWrapper>
         </ModalTodoTimeContainer>
-        <DeleteTodoButton>
+        <DeleteTodoButton onClick={() => DeleteAlertModalHandler(true)}>
           <DeleteTodoIcon />
           삭제하기
         </DeleteTodoButton>
@@ -117,6 +123,11 @@ export default function EditTodoModal({ isOpen, EditTodoModalHandler }) {
           </ModalButton>
         </ModalButtonWrapper>
       </ModalContent>
+      <DeleteAlertModal
+        isOpen={isDeleteAlertModalOpen}
+        data="투두를"
+        DeleteAlertModalHandler={DeleteAlertModalHandler}
+      />
     </ModalContainer>
   );
 }
