@@ -116,10 +116,7 @@ const ModalSelectCategoryContainer = styled.div`
   border: 1px solid black;
   border-radius: 20px;
   background-color: white;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 10px 0px;
 `;
 
 const ModalSelectCategoryTitleWrapper = styled.div`
@@ -166,10 +163,7 @@ const ModalInputGardenNameWrapper = styled.div`
   border: 1px solid black;
   border-radius: 20px;
   background-color: white;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 10px 0px;
 `;
 
 const ModalGardenNameInput = styled.input`
@@ -193,10 +187,7 @@ const ModalInputGardenDesWrapper = styled.div`
   border: 1px solid black;
   border-radius: 20px;
   background-color: white;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 10px 0px;
 `;
 
 const ModalGardenDesInput = styled.textarea`
