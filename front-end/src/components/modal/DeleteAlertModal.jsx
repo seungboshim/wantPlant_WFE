@@ -71,7 +71,7 @@ const ModalContent = styled.div`
 /* ModalTitleImage */
 const ModalImageWrapper = styled.div`
   width: 100%;
-  height: 18%;
+  height: 28%;
   margin-bottom: 10px;
 `;
 
