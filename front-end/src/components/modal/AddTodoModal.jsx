@@ -6,10 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AiFillCalendar } from "react-icons/ai";
 
-export default function AddTodoGardenModal({
-  isOpen,
-  AddTodoGardenModalHandler,
-}) {
+export default function AddTodoModal({ isOpen, AddTodoModalHandler }) {
   Modal.setAppElement("#root");
   const [calenderDate, setCalenderDate] = useState("");
   const [timeStartDate, setTimeStartDate] = useState(new Date());
@@ -106,11 +103,11 @@ export default function AddTodoGardenModal({
         <ModalButtonWrapper>
           <ModalButton
             iscomplete="true"
-            onClick={() => AddTodoGardenModalHandler(false)}
+            onClick={() => AddTodoModalHandler(false)}
           >
             완료
           </ModalButton>
-          <ModalButton onClick={() => AddTodoGardenModalHandler(false)}>
+          <ModalButton onClick={() => AddTodoModalHandler(false)}>
             취소
           </ModalButton>
         </ModalButtonWrapper>

@@ -3,19 +3,20 @@ import styled from "styled-components";
 import GardenFirst from "./GardenFirst";
 import GardenSecond from "./GardenSecond";
 import EditGardenModal from "../../components/modal/EditGardenModal";
-import AddTodoGardenModal from "../../components/modal/AddTodoGardenModal";
+import AddTodoModal from "../../components/modal/AddTodoModal";
+import EditTodoModal from "../../components/modal/EditTodoModal";
 
 export default function GardenPage() {
   const [isEditGardenModalOpen, setIsEditGardenModalOpen] = useState(false);
-  const [isAddGardenModalOpen, setIsAddGardenModalOpen] = useState(false);
+  const [isAddTodoModalOpen, setIsAddTodoModalOpen] = useState(false);
 
   const EditGardenModalHandler = (isOpen) => {
     setIsEditGardenModalOpen(isOpen);
     document.body.style.overflow = isOpen ? "hidden" : "unset";
   };
 
-  const AddTodoGardenModalHandler = (isOpen) => {
-    setIsAddGardenModalOpen(isOpen);
+  const AddTodoModalHandler = (isOpen) => {
+    setIsAddTodoModalOpen(isOpen);
     document.body.style.overflow = isOpen ? "hidden" : "unset";
   };
 
@@ -27,16 +28,16 @@ export default function GardenPage() {
        */}
       <GardenFirst
         EditGardenModalHandler={EditGardenModalHandler}
-        AddTodoGardenModalHandler={AddTodoGardenModalHandler}
+        AddTodoModalHandler={AddTodoModalHandler}
       />
       <GardenSecond />
       <EditGardenModal
         isOpen={isEditGardenModalOpen}
         EditGardenModalHandler={EditGardenModalHandler}
       />
-      <AddTodoGardenModal
-        isOpen={isAddGardenModalOpen}
-        AddTodoGardenModalHandler={AddTodoGardenModalHandler}
+      <AddTodoModal
+        isOpen={isAddTodoModalOpen}
+        AddTodoModalHandler={AddTodoModalHandler}
       />
     </Wrapper>
   );

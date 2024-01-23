@@ -7,7 +7,7 @@ import EmptyPotItem from "../../components/gardenContent/EmptyPotItem";
 /** 정원페이지 상단 컴포넌트 */
 export default function GardenFirst({
   EditGardenModalHandler,
-  AddTodoGardenModalHandler,
+  AddTodoModalHandler,
 }) {
   // TODO : 현재 정원의 카테고리에 따라 다른 컴포넌트 불러오기
   return (
@@ -47,7 +47,7 @@ export default function GardenFirst({
       <button onClick={() => EditGardenModalHandler(true)}>
         정원수정모달 열기
       </button>
-      <button onClick={() => AddTodoGardenModalHandler(true)}>
+      <button onClick={() => AddTodoModalHandler(true)}>
         TODO추가모달 열기
       </button>
     </Wrapper>
