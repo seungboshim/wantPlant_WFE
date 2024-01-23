@@ -1,9 +1,11 @@
 import styled from "styled-components";
+import ClickHandler from "./Buttons";
 
-export default function ExerciseButton({onClick}){
+export default function ExerciseButton(){
+
     return(
         <Wrapper>
-            <Text>운동</Text>
+            운동
         </Wrapper>
     )
 }
@@ -11,11 +13,7 @@ export default function ExerciseButton({onClick}){
 const Wrapper = styled.button`
     width: 116px;
     height: 60px;
+    border: none;
     border-radius: 20px;
-    background: #FFFFFF;
-`
-
-const Text = styled.label`
     font-size: 30px;
-    color: #4F6F53;
 `

@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
-export default function HobbyButton({onClick}){
+export default function HobbyButton(){
+
     return(
         <Wrapper>
-            <Text>취미</Text>
+            취미
         </Wrapper>
     )
 }
@@ -11,11 +12,9 @@ export default function HobbyButton({onClick}){
 const Wrapper = styled.button`
     width: 116px;
     height: 60px;
+    border: none;
     border-radius: 20px;
-    background: #FFFFFF;
-`
-
-const Text = styled.label`
     font-size: 30px;
-    color: #4F6F53;
 `
+//흰색:#FFFFFF
+//초록색: #4F6F53
