@@ -11,7 +11,7 @@ import { ReactComponent as DogCloud } from "../../assets/images/dog_cloud.svg";
 
 
 /** 정원 생성 페이지 */
-export default function MakeGarden() {
+export default function MakeGardenPage() {
     //const buttons = [<StudyButton/>, <ExerciseButton/>, <HobbyButton/>];
     return (
         <Layout>
