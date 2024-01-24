@@ -3,6 +3,9 @@ import GardernHeader from "../../components/gardenHeader/GardenHeader";
 import GardenDeleteButton from "../../components/button/GardenDeleteButton";
 import PotItem from "../../components/gardenContent/PotItem";
 import EmptyPotItem from "../../components/gardenContent/EmptyPotItem";
+import Information from "../../components/gardenContent/Information";
+import { useLocation } from "react-router-dom";
+import PotCreate from "../../components/gardenContent/PotCreate";
 
 /** 정원페이지 상단 컴포넌트 */
 export default function GardenFirst({
@@ -10,13 +13,19 @@ export default function GardenFirst({
   AddTodoModalHandler,
   EditTodoModalHandler,
 }) {
-  // TODO : 현재 정원의 카테고리에 따라 다른 컴포넌트 불러오기
+  const location = useLocation();
+  // location = "/garden/{카테고리}"
+  const pathname = location.pathname.split("/");
+  // pathname = ["", "garden", "{카테고리}"] 저장됨
+  const category = pathname[2];
+
+  // 카테고리에 따라 다른 컴포넌트 및 색상
   return (
     <Wrapper className="GardenFirstPage_Wrapper">
-      <GardernHeader category="study" className="GardenHdeader" />
-      <Content className="Content">
+      <GardernHeader category={category} className="GardenHdeader" />
+      <Content category={category} className="Content">
         <ContentHeader className="ContentHeader">
-          <TextWrapper>
+          <TextWrapper category={category}>
             <GardenTitle>정원 이름이름이름</GardenTitle>
             <GardenDescription>정원 설명설명</GardenDescription>
           </TextWrapper>
@@ -71,7 +80,14 @@ const Content = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.green01};
+  background-color: ${({ theme, category }) =>
+    category === "study"
+      ? theme.colors.green01
+      : category === "hobby"
+      ? theme.colors.green04
+      : category === "exercise"
+      ? theme.colors.green07
+      : theme.colors.green01};
   border-radius: 20px;
 `;
 
@@ -86,6 +102,7 @@ const TextWrapper = styled.div`
   margin: 40px 0 0 40px;
   display: flex;
   flex-direction: column;
+  color: ${({ category }) => (category === "study" ? "black" : "white")};
 `;
 
 const GardenTitle = styled.span`
@@ -118,7 +135,7 @@ const LeftContent = styled.div`
 `;
 
 const RightContent = styled.div`
-  flex-grow: 1;
+  width: 500px;
   background-color: white;
   border-radius: 32px;
 `;
