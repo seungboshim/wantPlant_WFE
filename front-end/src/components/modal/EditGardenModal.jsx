@@ -144,16 +144,15 @@ const ModalSelectCategoryButton = styled.button`
   height: 55%;
   margin: 0px 20px;
   font-size: 18px;
-  background-color: white;
-  color: ${({ theme }) => theme.colors.green06};
-  border: 1px solid ${({ theme }) => theme.colors.green06}; // 테두리 두께 1px, 색상 설정
-
-  ${(props) =>
-    props.selected &&
-    css`
-      background-color: ${({ theme }) => theme.colors.green06};
-      color: white;
-    `};
+  background-color: ${({ theme, selected }) => 
+    selected ? theme.colors.green06 : 'white'
+  };
+  color: ${({ theme, selected }) => 
+    selected ? 'white' : theme.colors.green06
+  };
+  border: 1px solid ${({ theme, selected }) => 
+    selected ? 'white' : theme.colors.green06
+  }; // 테두리 두께 1px, 색상 설정
 `;
 
 /* Modal Input Name */
@@ -218,7 +217,7 @@ const ModalButton = styled.button`
   height: 70%;
   width: 23%;
   border-radius: 20px;
-  border: 2px solid ##5c846d;
+  border: 2px solid #5c846d;
   background-color: #f4fff2;
   color: #5c846d;
   font-size: 25px;
