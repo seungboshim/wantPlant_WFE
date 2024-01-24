@@ -2,6 +2,11 @@ import styled from "styled-components";
 
 /** 일정 태그 : 일정 색상, 이름 받음 */
 export default function ScheduleTagItem({ color, label }) {
+    // 6글자 이상이면 문자열 생략
+    if (label.length > 6) {
+        label = label.slice(0,5)+"..."
+    }
+
     return (
         <Wrapper color={color}>
             {label}
