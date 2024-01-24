@@ -7,25 +7,27 @@ import styled from "styled-components";
 //import Buttons from "../../components/makeGardenContent/Buttons";
 import ClickHandler from "../../components/makeGardenContent/ClickHandler";
 import Input from "../../components/makeGardenContent/Input";
+import { ReactComponent as DogCloud } from "../../assets/images/dog_cloud.svg";
 
 
 /** 정원 생성 페이지 */
 export default function MakeGarden() {
     //const buttons = [<StudyButton/>, <ExerciseButton/>, <HobbyButton/>];
-  return (
-      <Layout>
-        <Category>
-            <Title>
-                키워갈 정원을 선택해주세요!
-            </Title>
-            <ClickHandler/>
-        </Category>
-        <InputWrapper>
-            <Input placeholder={"정원 이름을 적어주세요"}/>
-            <Input placeholder={"정원에 대한 설명을 작성해주세요"}/>
-        </InputWrapper>
-      </Layout>
-  );
+    return (
+        <Layout>
+            <DogCloud/>
+            <Category>
+                <Title>
+                    키워갈 정원을 선택해주세요!
+                </Title>
+                <ClickHandler />
+            </Category>
+            <InputWrapper>
+                <Input placeholder={"정원 이름을 적어주세요"} />
+                <Input placeholder={"정원에 대한 설명을 작성해주세요"} />
+            </InputWrapper>
+        </Layout>
+    );
 }
 
 const Layout = styled.div`
@@ -43,7 +45,7 @@ const Category = styled.div`
     align-items: center;
     width: 558px;
     height: 162px;
-    margin-top: 312px;
+    margin-top: 30px;
     gap: 66px;
 `
 const Title = styled.span`
