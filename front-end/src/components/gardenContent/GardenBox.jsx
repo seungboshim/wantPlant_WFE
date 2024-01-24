@@ -35,15 +35,22 @@ export default function GardenBox({
 }
 
 const StyledGardenBox = styled.div`
-  width: 30%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
   border-radius: 10px;
   border: 1px solid ${({ theme }) => theme.colors.strokeGray};
-  margin: 0 1%;
+  margin: 0 1.5%;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-shadow: 0px 0px 10px 0px #00000040;
+
+  @media (max-width: 1280px) {
+    width: 360px;
+    height: 360px;
+    border-radius: 10px;
+    margin: 0 10px;
+  }
 `;
 
 const GardenBoxContentContainer = styled.div`
@@ -53,7 +60,7 @@ const GardenBoxContentContainer = styled.div`
 
 const GardenBoxImageContaier = styled.div`
   width: 100%;
-  height: 35%;
+  height: 20%;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -62,30 +69,49 @@ const GardenBoxImageContaier = styled.div`
 
 const GardenBoxImage = styled.img`
   width: 20%;
-  height: 70%;
+  height: 80%;
 `;
 
 const GardenBoxContentTitle = styled.div`
-  margin-left: 10px;
-  font-size: 1vw;
+  width: 100%;
+  height: 10%;
+  margin: 15px;
+  font-size: 1.5vw;
+
+  @media (max-width: 1280px) {
+    font-size: 18px;
+  }
 `;
 
 const GardenBoxContentTitleIcon = styled(AiFillEdit)`
   position: relative;
   top: 4px;
   left: 2px;
-  font-size: 1vw;
+  font-size: 1.5vw;
+
+  @media (max-width: 1280px) {
+    font-size: 18px;
+  }
 `;
 
 const GardenBoxContentCategoryText = styled.div`
-  margin: 10px 0 0 10px;
-  font-size: 1vw;
+  width: 100%;
+  height: 10%;
+  margin: 15px;
+  font-size: 1.5vw;
+
+  @media (max-width: 1280px) {
+    font-size: 18px;
+  }
 `;
 
 const GardenBoxContentDesContainer = styled.div`
-  margin-left: 10px;
-  margin-top: 20px;
-  width: 95%;
-  height: 75%;
-  font-size: 1vw;
+  width: 100%;
+  height: 10%;
+  font-size: 1.5vw;
+  margin: 15px;
+
+  @media (max-width: 1280px) {
+    font-size: 18px;
+  }
 `;

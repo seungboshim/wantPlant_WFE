@@ -97,6 +97,9 @@ export default function GardernHeader({ category }) {
 const Wrapper = styled.div`
   display: flex;
   height: 100%;
-  width: 28%;
   align-items: end;
+
+  @media (max-width: 1280px) {
+    height: 40px;
+  }
 `;

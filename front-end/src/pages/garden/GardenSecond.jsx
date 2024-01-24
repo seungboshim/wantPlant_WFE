@@ -9,8 +9,8 @@ export default function GardenSecond() {
   return (
     <Wrapper className="GardenSecondWrapper">
       <WrapperTitleContainer className="WrapperTitleContainer">
-        <WrapperTitle fontSize={2.5}>FROM OUR GARDEN</WrapperTitle>
-        <WrapperTitle fontSize={3.5}>심어둔 정원으로 이동하기!</WrapperTitle>
+        <WrapperTitle1>FROM OUR GARDEN</WrapperTitle1>
+        <WrapperTitle2>심어둔 정원으로 이동하기!</WrapperTitle2>
       </WrapperTitleContainer>
 
       {/** TODO : 정원 배열 받고 반복 및 페이지네이션 처리 */}
@@ -34,28 +34,50 @@ export default function GardenSecond() {
 }
 
 const Wrapper = styled.div`
-  margin-top: 70px;
-  width: 100%;
-  height: 60vw;
+  width: 87vw;
+  height: 44vw;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 1280px) {
+    margin-top: 70px;
+    height: 600px;
+    width: 1120px;
+  }
 `;
 
 const WrapperTitleContainer = styled.div`
   width: 100%;
-  height: 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 5%;
+  margin-bottom: 6%;
+
+  @media (max-width: 1280px) {
+    margin-bottom: 40px;
+  }
 `;
 
-const WrapperTitle = styled.div`
-  font-size: ${(props) => props.fontSize}vw;
+const WrapperTitle1 = styled.div`
+  font-size: 1.25vw;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.green05};
+
+  @media (max-width: 1280px) {
+    font-size: 15px;
+  }
+`;
+
+const WrapperTitle2 = styled.div`
+  font-size: 2.7vw;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.green05};
+
+  @media (max-width: 1280px) {
+    font-size: 35px;
+  }
 `;
 
 const WrapperGardenContainer = styled.div`
@@ -64,6 +86,10 @@ const WrapperGardenContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 1280px) {
+    height: 500px;
+  }
 `;
 
 const PaginationContainer = styled.div`

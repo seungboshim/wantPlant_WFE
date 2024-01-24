@@ -69,10 +69,15 @@ export default function GardenFirst({
 
 const Wrapper = styled.div`
   /* margin: 0 80px; */
-  height: 100%;
+  height: 68vw;
+  width: 88vw;
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (max-width: 1280px) {
+    height: 800px;
+    width: 1120px;
+  }
 `;
 
 const Content = styled.div`
@@ -88,7 +93,10 @@ const Content = styled.div`
       : category === "exercise"
       ? theme.colors.green07
       : theme.colors.green01};
-  border-radius: 20px;
+  border-radius: 2.1vw;
+  @media (max-width: 1280px) {
+    border-radius: 20px;
+  }
 `;
 
 const ContentHeader = styled.div`
@@ -99,47 +107,81 @@ const ContentHeader = styled.div`
 `;
 
 const TextWrapper = styled.div`
-  margin: 5% 0 0 5%;
+  margin: 3.8% 0 0 4%;
   display: flex;
   flex-direction: column;
   color: ${({ category }) => (category === "study" ? "black" : "white")};
+
+  @media (max-width: 1280px) {
+    margin: 40px 0 0 40px;
+  }
 `;
 
 const GardenTitle = styled.span`
-  font-size: 3.5vw;
+  font-size: 3.15vw;
   font-weight: 600;
   margin-bottom: 2.5%;
+
+  @media (max-width: 1280px) {
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
 `;
 
 const GardenDescription = styled.span`
-  font-size: 1.8vw;
+  font-size: 1.5vw;
+
+  @media (max-width: 1280px) {
+    font-size: 18px;
+  }
 `;
 
 const DeleteBtn = styled.div`
   width: 10%;
   height: 15%;
-  margin-top: 3%;
+  margin-top: 2%;
   margin-right: 3%;
+
+  @media (max-width: 1280px) {
+    width: 120px;
+    height: 30px;
+    padding: 5px;
+  }
 `;
 
 const ContentInner = styled.div`
   display: flex;
-  height: 50vw;
-  margin: 2% 4% 6% 4%;
-  /* margin: 28px 56px 80px 56px; */
+  height: 46vw;
+  margin: 0 6% 6% 5.5%;
+
+  @media (max-width: 1280px) {
+    height: 566px;
+    margin: 28px 56px 80px 56px;
+  }
 `;
 
 const LeftContent = styled.div`
   display: flex;
   flex-direction: column;
-  width: 60%;
-  height: 100%;
-  margin-right: 5%;
+  width: 50%;
+  height: 90%;
+  margin-right: 6%;
   justify-content: space-between;
+
+  @media (max-width: 1280px) {
+    width: 532px;
+    margin-right: 60px;
+  }
 `;
 
 const RightContent = styled.div`
-  width: 35%;
+  width: 47%;
   background-color: white;
   border-radius: 32px;
+
+  @media (max-width: 1280px) {
+    width: 500px;
+    border-radius: 32px;
+  }
 `;

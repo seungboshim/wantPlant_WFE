@@ -44,11 +44,17 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 1vw 1vw 0 0;
-  width: 12vw;
-  height: 1.6vw;
+  width: 4.5vw;
+  height: 2.4vw;
   background-color: ${({ bgColor, theme }) => theme.colors[bgColor]};
   margin: 0 2px;
   cursor: pointer;
+
+  @media (max-width: 1280px) {
+    border-radius: 15px 15px 0 0;
+    width: 60px;
+    height: 30px;
+  }
 `;
 
 const SelectedWrapper = styled.div`
@@ -56,19 +62,33 @@ const SelectedWrapper = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 1vw 1vw 0 0;
-  width: 12vw;
-  height: 2.5vw;
+  width: 4.5vw;
+  height: 3.1vw;
   background-color: ${({ bgColor, theme }) => theme.colors[bgColor]};
   margin: 0 2px;
   cursor: pointer;
+
+  @media (max-width: 1280px) {
+    border-radius: 15px 15px 0 0;
+    width: 60px;
+    height: 40px;
+  }
 `;
 
 const Text = styled.span`
   font-size: 1.2vw;
   color: ${({ textColor }) => textColor};
+
+  @media (max-width: 1280px) {
+    font-size: 16px;
+  }
 `;
 
 const SelectedText = styled.span`
   font-size: 1.5vw;
   color: ${({ textColor }) => textColor};
+
+  @media (max-width: 1280px) {
+    font-size: 20px;
+  }
 `;

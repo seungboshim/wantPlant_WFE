@@ -32,16 +32,24 @@ export default function PotItem({
 const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 20%;
+  height: 23%;
+  margin-bottom: 4%;
   background-color: white;
-  border-radius: 32px;
-  margin-bottom: 1%;
+  border-radius: 2vw;
+  @media (max-width: 1280px) {
+    height: 120px;
+    border-radius: 32px;
+    margin-bottom: 20px;
+  }
 `;
 
 const Wrapper = styled.div`
   display: flex;
   margin: 2%;
   width: 100%;
+  @media (max-width: 1280px) {
+    margin: 10px;
+  }
 `;
 
 const PotInfoWrapper = styled.div`
@@ -50,43 +58,66 @@ const PotInfoWrapper = styled.div`
   align-items: start;
   margin-left: 3%;
   flex-grow: 1;
+  @media (max-width: 1280px) {
+    margin-left: 20px;
+  }
 `;
 
 const PotPeriod = styled.span`
   font-size: 1vw;
   margin-bottom: 0.4%;
+  @media (max-width: 1280px) {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
 `;
 
 const PotTitle = styled.span`
-  font-size: 2vw;
-  font-weight: 1000;
+  font-size: 1.8vw;
+  font-weight: 500;
+  @media (max-width: 1280px) {
+    font-size: 24px;
+    font-weight: 500;
+  }
 `;
 
 const PotProgressWrapper = styled.div`
-  width: 35vw;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   margin-top: 1%;
   align-items: center;
+  @media (max-width: 1280px) {
+    margin-top: 8px;
+  }
 `;
 
 const PotProgressBar = styled.div`
   width: 80%;
   height: 55%;
   border: 2px solid #bdbdbd;
-  border-radius: 12px;
+  border-radius: 1.5vw;
+  @media (max-width: 1280px) {
+    height: 20px;
+    border-radius: 12px;
+  }
 `;
 
 const PotProgressDealt = styled.div`
   width: ${({ width }) => width}%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 1.5vw;
   background-color: ${({ color, theme }) => theme.colors[color].bg};
+  @media (max-width: 1280px) {
+    border-radius: 12px;
+  }
 `;
 
 const PotProgressText = styled.span`
-  font-size: 3vw;
-  width: 20%;
+  font-size: 2vw;
   text-align: end;
   color: ${({ color, theme }) => theme.colors[color].text};
+  @media (max-width: 1280px) {
+    font-size: 24px;
+  }
 `;

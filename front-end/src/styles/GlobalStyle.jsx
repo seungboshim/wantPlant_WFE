@@ -13,9 +13,10 @@ const GlobalStyle = createGlobalStyle`
 
     :root {
         /* 최대 가로축 길이 1280px */
-        --max-width: 85vw;
+        --max-width: 100vw;
         @media (max-width:1280px){
-            --max-width: 1280px; 
+            width: 1280px; 
+            --max-width:1280px;
         }
         --display: flex;
         --justify-content: center;

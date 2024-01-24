@@ -7,7 +7,7 @@ export default function GardenDeleteButton({ label, onClick }) {
 
 const Wrapper = styled.div`
   border-radius: 15px;
-  padding: 1.5%;
+  padding: 3%;
   width: 100%;
   height: 100%;
   font-size: 1.2vw;
@@ -16,7 +16,7 @@ const Wrapper = styled.div`
     font-size: 16px;
     border-radius: 15px;
     padding: 4px;
-    width: 100px;
+    width: 120px;
     height: 20px;
   }
   color: white;
