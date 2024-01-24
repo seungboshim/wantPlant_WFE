@@ -1,69 +1,51 @@
 import styled from "styled-components";
 //import { useNavigate } from "react-router-dom";
-import logo from "../../assets/images/logo_login.svg"
-import LoginButton from "../../components/button/LoginButton";
-import LoginError from "../../components/button/LoginError";
-import AutoButton from "../../components/button/AutoButton";
-import AutoCheck from "../../components/button/CheckAuto";
+import logo from "../../assets/images/logo.svg"
+import KakaoLoginButton from "../../components/button/KakaoLoginButton";
+import socialLogin from "../../assets/images/socialLogin.svg"
 
 /** 일반로그인 페이지 */
 export default function LoginPage() {
     //const navigate = useNavigate();
 
     return (
-        <Wrapper>
-            <LogoWrapper>
-                <img src={logo} width={510} height={86} alt="logo" />
-            </LogoWrapper>
-            <LoginWrapper>
-                <Input type="email"/>
-                <Input type="password"/>
-            </LoginWrapper>
-            <AutoWrapper>
-                <AutoCheck/>
-                <AutoButton/>
-            </AutoWrapper>
-            <LoginButton/>
-            <LoginError/>
-        </Wrapper>
+        <Container>
+            <Wrapper>
+                <LogoWrapper>
+                    <img src={logo} width={50} alt="logo" />
+                    <LogoTitle>하고심다 로그인 하기</LogoTitle>
+                </LogoWrapper>
+                <img src={socialLogin} width={500} alt="socialLogin" />
+                <KakaoLoginButton />
+            </Wrapper>
+        </Container>
     )
 }
 
+const Container = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background-color: ${({theme}) => theme.colors.green02};
+    display: flex;
+    align-items: center;
+`
+
 const Wrapper = styled.div`
+    width: 100%;
+    height: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: ${({theme}) => theme.colors.green02};
-    width: 1280px;
-    height: 832px;
+    justify-content: space-evenly;
 `
 const LogoWrapper = styled.div`
     display: flex;
     justify-content: center;
-    margin-top: 150px;
-`
-
-const Input = styled.input`
-    display: flex;
-    width: 700px;
-    height: 70px;
-`
-
-const AutoWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 132px;
-    height: 21px;
-    margin-top: 13px;
-    margin-left: 576px;
-    gap: 9px;
-`
-
-const LoginWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    margin-top: 129px;
-    gap:20px;
+`
+
+const LogoTitle = styled.span`
+    font-size: 32px;
+    font-weight: 700;
+    margin-left: 18px;
 `

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-/** 이용약관 버튼: green10-white, radius30 */
-export default function TermsButton({ onClick, label }) {
+/** 모달 버튼 : green10-white, radius15 */
+export default function ModalButton({ label, onClick }) {
     return (
         <Wrapper onClick={onClick}>
             {label}
@@ -13,11 +13,10 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 224px;
+    width: 140px;
     height: 40px;
-    border-radius: 30px;
-    background-color: ${({theme}) => theme.colors.green05};
     color: white;
+    background-color: ${({theme}) => theme.colors.green10};
+    border-radius: 12px;
     cursor: pointer;
-    //font-weight: 300;
 `

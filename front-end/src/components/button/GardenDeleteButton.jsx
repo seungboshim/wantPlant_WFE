@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-/** green 05 버튼 */
+/** 정원삭제 버튼 : green05-white, radius15 */
 export default function GardenDeleteButton({ label, onClick }) {
     return (
         <Wrapper onClick={onClick}>
@@ -14,10 +14,10 @@ const Wrapper = styled.div`
     color: white;
     background-color: ${({theme}) => theme.colors.green05};
     border-radius: 15px;
-    padding: 4px;
-    width: 100px;
-    height: 20px;
+    width: 110px;
+    height: 28px;
     display: flex;
     justify-content: center;
+    align-items: center;
     cursor: pointer;
 `

@@ -12,6 +12,7 @@ import StudyGardenPage from "./pages/garden/StudyGardenPage";
 import HobbyGardenPage from "./pages/garden/HobbyGardenPage";
 import ExerciseGardenPage from "./pages/garden/ExerciseGardenPage";
 import MakeGardenPage from "./pages/garden/MakeGardenPage";
+import TestPage from "./pages/components/TestPage";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               <Route path="/garden/exercise" element={<ExerciseGardenPage />} />
             </Route>
             <Route path="/garden/add" element={<MakeGardenPage />} />
+            <Route path="/test" element={<TestPage />} />
           </Routes>
         </Layout>
         {/* <Footer /> */}
