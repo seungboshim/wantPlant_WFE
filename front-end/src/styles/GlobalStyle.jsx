@@ -9,13 +9,11 @@ const GlobalStyle = createGlobalStyle`
         height: 100%;
         width: 100%;
         max-width: var(--max-width);
-
     }
 
     :root {
         /* 최대 가로축 길이 1280px */
-        /* --max-width: 1280px;  */
-        --max-width: 90vw;
+        --max-width: 85vw;
         --display: flex;
         --justify-content: center;
     }

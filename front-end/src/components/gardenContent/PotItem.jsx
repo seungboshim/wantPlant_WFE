@@ -32,9 +32,10 @@ export default function PotItem({
 const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 22%;
+  height: 20%;
   background-color: white;
   border-radius: 32px;
+  margin-bottom: 1%;
 `;
 
 const Wrapper = styled.div`
@@ -52,17 +53,17 @@ const PotInfoWrapper = styled.div`
 `;
 
 const PotPeriod = styled.span`
-  font-size: 100%;
+  font-size: 1vw;
   margin-bottom: 0.4%;
 `;
 
 const PotTitle = styled.span`
-  font-size: 100%;
-  font-weight: 500;
+  font-size: 2vw;
+  font-weight: 1000;
 `;
 
 const PotProgressWrapper = styled.div`
-  width: 100%;
+  width: 35vw;
   display: flex;
   justify-content: space-between;
   margin-top: 1%;
@@ -84,7 +85,7 @@ const PotProgressDealt = styled.div`
 `;
 
 const PotProgressText = styled.span`
-  font-size: 24px;
+  font-size: 3vw;
   width: 20%;
   text-align: end;
   color: ${({ color, theme }) => theme.colors[color].text};

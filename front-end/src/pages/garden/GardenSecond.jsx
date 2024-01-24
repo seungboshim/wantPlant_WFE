@@ -9,14 +9,14 @@ export default function GardenSecond() {
   return (
     <Wrapper className="GardenSecondWrapper">
       <WrapperTitleContainer className="WrapperTitleContainer">
-        <WrapperTitle fontSize={15}>FROM OUR GARDEN</WrapperTitle>
-        <WrapperTitle fontSize={35}>심어둔 정원으로 이동하기!</WrapperTitle>
+        <WrapperTitle fontSize={2.5}>FROM OUR GARDEN</WrapperTitle>
+        <WrapperTitle fontSize={3.5}>심어둔 정원으로 이동하기!</WrapperTitle>
       </WrapperTitleContainer>
 
       {/** TODO : 정원 배열 받고 반복 및 페이지네이션 처리 */}
       <WrapperGardenContainer className="WrapperGardenContainer">
         <GardenBox
-          garden_title="정원 1"
+          garden_title="정원 이름을 입력해주세요."
           garden_category="공부"
           garden_description="정원 1에 대한 설명이에요"
         />
@@ -49,18 +49,18 @@ const WrapperTitleContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 5%;
 `;
 
 const WrapperTitle = styled.div`
-  font-size: ${(props) => props.fontSize}px;
+  font-size: ${(props) => props.fontSize}vw;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.green05};
 `;
 
 const WrapperGardenContainer = styled.div`
   width: 100%;
-  height: 60vh;
+  height: 30vw;
   display: flex;
   justify-content: center;
   align-items: center;

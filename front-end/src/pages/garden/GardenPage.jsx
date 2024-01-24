@@ -55,5 +55,5 @@ export default function GardenPage() {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 70vw;
+  height: 100%;
 `;

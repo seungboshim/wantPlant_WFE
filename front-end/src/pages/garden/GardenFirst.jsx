@@ -25,8 +25,8 @@ export default function GardenFirst({
       <GardernHeader category={category} className="GardenHdeader" />
       <Content category={category} className="Content">
         <ContentHeader className="ContentHeader">
-          <TextWrapper category={category}>
-            <GardenTitle>정원 이름이름이름</GardenTitle>
+          <TextWrapper category={category} className="TextWrapper">
+            <GardenTitle className="GardenTitle">정원 이름이름이름</GardenTitle>
             <GardenDescription>정원 설명설명</GardenDescription>
           </TextWrapper>
           <DeleteBtn>
@@ -99,29 +99,32 @@ const ContentHeader = styled.div`
 `;
 
 const TextWrapper = styled.div`
-  margin: 40px 0 0 40px;
+  margin: 5% 0 0 5%;
   display: flex;
   flex-direction: column;
   color: ${({ category }) => (category === "study" ? "black" : "white")};
 `;
 
 const GardenTitle = styled.span`
-  font-size: 40px;
+  font-size: 3.5vw;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 2.5%;
 `;
 
 const GardenDescription = styled.span`
-  font-size: 18px;
+  font-size: 1.8vw;
 `;
 
 const DeleteBtn = styled.div`
-  margin: 12px;
+  width: 10%;
+  height: 15%;
+  margin-top: 3%;
+  margin-right: 3%;
 `;
 
 const ContentInner = styled.div`
   display: flex;
-  height: 80%;
+  height: 50vw;
   margin: 2% 4% 6% 4%;
   /* margin: 28px 56px 80px 56px; */
 `;
@@ -130,12 +133,13 @@ const LeftContent = styled.div`
   display: flex;
   flex-direction: column;
   width: 60%;
+  height: 100%;
   margin-right: 5%;
   justify-content: space-between;
 `;
 
 const RightContent = styled.div`
-  width: 500px;
+  width: 35%;
   background-color: white;
   border-radius: 32px;
 `;

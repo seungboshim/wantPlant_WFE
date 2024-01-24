@@ -26,10 +26,10 @@ const StyledNewGardenBox = styled.div`
 `;
 
 const NewGardenBoxTitle = styled.span`
-  font-size: 35px;
+  font-size: 2.5vw;
   font-weight: 500;
 `;
 
 const StyledPlusCircle = styled(AiOutlinePlusCircle)`
-  font-size: 40px;
+  font-size: 3vw;
 `;

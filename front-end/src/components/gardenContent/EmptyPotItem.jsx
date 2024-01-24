@@ -12,9 +12,10 @@ export default function EmptyPotItem() {
 const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 22%;
+  height: 20%;
   border: 1px dashed black;
   border-radius: 32px;
+  margin-bottom: 1%;
 `;
 
 const Wrapper = styled.div`

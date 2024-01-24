@@ -67,19 +67,19 @@ const GardenBoxImage = styled.img`
 
 const GardenBoxContentTitle = styled.div`
   margin-left: 10px;
-  font-size: 20px;
+  font-size: 1vw;
 `;
 
 const GardenBoxContentTitleIcon = styled(AiFillEdit)`
   position: relative;
   top: 4px;
   left: 2px;
-  font-size: 10px;
+  font-size: 1vw;
 `;
 
 const GardenBoxContentCategoryText = styled.div`
   margin: 10px 0 0 10px;
-  font-size: 12px;
+  font-size: 1vw;
 `;
 
 const GardenBoxContentDesContainer = styled.div`
@@ -87,4 +87,5 @@ const GardenBoxContentDesContainer = styled.div`
   margin-top: 20px;
   width: 95%;
   height: 75%;
+  font-size: 1vw;
 `;
