@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export default function StudyButton({onClick, id, style}){
+export default function ExerciseButton({onClick, id, label,style}){
 
     return(
-        <Wrapper>
-            공부
+        <Wrapper onClick={onClick} id={id} label={label}style={style}>
+            {label}
         </Wrapper>
     )
 }
@@ -16,4 +16,3 @@ const Wrapper = styled.button`
     border-radius: 20px;
     font-size: 30px;
 `
-

@@ -1,7 +1,9 @@
 import styled from "styled-components";
-import {useState} from "react";
+import { useState } from "react";
+import Button from "./Button";
 
-export default function Buttons(){
+
+export default function ClickHandler() {
     const [studyColor, setStudyColor] = useState("#FFFFFF");
     const [studyBack, setStudyBack] = useState("#4F6F53");
 
@@ -12,19 +14,19 @@ export default function Buttons(){
     const [hobbyBack, setHobbyBack] = useState("#FFFFFF");
 
     let selectedCategory = "study";
-    const clickHandler=(e)=>{
+    const clickHandler = (e) => {
         selectedCategory = e.target.id;
-        if (selectedCategory === "study"){
+        if (selectedCategory === "study") {
             setStudyColor("#FFFFFF");
             setStudyBack("#4F6F53");
-            
-            setExerciseColor("#4F6F53");           
+
+            setExerciseColor("#4F6F53");
             setExerciseBack("#FFFFFF");
 
             setHobbyColor("#4F6F53");
             setHobbyBack("#FFFFFF");
         }
-        else if(selectedCategory === "exercise"){
+        else if (selectedCategory === "exercise") {
             setStudyColor("#4F6F53");
             setStudyBack("#FFFFFF");
 
@@ -34,7 +36,7 @@ export default function Buttons(){
             setHobbyColor("#4F6F53");
             setHobbyBack("#FFFFFF");
         }
-        else{
+        else {
             setStudyColor("#4F6F53");
             setStudyBack("#FFFFFF");
 
@@ -46,17 +48,11 @@ export default function Buttons(){
         }
     }
 
-    return(
+    return (
         <Subject>
-            <Wrapper onClick={clickHandler} id = "study" style={{color:studyColor, background: studyBack}}>
-                공부
-            </Wrapper>
-            <Wrapper onClick={clickHandler} id = "exercise" style={{color: exerciseColor, background: exerciseBack}}>
-                운동
-            </Wrapper>
-            <Wrapper onClick={clickHandler} id = "hobby" style={{color: hobbyColor, background: hobbyBack}}>
-                취미
-            </Wrapper>
+            <Button onClick={clickHandler} id="study" label="공부" style={{ color: studyColor, background: studyBack }} />
+            <Button onClick={clickHandler} id="exercise" label="운동" style={{ color: exerciseColor, background: exerciseBack }} />
+            <Button onClick={clickHandler} id="hobby" label="취미" style={{ color: hobbyColor, background: hobbyBack }} />
         </Subject>
     )
 }
@@ -67,12 +63,4 @@ const Subject = styled.div`
      width: 428px;
      height: 50px;
      gap: 40px;
-`
-
-const Wrapper = styled.button`
-    width: 116px;
-    height: 60px;
-    border: none;
-    border-radius: 20px;
-    font-size: 30px;
 `

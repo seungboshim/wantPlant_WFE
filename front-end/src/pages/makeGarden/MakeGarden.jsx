@@ -4,9 +4,10 @@ import styled from "styled-components";
 // import StudyButton from "../../components/makeGardenContent/StudyButton";
 // import ExerciseButton from "../../components/makeGardenContent/ExerciseButton";
 // import HobbyButton from "../../components/makeGardenContent/HobbyButton";
-import Buttons from "../../components/makeGardenContent/Buttons";
-import InputName from "../../components/makeGardenContent/InputName";
-import InputExplain from "../../components/makeGardenContent/InputExplain";
+//import Buttons from "../../components/makeGardenContent/Buttons";
+import ClickHandler from "../../components/makeGardenContent/ClickHandler";
+import Input from "../../components/makeGardenContent/Input";
+
 
 /** 정원 생성 페이지 */
 export default function MakeGarden() {
@@ -17,12 +18,12 @@ export default function MakeGarden() {
             <Title>
                 키워갈 정원을 선택해주세요!
             </Title>
-            <Buttons/>
+            <ClickHandler/>
         </Category>
-        <Input>
-            <InputName/>
-            <InputExplain/>
-        </Input>
+        <InputWrapper>
+            <Input placeholder={"정원 이름을 적어주세요"}/>
+            <Input placeholder={"정원에 대한 설명을 작성해주세요"}/>
+        </InputWrapper>
       </Layout>
   );
 }
@@ -60,7 +61,7 @@ const Title = styled.span`
 //     height: 50px;
 //     gap: 40px;
 // `
-const Input = styled.div`
+const InputWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;

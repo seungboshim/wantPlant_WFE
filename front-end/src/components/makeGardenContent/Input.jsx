@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
-export default function InputName({onChange}){
-    return(
-        <Wrapper type="text"  onClick={onChange} placeholder="정원 이름을 입력해주세요."/>
+export default function Input({ onChange, placeholder }) {
+    return (
+        <Wrapper type="text" onClick={onChange} placeholder={placeholder} />
     )
 }
 
 const Wrapper = styled.input`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 30px;
     width: 700px;
     height: 80px;
     border-radius: 30px;
