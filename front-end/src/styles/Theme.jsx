@@ -21,25 +21,25 @@ const theme = {
         pink01: '#FFD3C0',
         pink02: '#FFF5EE',
 
-        potRed: {
-            bg: '#FFEBEB',
-            text: '#E92C2C',
-        },
-        potBlue: {
-            bg: '#E5F3FF',
-            text: '#0085FF',
+        potPurple: {
+            bg: '#EFDFFF',
+            text: '#7932C0',
         },
         potGreen: {
             bg: '#E4FFDF',
             text: '#22A337',
         },
+        potRed: {
+            bg: '#FFEBEB',
+            text: '#E92C2C',
+        },
         potOrange: {
             bg: '#FFF4E8',
             text: '#FF9F2D',
         },
-        potPurple: {
-            bg: '#EFDFFF',
-            text: '#7932C0',
+        potBlue: {
+            bg: '#E5F3FF',
+            text: '#0085FF',
         },
         potPink: {
             bg: '#FCDFFF',
