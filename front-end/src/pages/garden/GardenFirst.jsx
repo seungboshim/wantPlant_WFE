@@ -12,10 +12,10 @@ export default function GardenFirst({
 }) {
   // TODO : 현재 정원의 카테고리에 따라 다른 컴포넌트 불러오기
   return (
-    <Wrapper>
-      <GardernHeader category="study" />
-      <Content>
-        <ContentHeader>
+    <Wrapper className="GardenFirstPage_Wrapper">
+      <GardernHeader category="study" className="GardenHdeader" />
+      <Content className="Content">
+        <ContentHeader className="ContentHeader">
           <TextWrapper>
             <GardenTitle>정원 이름이름이름</GardenTitle>
             <GardenDescription>정원 설명설명</GardenDescription>
@@ -24,8 +24,8 @@ export default function GardenFirst({
             <GardenDeleteButton label="정원 삭제하기" />
           </DeleteBtn>
         </ContentHeader>
-        <ContentInner>
-          <LeftContent>
+        <ContentInner className="ContentInner">
+          <LeftContent className="LeftContent">
             {/** TODO : 화분 데이터에 따른 페이지네이션 */}
             <PotItem
               pot_title="화분제목1"
@@ -42,7 +42,7 @@ export default function GardenFirst({
             <EmptyPotItem />
             <EmptyPotItem />
           </LeftContent>
-          <RightContent></RightContent>
+          <RightContent className="RightContent"></RightContent>
         </ContentInner>
       </Content>
       <button onClick={() => EditGardenModalHandler(true)}>
@@ -59,8 +59,8 @@ export default function GardenFirst({
 }
 
 const Wrapper = styled.div`
-  margin: 0 80px;
-  height: 800px;
+  /* margin: 0 80px; */
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -105,14 +105,15 @@ const DeleteBtn = styled.div`
 const ContentInner = styled.div`
   display: flex;
   height: 80%;
-  margin: 28px 56px 80px 56px;
+  margin: 2% 4% 6% 4%;
+  /* margin: 28px 56px 80px 56px; */
 `;
 
 const LeftContent = styled.div`
   display: flex;
   flex-direction: column;
-  width: 532px;
-  margin-right: 60px;
+  width: 60%;
+  margin-right: 5%;
   justify-content: space-between;
 `;
 
