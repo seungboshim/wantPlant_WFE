@@ -8,14 +8,18 @@ import { useLocation } from "react-router-dom";
 import PotCreate from "../../components/gardenContent/PotCreate";
 
 /** 정원페이지 상단 컴포넌트 */
-export default function GardenFirst() {
-    const location = useLocation();
-    // location = "/garden/{카테고리}"
-    const pathname = location.pathname.split('/');
-    // pathname = ["", "garden", "{카테고리}"] 저장됨
-    const category = pathname[2];
+export default function GardenFirst({
+  EditGardenModalHandler,
+  AddTodoModalHandler,
+  EditTodoModalHandler,
+}) {
+  const location = useLocation();
+  // location = "/garden/{카테고리}"
+  const pathname = location.pathname.split('/');
+  // pathname = ["", "garden", "{카테고리}"] 저장됨
+  const category = pathname[2];
 
-    // 카테고리에 따라 다른 컴포넌트 및 색상
+  // 카테고리에 따라 다른 컴포넌트 및 색상
     return (
         <Wrapper>
             <GardernHeader category={category}/>
@@ -37,23 +41,29 @@ export default function GardenFirst() {
                         <EmptyPotItem />
                         <EmptyPotItem />
                     </LeftContent>
-                    <RightContent>
-                        {/* <Information /> */}
-                        <PotCreate />
-                    </RightContent>
+                    <RightContent></RightContent>
                 </ContentInner>
-            </Content> 
+            </Content>
+            <button onClick={() => EditGardenModalHandler(true)}>
+              정원수정모달 열기
+            </button>
+            <button onClick={() => AddTodoModalHandler(true)}>
+              TODO추가모달 열기
+            </button>
+            <button onClick={() => EditTodoModalHandler(true)}>
+              TODO수정모달 열기
+            </button> 
         </Wrapper>
     )
 }
 
 const Wrapper = styled.div`
-    margin: 0 80px;
-    height: 800px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`
+  margin: 0 80px;
+  height: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const Content = styled.div`
     width: 100%;
@@ -69,11 +79,11 @@ const Content = styled.div`
 `
 
 const ContentHeader = styled.div`
-    width: 100%;
-    height: 20%;
-    display: flex;
-    justify-content: space-between;
-`
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: space-between;
+`;
 
 const TextWrapper = styled.div`
     margin: 40px 0 0 40px;
@@ -83,18 +93,18 @@ const TextWrapper = styled.div`
 `
 
 const GardenTitle = styled.span`
-    font-size: 40px;
-    font-weight: 600;
-    margin-bottom: 12px;
-`
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 12px;
+`;
 
 const GardenDescription = styled.span`
-    font-size: 18px;
-`
+  font-size: 18px;
+`;
 
 const DeleteBtn = styled.div`
-    margin: 12px;
-`
+  margin: 12px;
+`;
 
 const ContentInner = styled.div`
     display: flex;
@@ -103,12 +113,12 @@ const ContentInner = styled.div`
 `
 
 const LeftContent = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 532px;
-    margin-right: 60px;
-    justify-content: space-between;
-`
+  display: flex;
+  flex-direction: column;
+  width: 532px;
+  margin-right: 60px;
+  justify-content: space-between;
+`;
 
 const RightContent = styled.div`
     width: 500px;
