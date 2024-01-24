@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-/** 로그인화면 버튼: green10-white, radius12 */
-export default function LoginButton({ onClick, label }) {
+/** 임시비번 변경 버튼: pink01-black, radius12 */
+export default function ResetPasswordButton({ label, onClick }) {
     return (
         <Wrapper onClick={onClick}>
             {label}
@@ -13,10 +13,10 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 250px;
-    height: 35px;
+    width: 300px;
+    height: 50px;
     border-radius: 12px;
-    color: white;
-    background-color: ${({theme}) => theme.colors.green10};
+    color: black;
+    background-color: ${({theme}) => theme.colors.pink01};
     cursor: pointer;
 `

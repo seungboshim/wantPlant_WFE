@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import Modal from "react-modal";
 import logo_pot from "../../assets/images/logo_pot.svg";
+import CategorySelectionButton from "../button/CategorySelectionButton";
 
 export default function EditGardenModal({ isOpen, EditGardenModalHandler }) {
   Modal.setAppElement("#root");
   const categories = ["공부", "운동", "취미"];
   const [selectedCategoryIdx, setSelectedCategoryIdx] = useState("");
+  console.log(selectedCategoryIdx);
 
   /* 모달 창을 켜고 닫을 때 selectedCategoryIdx가 저장되어있는게 그대로 유지되는 현상 방지 */
   useEffect(() => {
@@ -51,13 +53,12 @@ export default function EditGardenModal({ isOpen, EditGardenModalHandler }) {
           <ModalSelectCategoriesWrapper>
             {categories.map((category, idx) => {
               return (
-                <ModalSelectCategoryButton
+                <CategorySelectionButton
                   key={idx}
                   onClick={() => setSelectedCategoryIdx(idx)}
                   selected={selectedCategoryIdx === idx}
-                >
-                  {category}
-                </ModalSelectCategoryButton>
+                  label={category}
+                />
               );
             })}
           </ModalSelectCategoriesWrapper>
@@ -136,23 +137,6 @@ const ModalSelectCategoriesWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const ModalSelectCategoryButton = styled.button`
-  border-radius: 20px;
-  width: 14%;
-  height: 55%;
-  margin: 0px 20px;
-  font-size: 18px;
-  background-color: ${({ theme, selected }) => 
-    selected ? theme.colors.green06 : 'white'
-  };
-  color: ${({ theme, selected }) => 
-    selected ? 'white' : theme.colors.green06
-  };
-  border: 1px solid ${({ theme, selected }) => 
-    selected ? 'white' : theme.colors.green06
-  }; // 테두리 두께 1px, 색상 설정
 `;
 
 /* Modal Input Name */

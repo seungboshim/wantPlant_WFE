@@ -9,6 +9,7 @@ const theme = {
         green07: '#3A4E39',
         green08: '#707769',
         green09: '#A9B388',
+        green10: '#5C846D',
 
         brown01: '#EDE3CE',
         brown02: '#D4C29E',

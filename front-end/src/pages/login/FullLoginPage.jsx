@@ -2,9 +2,9 @@ import styled from "styled-components";
 //import { useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo_login.svg"
 import LoginButton from "../../components/button/LoginButton";
-import LoginError from "../../components/button/LoginError";
-import AutoButton from "../../components/button/AutoButton";
-import AutoCheck from "../../components/button/CheckAuto";
+import LoginError from "../../components/button/ReverseLoginButton";
+import AutoButton from "../../components/etc/AutoButton";
+import AutoCheck from "../../components/etc/CheckAuto";
 
 /** 일반로그인 페이지 */
 export default function FullLoginPage() {
