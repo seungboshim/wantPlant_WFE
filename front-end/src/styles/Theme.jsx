@@ -18,6 +18,7 @@ const theme = {
         gray: '#757373',
         strokeGray: '#BDBDBD',
         lightGray: '#E8E8E8',
+        tagGray: '#585757',
 
         pink01: '#FFD3C0',
         pink02: '#FFF5EE',
