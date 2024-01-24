@@ -5,6 +5,7 @@ import PotItem from "../../components/gardenContent/PotItem";
 import EmptyPotItem from "../../components/gardenContent/EmptyPotItem";
 import Information from "../../components/gardenContent/Information";
 import { useLocation } from "react-router-dom";
+import PotCreate from "../../components/gardenContent/PotCreate";
 
 /** 정원페이지 상단 컴포넌트 */
 export default function GardenFirst() {
@@ -37,7 +38,8 @@ export default function GardenFirst() {
                         <EmptyPotItem />
                     </LeftContent>
                     <RightContent>
-                        <Information />
+                        {/* <Information /> */}
+                        <PotCreate />
                     </RightContent>
                 </ContentInner>
             </Content> 
@@ -77,7 +79,7 @@ const TextWrapper = styled.div`
     margin: 40px 0 0 40px;
     display: flex;
     flex-direction: column;
-    color: ${({category}) => category === "study" ? "black" : "white"}
+    color: ${({category}) => category === "study" ? "black" : "white"};
 `
 
 const GardenTitle = styled.span`
@@ -96,7 +98,7 @@ const DeleteBtn = styled.div`
 
 const ContentInner = styled.div`
     display: flex;
-    height: 80%;
+    height: 566px;
     margin: 28px 56px 80px 56px;
 `
 
@@ -109,7 +111,7 @@ const LeftContent = styled.div`
 `
 
 const RightContent = styled.div`
-    flex-grow: 1;
+    width: 500px;
     background-color: white;
     border-radius: 32px;
 `
