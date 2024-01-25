@@ -56,7 +56,9 @@ export default function GardenPage() {
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  margin: 0 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   @media (max-width: 1280px) {
     margin: 0 80px;
