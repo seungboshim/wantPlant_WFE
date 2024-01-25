@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { AiOutlinePlusCircle } from "react-icons/ai";
+import { FaCirclePlus } from "react-icons/fa6";
 
 /** 새 정원 만들기 Box */
 export default function NewGardenBox() {
@@ -20,7 +20,7 @@ const StyledNewGardenBox = styled.div`
   margin: 0 1%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   color: ${({ theme }) => theme.colors.green05};
 
@@ -33,18 +33,22 @@ const StyledNewGardenBox = styled.div`
 `;
 
 const NewGardenBoxTitle = styled.span`
-  font-size: 2.7vw;
-  font-weight: 500;
+  font-size: 2vw;
+  font-weight: 1000;
+  margin-bottom: 5vw;
 
   @media (max-width: 1280px) {
-    font-size: 35px;
+    font-size: 32px;
+    margin-bottom: 70px;
   }
 `;
 
-const StyledPlusCircle = styled(AiOutlinePlusCircle)`
-  font-size: 3vw;
+const StyledPlusCircle = styled(FaCirclePlus)`
+  font-size: 2.7vw;
+  margin-bottom: 5vw;
 
   @media (max-width: 1280px) {
-    font-size: 40px;
+    font-size: 33px;
+    margin-bottom: 80px;
   }
 `;

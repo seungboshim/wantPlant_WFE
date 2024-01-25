@@ -54,7 +54,7 @@ export default function GardenFirst({
           <RightContent className="RightContent"></RightContent>
         </ContentInner>
       </Content>
-      <button onClick={() => EditGardenModalHandler(true)}>
+      {/* <button onClick={() => EditGardenModalHandler(true)}>
         정원수정모달 열기
       </button>
       <button onClick={() => AddTodoModalHandler(true)}>
@@ -62,7 +62,7 @@ export default function GardenFirst({
       </button>
       <button onClick={() => EditTodoModalHandler(true)}>
         TODO수정모달 열기
-      </button>
+      </button> */}
     </Wrapper>
   );
 }

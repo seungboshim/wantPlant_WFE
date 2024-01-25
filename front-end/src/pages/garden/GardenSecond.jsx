@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import GardenBox from "../../components/gardenContent/GardenBox";
 import NewGardenBox from "../../components/gardenContent/NewGardenBox";
+import img1 from "../../assets/images/logo_pot.svg";
 
 /** 정원페이지 하단 컴포넌트 */
 export default function GardenSecond() {
@@ -19,8 +20,14 @@ export default function GardenSecond() {
           garden_title="정원 이름을 입력해주세요."
           garden_category="공부"
           garden_description="정원 1에 대한 설명이에요"
+          garden_images={[img1, img1, img1]}
         />
-        <NewGardenBox></NewGardenBox>
+        <GardenBox
+          garden_title="정원 이름을 입력해주세요."
+          garden_category="공부"
+          garden_description="정원 1에 대한 설명이에요"
+          garden_images={[img1, img1]}
+        />
         <NewGardenBox></NewGardenBox>
       </WrapperGardenContainer>
 
@@ -34,16 +41,19 @@ export default function GardenSecond() {
 }
 
 const Wrapper = styled.div`
-  width: 87vw;
-  height: 44vw;
+  width: 92vw;
+  height: 41vw;
+  margin: 1vw;
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 5px 0px #00000040;
 
   @media (max-width: 1280px) {
     margin-top: 70px;
     height: 600px;
-    width: 1120px;
+    width: 1200px;
   }
 `;
 
@@ -53,7 +63,8 @@ const WrapperTitleContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 6%;
+  margin-top: 3.5%;
+  margin-bottom: 3.2%;
 
   @media (max-width: 1280px) {
     margin-bottom: 40px;
@@ -81,8 +92,8 @@ const WrapperTitle2 = styled.div`
 `;
 
 const WrapperGardenContainer = styled.div`
-  width: 100%;
-  height: 30vw;
+  width: 95%;
+  height: 23vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -97,17 +108,24 @@ const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
-  margin-bottom: 30px;
+  margin-top: 3%;
+  margin-bottom: 1.5%;
+
+  @media (max-width: 1280px) {
+    margin-top: 40px;
+    margin-bottom: 15px;
+  }
 `;
 
 const PaginationLeftArrow = styled(IoIosArrowBack)`
+  font-size: 25px;
   margin-right: 20px;
   cursor: pointer;
   color: ${({ theme }) => theme.colors.gray};
 `;
 
 const PaginationRightArrow = styled(IoIosArrowForward)`
+  font-size: 25px;
   margin-left: 20px;
   cursor: pointer;
   color: ${({ theme }) => theme.colors.gray};
