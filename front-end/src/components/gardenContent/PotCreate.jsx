@@ -2,6 +2,8 @@ import styled from "styled-components";
 import logo from "../../assets/images/logo.svg"
 import PotColorSelection from "./PotColorSelection";
 import { useState } from "react";
+import ModalButton from '../button/ModalButton';
+import ReverseModalButton from "../button/ReverseModalButton";
 
 /** 새 화분 생성 컴포넌트 */
 export default function PotCreate() {
@@ -33,7 +35,8 @@ export default function PotCreate() {
                     </PotColorSelectionWrapper>
                 </PotInputContainer>
                 <PotCreateButton>
-                    <button>ㅇㅇ</button>
+                    <ModalButton label="확인" />
+                    <ReverseModalButton label="취소" />
                 </PotCreateButton>
             </Container>
         </Wrapper>
@@ -100,5 +103,7 @@ const PotColorSelectionContainer = styled.div`
 `
 
 const PotCreateButton = styled.div`
-    
+    display: flex;
+    width: 85%;
+    justify-content: space-between;
 `

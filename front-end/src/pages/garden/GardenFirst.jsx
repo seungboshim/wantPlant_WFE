@@ -6,6 +6,7 @@ import EmptyPotItem from "../../components/gardenContent/EmptyPotItem";
 import Information from "../../components/gardenContent/Information";
 import { useLocation } from "react-router-dom";
 import PotCreate from "../../components/gardenContent/PotCreate";
+import TodoView from "../../components/gardenContent/TodoView";
 
 /** 정원페이지 상단 컴포넌트 */
 export default function GardenFirst({
@@ -43,7 +44,9 @@ export default function GardenFirst({
                         <EmptyPotItem />
                     </LeftContent>
                     <RightContent>
-                      <PotCreate />
+                      {/* <Information /> */}
+                      {/* <PotCreate /> */}
+                      <TodoView />
                     </RightContent>
                 </ContentInner>
             </Content>
