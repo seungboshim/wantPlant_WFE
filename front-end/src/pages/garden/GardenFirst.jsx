@@ -22,10 +22,11 @@ export default function GardenFirst({
   // 카테고리에 따라 다른 컴포넌트 및 색상
     return (
         <Wrapper>
-            <GardernHeader category={category}/>
-            <Content category={category}>
+          {/** $을 붙이는 이유 : transient props (배포시 문제 방지) */}
+            <GardernHeader $category={category}/>
+            <Content $category={category}>
                 <ContentHeader>
-                    <TextWrapper category={category}>
+                    <TextWrapper $category={category}>
                         <GardenTitle>정원 이름이름이름</GardenTitle>
                         <GardenDescription>정원 설명설명</GardenDescription>
                     </TextWrapper>
@@ -70,10 +71,10 @@ const Content = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: ${({theme, category}) =>
-        category === "study" ? theme.colors.green01 :
-        category === "hobby" ? theme.colors.green04 :
-        category === "exercise" ? theme.colors.green07 : theme.colors.green01
+    background-color: ${({theme, $category}) =>
+        $category === "study" ? theme.colors.green01 :
+        $category === "hobby" ? theme.colors.green04 :
+        $category === "exercise" ? theme.colors.green07 : theme.colors.green01
     };
     border-radius: 20px;
 `
@@ -89,7 +90,7 @@ const TextWrapper = styled.div`
     margin: 40px 0 0 40px;
     display: flex;
     flex-direction: column;
-    color: ${({category}) => category === "study" ? "black" : "white"};
+    color: ${({$category}) => $category === "study" ? "black" : "white"};
 `
 
 const GardenTitle = styled.span`

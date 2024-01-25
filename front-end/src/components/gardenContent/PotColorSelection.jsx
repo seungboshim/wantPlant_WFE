@@ -1,17 +1,17 @@
 import styled from "styled-components";
 
-/** 선택된거 selected, 버튼 색상 bgColor */
-export default function PotColorSelection({ selected, bgColor, onClick }) {
+/** 선택된거 selected, 버튼 색상 color */
+export default function PotColorSelection({ selected, color, onClick }) {
     if (selected) {
         return (
             <Wrapper>
-                <SelectedItem bgColor={bgColor} />
+                <SelectedItem color={color} />
             </Wrapper>
         ) 
     } else {
         return (
             <Wrapper>
-                <DefaultItem bgColor={bgColor} />
+                <DefaultItem color={color} />
             </Wrapper>
         )
     }
@@ -29,12 +29,12 @@ const SelectedItem = styled.div`
     width: 16px;
     height: 16px;
     border: 1px solid ${({theme}) => theme.colors.strokeGray};
-    background-color: ${({theme, bgColor}) => theme.colors[bgColor].bg};
+    background-color: ${({theme, color}) => theme.colors[color].bg};
 `
 
 const DefaultItem = styled.div`
     border-radius: 100%;
     width: 18px;
     height: 18px;
-    background-color: ${({theme, bgColor}) => theme.colors[bgColor].bg};
+    background-color: ${({theme, color}) => theme.colors[color].bg};
 `

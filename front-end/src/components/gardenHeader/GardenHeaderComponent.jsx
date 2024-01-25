@@ -21,14 +21,14 @@ export default function GardenHeaderComponent({ label, bgColor, textColor, selec
     // 선택되었을 때엔 커진 버튼
     if (selected) {
         return (
-            <SelectedWrapper bgColor={bgColor} onClick={handleClick}>
-                <SelectedText textColor={textColor}>{label}</SelectedText>
+            <SelectedWrapper color={bgColor} onClick={handleClick}>
+                <SelectedText color={textColor}>{label}</SelectedText>
             </SelectedWrapper>
         )
     } else { 
         return (
-            <Wrapper bgColor={bgColor} onClick={handleClick}>
-                <Text textColor={textColor}>{label}</Text>
+            <Wrapper color={bgColor} onClick={handleClick}>
+                <Text color={textColor}>{label}</Text>
             </Wrapper>
         )
     }
@@ -41,7 +41,7 @@ const Wrapper = styled.div`
     border-radius: 15px 15px 0 0;
     width: 60px;
     height: 30px;
-    background-color: ${({ bgColor, theme }) => theme.colors[bgColor]};
+    background-color: ${({ color, theme }) => theme.colors[color]};
     margin: 0 2px;
     cursor: pointer;
 `
@@ -53,17 +53,17 @@ const SelectedWrapper = styled.div`
     border-radius: 15px 15px 0 0;
     width: 60px;
     height: 40px;
-    background-color: ${({ bgColor, theme }) => theme.colors[bgColor]};
+    background-color: ${({ color, theme }) => theme.colors[color]};
     margin: 0 2px;
     cursor: pointer;
 `
 
 const Text = styled.span`
     font-size: 16px;
-    color: ${({textColor}) => textColor};
+    color: ${({color}) => color};
 `
 
 const SelectedText = styled.span`
     font-size: 20px;
-    color: ${({textColor}) => textColor};
+    color: ${({color}) => color};
 `

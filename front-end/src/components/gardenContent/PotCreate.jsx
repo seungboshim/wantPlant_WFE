@@ -14,12 +14,12 @@ export default function PotCreate() {
                     <PotColorSelectionWrapper>
                         <PotColorSelectionTitle>원하는 색상을 선택해주세요.</PotColorSelectionTitle>
                         <PotColorSelectionContainer>
-                            <PotColorSelection bgColor="potPurple" selected/>
-                            <PotColorSelection bgColor="potGreen" />
-                            <PotColorSelection bgColor="potRed" />
-                            <PotColorSelection bgColor="potOrange" />
-                            <PotColorSelection bgColor="potBlue" />
-                            <PotColorSelection bgColor="potPink" />
+                            <PotColorSelection color="potPurple" selected/>
+                            <PotColorSelection color="potGreen" />
+                            <PotColorSelection color="potRed" />
+                            <PotColorSelection color="potOrange" />
+                            <PotColorSelection color="potBlue" />
+                            <PotColorSelection cssolor="potPink" />
                         </PotColorSelectionContainer>
                     </PotColorSelectionWrapper>
                 </PotInputContainer>
