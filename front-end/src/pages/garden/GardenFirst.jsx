@@ -42,7 +42,9 @@ export default function GardenFirst({
                         <EmptyPotItem />
                         <EmptyPotItem />
                     </LeftContent>
-                    <RightContent></RightContent>
+                    <RightContent>
+                      <PotCreate />
+                    </RightContent>
                 </ContentInner>
             </Content>
             <button onClick={() => EditGardenModalHandler(true)}>
