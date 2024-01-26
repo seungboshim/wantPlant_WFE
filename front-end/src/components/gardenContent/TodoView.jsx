@@ -2,6 +2,9 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { gardens, pots, goals } from "../../apis/dummy/gardens";
 import { HiDotsVertical } from "react-icons/hi";
+import todoEmpty from "../../assets/images/todoEmpty.svg";
+import todoFill from "../../assets/images/todoFill.svg";
+import TodoCreateButton from "./TodoCreateButton";
 
 /** 새 화분 생성 컴포넌트 */
 export default function TodoView({ potId }) {
@@ -24,7 +27,7 @@ export default function TodoView({ potId }) {
                     </TodoWrapper>
                 </ScrollWrapper>
                 <AddTodoWrapper>
-                    투두추가모달열자이걸로
+                    <TodoCreateButton />
                 </AddTodoWrapper>
             </Container>
         </Wrapper>
@@ -71,23 +74,38 @@ const EditButton = styled(HiDotsVertical)`
 
 const ScrollWrapper = styled.div`
     width: 100%;
-    height: 100%;
+    height: -webkit-fill-available;
     border: 1px solid black;
     margin: 30px 0;
+    overflow-y: auto;
 `
 
 const TodoWrapper = styled.div`
-
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    height: 100px;
+    border: 1px solid black;
+    margin: 10px;
 `
 
 const GoalContainer = styled.div`
-    
+    display: flex;
+    width: auto;
+    height: 50%;
+    margin: 10px;
+    border: 1px solid black;
 `
 
 const TodoContainer = styled.div`
-    
+    display: flex;
+    width: auto;
+    height: 50%;
+    margin: 10px;
+    border: 1px solid black;
 `
 
 const AddTodoWrapper = styled.div`
-    
+    display: flex;
+    width: 100%;
 `
