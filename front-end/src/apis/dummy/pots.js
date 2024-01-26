@@ -5,6 +5,7 @@ export const pots = [
 		"potName": "화분1",
 		"proceed": 5,
 		"potImageUrl": String,
+        "potColor": "potRed",
         "potGoals": [1, 2],
     },
     {
@@ -13,6 +14,7 @@ export const pots = [
 		"potName": "화분2",
 		"proceed": 3,
 		"potImageUrl": String,
+        "potColor": "potBlue",
         "potGoals": [3],
     },
 ]

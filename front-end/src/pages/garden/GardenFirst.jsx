@@ -7,6 +7,7 @@ import Information from "../../components/gardenContent/Information";
 import { useLocation } from "react-router-dom";
 import PotCreate from "../../components/gardenContent/PotCreate";
 import TodoView from "../../components/gardenContent/TodoView";
+import { gardens, pots } from "../../apis/dummy/gardens";
 
 /** 정원페이지 상단 컴포넌트 */
 export default function GardenFirst({
@@ -19,7 +20,11 @@ export default function GardenFirst({
   const pathname = location.pathname.split('/');
   // pathname = ["", "garden", "{카테고리}"] 저장됨
   const category = pathname[2];
+  const gardenId = pathname[3];
 
+  const gardenPots = gardens[0].gardenPots;
+  console.log(pots[gardenPots[0]]);
+  
   // 카테고리에 따라 다른 컴포넌트 및 색상
     return (
         <Wrapper>
@@ -28,25 +33,34 @@ export default function GardenFirst({
             <Content $category={category}>
                 <ContentHeader>
                     <TextWrapper $category={category}>
-                        <GardenTitle>정원 이름이름이름</GardenTitle>
-                        <GardenDescription>정원 설명설명</GardenDescription>
+                        <GardenTitle>{gardens[0].gardenTitle}</GardenTitle>
+                        <GardenDescription>{gardens[0].gardenDescription}</GardenDescription>
                     </TextWrapper>
                     <DeleteBtn>
-                        <GardenDeleteButton label="정원 삭제하기"/>
+                        <GardenDeleteButton label="정원 삭제하기"/> 
                     </DeleteBtn>
                 </ContentHeader>
                 <ContentInner>
                     <LeftContent>
                         {/** TODO : 화분 데이터에 따른 페이지네이션 */}
-                        <PotItem pot_title="화분제목1" period="2024/02/28" pot_type="potRed" progress="50"/>
-                        <PotItem pot_title="화분제목2" period="2024/02/15" pot_type="potBlue" progress="30"/>
+                        {gardenPots.map((potId,idx) => {
+                          return (
+                            <PotItem 
+                              key={potId}
+                              potName={pots[potId-1].potName} 
+                              period="2024/02/28" 
+                              potColor={pots[potId-1].potColor} 
+                              proceed={pots[potId-1].proceed}
+                            />
+                          )
+                        })}
                         <EmptyPotItem />
                         <EmptyPotItem />
                     </LeftContent>
                     <RightContent>
                       {/* <Information /> */}
                       {/* <PotCreate /> */}
-                      <TodoView />
+                      <TodoView potId={gardenPots[0]}/>
                     </RightContent>
                 </ContentInner>
             </Content>

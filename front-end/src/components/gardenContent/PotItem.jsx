@@ -2,20 +2,21 @@ import styled from "styled-components";
 import logo from "../../assets/images/logo.svg"
 
 /** 화분 데이터를 인자로 받는 화분 컴포넌트 */
-export default function PotItem({ pot_title, period, pot_type, pot_img, progress }) {
+export default function PotItem({ potName, period, proceed, potImage, potColor }) {
     // TODO : onClick으로 투두 컴포넌트 불러오기
     return (
         <Container>
             <Wrapper>
+                {/** TODO : potImage 받아오기 */}
                 <img src={logo} alt="화분"/>
                 <PotInfoWrapper>
                     <PotPeriod>{period}</PotPeriod>
-                    <PotTitle>{pot_title}</PotTitle>
+                    <PotTitle>{potName}</PotTitle>
                     <PotProgressWrapper>
                         <PotProgressBar>
-                            <PotProgressDealt width={progress} color={pot_type}/>
+                            <PotProgressDealt width={proceed} color={potColor}/>
                         </PotProgressBar>
-                        <PotProgressText color={pot_type}>{progress}%</PotProgressText>
+                        <PotProgressText color={potColor}>{proceed}/10</PotProgressText>
                     </PotProgressWrapper>
                 </PotInfoWrapper>
             </Wrapper>
@@ -71,7 +72,7 @@ const PotProgressBar = styled.div`
 `
 
 const PotProgressDealt = styled.div`
-    width: ${({width}) => width}%;
+    width: ${({width}) => width*10}%;
     height: 100%;
     border-radius: 12px;
     background-color: ${({color, theme}) => theme.colors[color].bg};

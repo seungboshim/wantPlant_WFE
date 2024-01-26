@@ -1,16 +1,31 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { gardens, pots, goals } from "../../apis/dummy/gardens";
+import { HiDotsVertical } from "react-icons/hi";
 
 /** 새 화분 생성 컴포넌트 */
-export default function TodoView({ pot_id }) {
-    const potTypes = ["potPurple", "potGreen", "potRed", "potOrange", "potBlue", "potPink"];
-
+export default function TodoView({ potId }) {
+    const potColors = ["potPurple", "potGreen", "potRed", "potOrange", "potBlue", "potPink"];
+    const potName = pots[potId].potName;
+    const potColor = pots[potId].potColor;
     
     return (   
         <Wrapper>
             <Container>
-
+                <TitleWrapper>
+                    <PaddingDiv />
+                    <GardenTitle color={potColor}>{potName}</GardenTitle>
+                    <EditButton />
+                </TitleWrapper>
+                <ScrollWrapper>
+                    <TodoWrapper>
+                        <GoalContainer></GoalContainer>
+                        <TodoContainer></TodoContainer>
+                    </TodoWrapper>
+                </ScrollWrapper>
+                <AddTodoWrapper>
+                    투두추가모달열자이걸로
+                </AddTodoWrapper>
             </Container>
         </Wrapper>
     )
@@ -30,53 +45,49 @@ const Container = styled.div`
     align-items: center;
 `
 
-const Title = styled.span`
-    font-size: 20px;
-    font-weight: 500;
-`
-
-const PotInputContainer = styled.div`
+const TitleWrapper = styled.div`
     width: 100%;
-    height: 200px;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
 `
 
-const PotTitleInput = styled.input`
-    width: -webkit-fill-available;
-    font-size: 18px;
-    padding: 16px;
-    border: 1px solid ${({theme}) => theme.colors.strokeGray};
-    border-radius: 15px;
+const GardenTitle = styled.span`
+    padding: 8px 12px;
+    background-color: ${({theme, color}) => theme.colors[color].bg};
+    border-radius: 12px;
+    font-size: 32px;
 `
 
-const PotColorSelectionWrapper = styled.div`
-    width: -webkit-fill-available;
-    font-size: 18px;
-    margin-top: 20px;
-    height: 124px;
-    border: 1px solid ${({theme}) => theme.colors.strokeGray};
-    border-radius: 15px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+const PaddingDiv = styled.div`
+    height: 24px;
+    width: 24px;
 `
 
-const PotColorSelectionTitle = styled.span`
+const EditButton = styled(HiDotsVertical)`
+    height: 24px;
+    width: 24px;
+`
+
+const ScrollWrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    margin: 30px 0;
+`
+
+const TodoWrapper = styled.div`
+
+`
+
+const GoalContainer = styled.div`
     
 `
 
-const PotColorSelectionContainer = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 10px;
+const TodoContainer = styled.div`
+    
 `
 
-const PotCreateButton = styled.div`
-    display: flex;
-    width: 85%;
-    justify-content: space-between;
+const AddTodoWrapper = styled.div`
+    
 `
