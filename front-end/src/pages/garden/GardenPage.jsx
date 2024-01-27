@@ -26,7 +26,7 @@ export default function GardenPage() {
   };
 
   return (
-    <Wrapper>
+    <Wrapper className="GardenPage_Wrapper">
       {/** TODO
        * 현재 garden_id가 무엇인지에 따라 서로 다른 정원 데이터 불러오기
        * id에 해당하는 건 First, 그 외는 Second
@@ -54,5 +54,13 @@ export default function GardenPage() {
 }
 
 const Wrapper = styled.div`
-  width: 1280px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (max-width: 1280px) {
+    margin: 0 80px;
+  }
 `;
