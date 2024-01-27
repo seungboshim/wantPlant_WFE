@@ -17,7 +17,7 @@ export default function GardenFirst({
 }) {
   const location = useLocation();
   // location = "/garden/{카테고리}"
-  const pathname = location.pathname.split('/');
+  const pathname = location.pathname.split("/");
   // pathname = ["", "garden", "{카테고리}"] 저장됨
   const category = pathname[2];
   const gardenId = pathname[3];
@@ -26,77 +26,88 @@ export default function GardenFirst({
   console.log(pots[gardenPots[0]]);
   
   // 카테고리에 따라 다른 컴포넌트 및 색상
-    return (
-        <Wrapper>
-          {/** $을 붙이는 이유 : transient props (배포시 문제 방지) */}
-            <GardernHeader $category={category}/>
-            <Content $category={category}>
-                <ContentHeader>
-                    <TextWrapper $category={category}>
-                        <GardenTitle>{gardens[0].gardenTitle}</GardenTitle>
-                        <GardenDescription>{gardens[0].gardenDescription}</GardenDescription>
-                    </TextWrapper>
-                    <DeleteBtn>
-                        <GardenDeleteButton label="정원 삭제하기"/> 
-                    </DeleteBtn>
-                </ContentHeader>
-                <ContentInner>
-                    <LeftContent>
-                        {/** TODO : 화분 데이터에 따른 페이지네이션 */}
-                        {gardenPots.map((potId,idx) => {
-                          return (
-                            <PotItem 
-                              key={potId}
-                              potName={pots[potId-1].potName} 
-                              period="2024/02/28" 
-                              potColor={pots[potId-1].potColor} 
-                              proceed={pots[potId-1].proceed}
-                            />
-                          )
-                        })}
-                        <EmptyPotItem />
-                        <EmptyPotItem />
-                    </LeftContent>
-                    <RightContent>
-                      {/* <Information /> */}
-                      {/* <PotCreate /> */}
-                      <TodoView potId={gardenPots[0]}/>
-                    </RightContent>
-                </ContentInner>
-            </Content>
-            <button onClick={() => EditGardenModalHandler(true)}>
-              정원수정모달 열기
-            </button>
-            <button onClick={() => AddTodoModalHandler(true)}>
-              TODO추가모달 열기
-            </button>
-            <button onClick={() => EditTodoModalHandler(true)}>
-              TODO수정모달 열기
-            </button> 
-        </Wrapper>
-    )
+  return (
+    <Wrapper className="GardenFirstPage_Wrapper">
+      {/** $을 붙이는 이유 : transient props (배포시 문제 방지) */}
+      <GardernHeader $category={category} className="GardenHdeader" />
+      <Content $category={category} className="Content">
+        <ContentHeader className="ContentHeader">
+          <TextWrapper $category={category} className="TextWrapper">
+            <GardenTitle className="GardenTitle">{gardens[0].gardenTitle}</GardenTitle>
+            <GardenDescription>{gardens[0].gardenDescription}</GardenDescription>
+          </TextWrapper>
+          <DeleteBtn>
+            <GardenDeleteButton label="정원 삭제하기" />
+          </DeleteBtn>
+        </ContentHeader>
+        <ContentInner className="ContentInner">
+          <LeftContent className="LeftContent">
+            {/** TODO : 화분 데이터에 따른 페이지네이션 */}
+            {gardenPots.map((potId,idx) => {
+              return (
+                <PotItem 
+                  key={potId}
+                  potName={pots[potId-1].potName} 
+                  period="2024/02/28" 
+                  potColor={pots[potId-1].potColor} 
+                  proceed={pots[potId-1].proceed}
+                />
+              )
+            })}
+            <EmptyPotItem />
+            <EmptyPotItem />
+          </LeftContent>
+          <RightContent className="RightContent">
+            {/* <Information /> */}
+            {/* <PotCreate /> */}
+            <TodoView potId={gardenPots[0]}/>
+          </RightContent>
+        </ContentInner>
+      </Content>
+      {/* <button onClick={() => EditGardenModalHandler(true)}>
+        정원수정모달 열기
+      </button>
+      <button onClick={() => AddTodoModalHandler(true)}>
+        TODO추가모달 열기
+      </button>
+      <button onClick={() => EditTodoModalHandler(true)}>
+        TODO수정모달 열기
+      </button> */}
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.div`
-  margin: 0 80px;
-  height: 800px;
+  /* margin: 0 80px; */
+  height: 68vw;
+  width: 88vw;
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (max-width: 1280px) {
+    height: 800px;
+    width: 1120px;
+  }
 `;
 
 const Content = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: ${({theme, $category}) =>
-        $category === "study" ? theme.colors.green01 :
-        $category === "hobby" ? theme.colors.green04 :
-        $category === "exercise" ? theme.colors.green07 : theme.colors.green01
-    };
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: ${({ theme, $category }) =>
+    $category === "study"
+      ? theme.colors.green01
+      : $category === "hobby"
+      ? theme.colors.green04
+      : $category === "exercise"
+      ? theme.colors.green07
+      : theme.colors.green01};
+  border-radius: 2.1vw;
+  @media (max-width: 1280px) {
     border-radius: 20px;
-`
+  }
+`;
 
 const ContentHeader = styled.div`
   width: 100%;
@@ -106,42 +117,81 @@ const ContentHeader = styled.div`
 `;
 
 const TextWrapper = styled.div`
+  margin: 3.8% 0 0 4%;
+  display: flex;
+  flex-direction: column;
+  color: ${({ $category }) => ($category === "study" ? "black" : "white")};
+
+  @media (max-width: 1280px) {
     margin: 40px 0 0 40px;
-    display: flex;
-    flex-direction: column;
-    color: ${({$category}) => $category === "study" ? "black" : "white"};
-`
+  }
+`;
 
 const GardenTitle = styled.span`
-  font-size: 40px;
+  font-size: 3.15vw;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 2.5%;
+
+  @media (max-width: 1280px) {
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
 `;
 
 const GardenDescription = styled.span`
-  font-size: 18px;
+  font-size: 1.5vw;
+
+  @media (max-width: 1280px) {
+    font-size: 18px;
+  }
 `;
 
 const DeleteBtn = styled.div`
-  margin: 12px;
+  width: 10%;
+  height: 15%;
+  margin-top: 2%;
+  margin-right: 3%;
+
+  @media (max-width: 1280px) {
+    width: 120px;
+    height: 30px;
+    padding: 5px;
+  }
 `;
 
 const ContentInner = styled.div`
-    display: flex;
+  display: flex;
+  height: 46vw;
+  margin: 0 6% 6% 5.5%;
+
+  @media (max-width: 1280px) {
     height: 566px;
     margin: 28px 56px 80px 56px;
-`
+  }
+`;
 
 const LeftContent = styled.div`
   display: flex;
   flex-direction: column;
-  width: 532px;
-  margin-right: 60px;
+  width: 50%;
+  height: 90%;
+  margin-right: 6%;
   justify-content: space-between;
+
+  @media (max-width: 1280px) {
+    width: 532px;
+    margin-right: 60px;
+  }
 `;
 
 const RightContent = styled.div`
+  width: 47%;
+  background-color: white;
+  border-radius: 32px;
+
+  @media (max-width: 1280px) {
     width: 500px;
-    background-color: white;
     border-radius: 32px;
-`
+  }
+`;

@@ -9,12 +9,15 @@ const GlobalStyle = createGlobalStyle`
         height: 100%;
         width: 100%;
         max-width: var(--max-width);
-
     }
 
     :root {
         /* 최대 가로축 길이 1280px */
-        /* --max-width: 1280px;  */
+        --max-width: 100vw;
+        @media (max-width:1280px){
+            width: 1280px; 
+            --max-width:1280px;
+        }
         --display: flex;
         --justify-content: center;
     }
