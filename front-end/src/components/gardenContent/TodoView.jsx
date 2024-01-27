@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { gardens, pots, goals } from "../../apis/dummy/gardens";
 import { HiDotsVertical } from "react-icons/hi";
-import todoEmpty from "../../assets/images/todoEmpty.svg";
-import todoFill from "../../assets/images/todoFill.svg";
 import TodoCreateButton from "./TodoCreateButton";
+import GoalContainer from "./GoalContainer";
+import TodoContainer from "./TodoContainer";
 
 /** 새 화분 생성 컴포넌트 */
 export default function TodoView({ potId }) {
@@ -87,22 +87,6 @@ const TodoWrapper = styled.div`
     height: 100px;
     border: 1px solid black;
     margin: 10px;
-`
-
-const GoalContainer = styled.div`
-    display: flex;
-    width: auto;
-    height: 50%;
-    margin: 10px;
-    border: 1px solid black;
-`
-
-const TodoContainer = styled.div`
-    display: flex;
-    width: auto;
-    height: 50%;
-    margin: 10px;
-    border: 1px solid black;
 `
 
 const AddTodoWrapper = styled.div`
