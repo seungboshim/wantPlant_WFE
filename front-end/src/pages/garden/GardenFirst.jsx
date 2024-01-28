@@ -35,8 +35,8 @@ export default function GardenFirst({
   // 카테고리에 따라 다른 컴포넌트 및 색상
   return (
     <Wrapper className="GardenFirstPage_Wrapper">
+      <GardernHeader category={category} />
       {/** $을 붙이는 이유 : transient props (배포시 문제 방지) */}
-      <GardernHeader $category={category} className="GardenHdeader" />
       <Content $category={category} className="Content">
         <ContentHeader className="ContentHeader">
           <TextWrapper $category={category} className="TextWrapper">
@@ -119,7 +119,7 @@ const Content = styled.div`
 
 const ContentHeader = styled.div`
   width: 100%;
-  height: 20%;
+  height: auto;
   display: flex;
   justify-content: space-between;
 `;
@@ -171,7 +171,7 @@ const DeleteBtn = styled.div`
 const ContentInner = styled.div`
   display: flex;
   height: 46vw;
-  margin: 6% 6% 6% 5.5%;
+  margin: 3% 6% 6% 5.5%;
 
   @media (max-width: 1280px) {
     height: 566px;

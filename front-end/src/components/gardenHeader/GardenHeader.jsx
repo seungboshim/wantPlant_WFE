@@ -5,7 +5,7 @@ import CalendarHeaderComponent from "./CalendarHeaderComponent";
 /** 정원 헤더 (카테고리를 인자로 받음) */
 export default function GardernHeader({ category }) {
   // 카테고리에 따라서 컴포넌트 모양 변화
-  if (category === "study") {
+  if (category === "STUDY") {
     return (
       <Wrapper>
         <GardenHeaderComponent
@@ -27,7 +27,7 @@ export default function GardernHeader({ category }) {
         <CalendarHeaderComponent />
       </Wrapper>
     );
-  } else if (category === "hobby") {
+  } else if (category === "HOBBY") {
     return (
       <Wrapper>
         <GardenHeaderComponent
@@ -49,7 +49,7 @@ export default function GardernHeader({ category }) {
         <CalendarHeaderComponent />
       </Wrapper>
     );
-  } else if (category === "exercise") {
+  } else if (category === "EXERCISE") {
     return (
       <Wrapper>
         <GardenHeaderComponent
