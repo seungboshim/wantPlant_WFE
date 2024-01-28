@@ -2,44 +2,38 @@ import styled from "styled-components";
 import logo from "../../assets/images/logo.svg";
 
 /** 화분 데이터를 인자로 받는 화분 컴포넌트 */
-export default function PotItem({
-  pot_title,
-  period,
-  pot_type,
-  pot_img,
-  progress,
+export default function PotItem({ 
+  potName, startAt, proceed, potImageUrl, potColor
 }) {
-  // TODO : onClick으로 투두 컴포넌트 불러오기
-  return (
-    <Container className="PotItemContainer">
-      <Wrapper>
-        <img src={logo} alt="화분" />
-        <PotInfoWrapper className="PotInfoWrapper">
-          <PotPeriod className="PotPeriod">{period}</PotPeriod>
-          <PotTitle className="PotTitle">{pot_title}</PotTitle>
-          <PotProgressWrapper className="PotProgressWrapper">
-            <PotProgressBar className="PotProgressBar">
-              <PotProgressDealt width={progress} color={pot_type} />
-            </PotProgressBar>
-            <PotProgressText color={pot_type}>{progress}%</PotProgressText>
-          </PotProgressWrapper>
-        </PotInfoWrapper>
-      </Wrapper>
-    </Container>
-  );
+    // TODO : onClick으로 투두 컴포넌트 불러오기
+    return (
+        <Container className="PotItemContainer">
+            <Wrapper>
+                <PotImage src={potImageUrl} alt="화분"/>
+                <PotInfoWrapper className="PotInfoWrapper">
+                    <PotPeriod className="PotPeriod">{startAt}</PotPeriod>
+                    <PotTitle className="PotTitle">{potName}</PotTitle>
+                    <PotProgressWrapper className="PotProgressWrapper">
+                        <PotProgressBar className="PotProgressBar">
+                            <PotProgressDealt width={proceed} color={potColor}/>
+                        </PotProgressBar>
+                        <PotProgressText color={potColor}>{proceed}/10</PotProgressText>
+                    </PotProgressWrapper>
+                </PotInfoWrapper>
+            </Wrapper>
+        </Container>
+    )
 }
 
 const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 23%;
-  margin-bottom: 4%;
+  height: 20%;
   background-color: white;
   border-radius: 2vw;
   @media (max-width: 1280px) {
     height: 120px;
     border-radius: 32px;
-    margin-bottom: 20px;
   }
 `;
 
@@ -52,12 +46,20 @@ const Wrapper = styled.div`
   }
 `;
 
+const PotImage = styled.img`
+  height: auto;
+  @media (max-width: 1280px) {
+    height: 100px;
+  }
+`
+
 const PotInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-  margin-left: 3%;
+  margin-left: 4.3%;
   flex-grow: 1;
+  justify-content: center;
   @media (max-width: 1280px) {
     margin-left: 20px;
   }
@@ -86,6 +88,7 @@ const PotProgressWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 1%;
+  margin-right: 1%;
   align-items: center;
   @media (max-width: 1280px) {
     margin-top: 8px;
@@ -104,7 +107,7 @@ const PotProgressBar = styled.div`
 `;
 
 const PotProgressDealt = styled.div`
-  width: ${({ width }) => width}%;
+  width: ${({width}) => width*10}%;
   height: 100%;
   border-radius: 1.5vw;
   background-color: ${({ color, theme }) => theme.colors[color].bg};

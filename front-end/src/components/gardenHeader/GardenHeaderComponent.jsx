@@ -10,33 +10,33 @@ export default function GardenHeaderComponent({
 }) {
   const navigate = useNavigate();
 
-  /** 각 label에 해당하는 정원으로 navigate */
-  const handleClick = () => {
-    // TODO : 누르면 각 카테고리의 맨 처음 정원으로
-    // TODO : 카테고리에 정원이 없다면 /garden/add로 ㄱㄱ
-    if (label === "공부") {
-      navigate("/garden/study");
-    } else if (label === "취미") {
-      navigate("/garden/hobby");
-    } else if (label === "운동") {
-      navigate("/garden/exercise");
+    /** 각 label에 해당하는 정원으로 navigate */
+    const handleClick = () => {
+        // TODO : 누르면 각 카테고리의 맨 처음 정원으로
+        // TODO : 카테고리에 정원이 없다면 /garden/add로 ㄱㄱ
+        if (label === "공부") {
+            navigate("/garden/study");
+        } else if (label === "취미") {
+            navigate("/garden/hobby");
+        } else if (label === "운동") {
+            navigate("/garden/exercise");
+        }
+    };
+    
+    // 선택되었을 때엔 커진 버튼
+    if (selected) {
+        return (
+            <SelectedWrapper color={bgColor} onClick={handleClick}>
+                <SelectedText color={textColor}>{label}</SelectedText>
+            </SelectedWrapper>
+        )
+    } else { 
+        return (
+            <Wrapper color={bgColor} onClick={handleClick}>
+                <Text color={textColor}>{label}</Text>
+            </Wrapper>
+        )
     }
-  };
-
-  // 선택되었을 때엔 커진 버튼
-  if (selected) {
-    return (
-      <SelectedWrapper bgColor={bgColor} onClick={handleClick}>
-        <SelectedText textColor={textColor}>{label}</SelectedText>
-      </SelectedWrapper>
-    );
-  } else {
-    return (
-      <Wrapper bgColor={bgColor} onClick={handleClick}>
-        <Text textColor={textColor}>{label}</Text>
-      </Wrapper>
-    );
-  }
 }
 
 const Wrapper = styled.div`
@@ -46,7 +46,7 @@ const Wrapper = styled.div`
   border-radius: 1vw 1vw 0 0;
   width: 4.5vw;
   height: 2.4vw;
-  background-color: ${({ bgColor, theme }) => theme.colors[bgColor]};
+  background-color: ${({ color, theme }) => theme.colors[color]};
   margin: 0 2px;
   cursor: pointer;
 
@@ -64,7 +64,7 @@ const SelectedWrapper = styled.div`
   border-radius: 1vw 1vw 0 0;
   width: 4.5vw;
   height: 3.1vw;
-  background-color: ${({ bgColor, theme }) => theme.colors[bgColor]};
+  background-color: ${({ color, theme }) => theme.colors[color]};
   margin: 0 2px;
   cursor: pointer;
 
@@ -77,7 +77,7 @@ const SelectedWrapper = styled.div`
 
 const Text = styled.span`
   font-size: 1.2vw;
-  color: ${({ textColor }) => textColor};
+  color: ${({ color }) => color};
 
   @media (max-width: 1280px) {
     font-size: 16px;
@@ -86,7 +86,7 @@ const Text = styled.span`
 
 const SelectedText = styled.span`
   font-size: 1.5vw;
-  color: ${({ textColor }) => textColor};
+  color: ${({ color }) => color};
 
   @media (max-width: 1280px) {
     font-size: 20px;

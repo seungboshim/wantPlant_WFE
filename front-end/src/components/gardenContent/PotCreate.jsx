@@ -1,9 +1,16 @@
 import styled from "styled-components";
 import logo from "../../assets/images/logo.svg"
 import PotColorSelection from "./PotColorSelection";
+import { useState } from "react";
+import ModalButton from '../button/ModalButton';
+import ReverseModalButton from "../button/ReverseModalButton";
 
 /** 새 화분 생성 컴포넌트 */
 export default function PotCreate() {
+    const [selectedColor, setSelectedColor] = useState("");
+    const potColors = ["potPurple", "potGreen", "potRed", "potOrange", "potBlue", "potPink"];
+    console.log(selectedColor);
+
     return (
         <Wrapper>
             <Container>
@@ -14,17 +21,22 @@ export default function PotCreate() {
                     <PotColorSelectionWrapper>
                         <PotColorSelectionTitle>원하는 색상을 선택해주세요.</PotColorSelectionTitle>
                         <PotColorSelectionContainer>
-                            <PotColorSelection bgColor="potPurple" selected/>
-                            <PotColorSelection bgColor="potGreen" />
-                            <PotColorSelection bgColor="potRed" />
-                            <PotColorSelection bgColor="potOrange" />
-                            <PotColorSelection bgColor="potBlue" />
-                            <PotColorSelection bgColor="potPink" />
+                            {potColors.map((color, idx) => {
+                                return (
+                                    <PotColorSelection 
+                                        key={idx}
+                                        color={color}
+                                        onClick={() => setSelectedColor(idx)} 
+                                        selected={selectedColor === idx}
+                                    />
+                                );
+                            })}
                         </PotColorSelectionContainer>
                     </PotColorSelectionWrapper>
                 </PotInputContainer>
                 <PotCreateButton>
-                    <button>ㅇㅇ</button>
+                    <ModalButton label="확인" />
+                    <ReverseModalButton label="취소" />
                 </PotCreateButton>
             </Container>
         </Wrapper>
@@ -91,5 +103,7 @@ const PotColorSelectionContainer = styled.div`
 `
 
 const PotCreateButton = styled.div`
-    
+    display: flex;
+    width: 85%;
+    justify-content: space-between;
 `
