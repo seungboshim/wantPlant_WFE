@@ -60,7 +60,7 @@ export default function GardenFirst({
           <RightContent className="RightContent">
             {/* <Information /> */}
             {/* <PotCreate /> */}
-            <TodoView potId={gardenPots[0]}/>
+            <TodoView potId={gardenPots[0]} AddTodoModalHandler={AddTodoModalHandler}/>
           </RightContent>
         </ContentInner>
       </Content>

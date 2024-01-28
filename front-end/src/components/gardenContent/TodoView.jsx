@@ -7,7 +7,7 @@ import GoalContainer from "./GoalContainer";
 import TodoContainer from "./TodoContainer";
 
 /** 새 화분 생성 컴포넌트 */
-export default function TodoView({ potId }) {
+export default function TodoView({ potId, AddTodoModalHandler }) {
     const potColors = ["potPurple", "potGreen", "potRed", "potOrange", "potBlue", "potPink"];
     const potName = pots[potId].potName;
     const potColor = pots[potId].potColor;
@@ -27,7 +27,7 @@ export default function TodoView({ potId }) {
                     </TodoWrapper>
                 </ScrollWrapper>
                 <AddTodoWrapper>
-                    <TodoCreateButton />
+                    <TodoCreateButton AddTodoModalHandler={AddTodoModalHandler}/>
                 </AddTodoWrapper>
             </Container>
         </Wrapper>

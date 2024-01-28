@@ -55,6 +55,7 @@ const PotInfoWrapper = styled.div`
   align-items: start;
   margin-left: 3%;
   flex-grow: 1;
+  justify-content: center;
   @media (max-width: 1280px) {
     margin-left: 20px;
   }
@@ -83,6 +84,7 @@ const PotProgressWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 1%;
+  margin-right: 1%;
   align-items: center;
   @media (max-width: 1280px) {
     margin-top: 8px;

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import green05Plus from "../../assets/images/green05Plus.svg"
 
-export default function TodoCreateButton() {
+export default function TodoCreateButton({AddTodoModalHandler}) {
     return (
-        <Container>
+        <Container onClick={() => AddTodoModalHandler(true)}>
             <img src={green05Plus} width={20} alt="정원추가 아이콘" />
             <TodoCreateText>할 일 추가하기</TodoCreateText>
         </Container>
