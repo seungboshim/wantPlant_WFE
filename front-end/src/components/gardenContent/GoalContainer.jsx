@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
-export default function GoalContainer() {
+/** 화분 정보 -> 목표 */
+export default function GoalContainer({ goalName }) {
     return (
         <Container>
-            목표입니다
+            {goalName}
         </Container>
     )
 }
@@ -12,6 +13,6 @@ const Container = styled.div`
     display: flex;
     width: auto;
     height: 50%;
-    margin: 10px;
-    border: 1px solid black;
+    padding: 10px;
+    border-left: 1px solid black;
 `

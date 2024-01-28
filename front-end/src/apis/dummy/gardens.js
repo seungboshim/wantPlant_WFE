@@ -1,86 +1,45 @@
-export const gardens = [
+/** 정원 정보는 /gardens/{gardenId} 로도 조회가 가능했으면 좋겠는데 */
+export const gardensFromId = [
+    {
+        "name": "정원이름",
+        "description": "정원설명설명설명섦ㅇ셔섬ㄹ설명",
+        "gardenCategory": "STUDY", // 카테고리는 대문자
+    },
+]
+
+
+/** /gardens?page={};pageSize={} 로 정원 하단 컴포넌트에 정원들 넣기는 좋음 */
+export const gardensFromQuery = [
     {
         "gardenId": 1,
-        "gardenTitle": "정원이름",
-        "gardenDescription": "정원설명설명설명섦ㅇ셔섬ㄹ설명",
-        "category": "study",
-        "gardenPots": [1, 2],
+        "name": "정원이름",
+        "description": "정원설명설명설명섦ㅇ셔섬ㄹ설명",
+        "gardenCategory": "STUDY", // 카테고리는 대문자
     },
 ]
 
-export const pots = [
+/** 이건 카테고리별 정원 (페이지네이션 용인데 안써도 무방) */
+/** /gardens?category=STUDY;page={};pageSize={} */
+export const gardensFromCategory = [
     {
-        "gardenName": "정원1",
-		"potId": "1",
-		"potName": "화분1",
-		"proceed": 5,
-		"potImageUrl": String,
-        "potColor": "potRed",
-        "potGoals": [1, 2],
-    },
-    {
-        "gardenName": "정원1",
-		"potId": "2",
-		"potName": "화분2",
-		"proceed": 3,
-		"potImageUrl": String,
-        "potColor": "potBlue",
-        "potGoals": [3],
-    },
-]
-
-export const goals = [
-    {
-        "goalId": 1,
-        "goalTitle": "목표1",
-        "todoList": [
+        "gardenList": [
             {
-                "todoId":1,
-                "todoTitle":"투두1",
-                "startAt":"",
-                "startTime":"",
-                "isComplete":"false",
+              "gardenId": 1,
+              "name": "garden1",
+              "description": "garden test",
+              "gardenCategory": "STUDY"
             },
             {
-                "todoId":2,
-                "todoTitle":"투두2",
-                "startAt":"",
-                "startTime":"",
-                "isComplete":"false",
-            },
-        ]
-    },
-    {
-        "goalId": 2,
-        "goalTitle": "목표2",
-        "todoList": [
-            {
-                "todoId":3,
-                "todoTitle":"투두3",
-                "startAt":"",
-                "startTime":"",
-                "isComplete":"false",
+              "gardenId": 4,
+              "name": "garden4",
+              "description": "garden test",
+              "gardenCategory": "STUDY"
             }
-        ]
-    },
-    {
-        "goalId": 3,
-        "goalTitle": "목표3",
-        "todoList": [
-            {
-                "todoId":4,
-                "todoTitle":"투두4",
-                "startAt":"",
-                "startTime":"",
-                "isComplete":"false",
-            },
-            {
-                "todoId":5,
-                "todoTitle":"투두5",
-                "startAt":"",
-                "startTime":"",
-                "isComplete":"false",
-            },
-        ]
-    },
+        ],
+        "listSize": 2,
+        "totalPage": 1,
+        "totalElements": 2,
+        "isFirst": true,
+        "isLast": true
+    }
 ]

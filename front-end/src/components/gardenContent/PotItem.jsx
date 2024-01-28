@@ -3,7 +3,7 @@ import logo from "../../assets/images/logo.svg";
 
 /** 화분 데이터를 인자로 받는 화분 컴포넌트 */
 export default function PotItem({ 
-  potName, period, proceed, potImage, potColor
+  potName, startAt, proceed, potImage, potColor
 }) {
     // TODO : onClick으로 투두 컴포넌트 불러오기
     return (
@@ -12,7 +12,7 @@ export default function PotItem({
               {/** TODO : potImage 받아오기 */}
                 <img src={logo} alt="화분"/>
                 <PotInfoWrapper className="PotInfoWrapper">
-                    <PotPeriod className="PotPeriod">{period}</PotPeriod>
+                    <PotPeriod className="PotPeriod">{startAt}</PotPeriod>
                     <PotTitle className="PotTitle">{potName}</PotTitle>
                     <PotProgressWrapper className="PotProgressWrapper">
                         <PotProgressBar className="PotProgressBar">
@@ -30,13 +30,11 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   height: 23%;
-  margin-bottom: 4%;
   background-color: white;
   border-radius: 2vw;
   @media (max-width: 1280px) {
     height: 120px;
     border-radius: 32px;
-    margin-bottom: 20px;
   }
 `;
 

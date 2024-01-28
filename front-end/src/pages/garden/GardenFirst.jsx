@@ -7,7 +7,8 @@ import Information from "../../components/gardenContent/Information";
 import { useLocation } from "react-router-dom";
 import PotCreate from "../../components/gardenContent/PotCreate";
 import TodoView from "../../components/gardenContent/TodoView";
-import { gardens, pots } from "../../apis/dummy/gardens";
+import { gardensFromId } from "../../apis/dummy/gardens";
+import { potsFromGarden } from "../../apis/dummy/pots";
 
 /** 정원페이지 상단 컴포넌트 */
 export default function GardenFirst({
@@ -19,11 +20,17 @@ export default function GardenFirst({
   // location = "/garden/{카테고리}"
   const pathname = location.pathname.split("/");
   // pathname = ["", "garden", "{카테고리}"] 저장됨
-  const category = pathname[2];
+  const category = pathname[2].toUpperCase();
+  // category = "STUDY" 저장
   const gardenId = pathname[3];
 
-  const gardenPots = gardens[0].gardenPots;
-  console.log(pots[gardenPots[0]]);
+  // TODO : gardenFromId(gardenId) 로 정원 정보 받아오기
+  
+  // 해당 정원의 모든 화분 배열
+  // TODO : potsFromGarden(gardenId)
+  const gardenPots = potsFromGarden.pots
+  // TODO : 페이지네이션 용 데이터도 가져오기
+
   
   // 카테고리에 따라 다른 컴포넌트 및 색상
   return (
@@ -33,8 +40,8 @@ export default function GardenFirst({
       <Content $category={category} className="Content">
         <ContentHeader className="ContentHeader">
           <TextWrapper $category={category} className="TextWrapper">
-            <GardenTitle className="GardenTitle">{gardens[0].gardenTitle}</GardenTitle>
-            <GardenDescription>{gardens[0].gardenDescription}</GardenDescription>
+            <GardenTitle className="GardenTitle">{gardensFromId[0].name}</GardenTitle>
+            <GardenDescription>{gardensFromId[0].description}</GardenDescription>
           </TextWrapper>
           <DeleteBtn>
             <GardenDeleteButton label="정원 삭제하기" />
@@ -43,24 +50,25 @@ export default function GardenFirst({
         <ContentInner className="ContentInner">
           <LeftContent className="LeftContent">
             {/** TODO : 화분 데이터에 따른 페이지네이션 */}
-            {gardenPots.map((potId,idx) => {
+            {gardenPots.map((pot, idx) => {
+              const potIndex = idx + 1;
               return (
                 <PotItem 
-                  key={potId}
-                  potName={pots[potId-1].potName} 
-                  period="2024/02/28" 
-                  potColor={pots[potId-1].potColor} 
-                  proceed={pots[potId-1].proceed}
+                  key={potIndex}
+                  potName={pot.potName} 
+                  startAt={pot.startAt}
+                  potColor={pot.potColor}
+                  proceed={pot.proceed}
+                  potImageUrl={pot.potImageUrl}
                 />
               )
             })}
-            <EmptyPotItem />
-            <EmptyPotItem />
           </LeftContent>
           <RightContent className="RightContent">
+            {/* TODO : 동작에 따른 컴포넌트 렌더링, id값에 따른 처리 */}
             {/* <Information /> */}
             {/* <PotCreate /> */}
-            <TodoView potId={gardenPots[0]} AddTodoModalHandler={AddTodoModalHandler}/>
+            <TodoView potId={gardenPots[0].potId} AddTodoModalHandler={AddTodoModalHandler}/>
           </RightContent>
         </ContentInner>
       </Content>
@@ -96,11 +104,11 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme, $category }) =>
-    $category === "study"
+    $category === "STUDY"
       ? theme.colors.green01
-      : $category === "hobby"
+      : $category === "HOBBY"
       ? theme.colors.green04
-      : $category === "exercise"
+      : $category === "EXERCISE"
       ? theme.colors.green07
       : theme.colors.green01};
   border-radius: 2.1vw;
@@ -120,7 +128,7 @@ const TextWrapper = styled.div`
   margin: 3.8% 0 0 4%;
   display: flex;
   flex-direction: column;
-  color: ${({ $category }) => ($category === "study" ? "black" : "white")};
+  color: ${({ $category }) => ($category === "STUDY" ? "black" : "white")};
 
   @media (max-width: 1280px) {
     margin: 40px 0 0 40px;
@@ -163,7 +171,7 @@ const DeleteBtn = styled.div`
 const ContentInner = styled.div`
   display: flex;
   height: 46vw;
-  margin: 0 6% 6% 5.5%;
+  margin: 6% 6% 6% 5.5%;
 
   @media (max-width: 1280px) {
     height: 566px;
@@ -175,7 +183,7 @@ const LeftContent = styled.div`
   display: flex;
   flex-direction: column;
   width: 50%;
-  height: 90%;
+  height: 100%;
   margin-right: 6%;
   justify-content: space-between;
 
@@ -189,6 +197,7 @@ const RightContent = styled.div`
   width: 47%;
   background-color: white;
   border-radius: 32px;
+  height: 100%;
 
   @media (max-width: 1280px) {
     width: 500px;

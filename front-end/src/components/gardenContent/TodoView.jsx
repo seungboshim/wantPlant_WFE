@@ -1,28 +1,30 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { gardens, pots, goals } from "../../apis/dummy/gardens";
 import { HiDotsVertical } from "react-icons/hi";
 import TodoCreateButton from "./TodoCreateButton";
 import GoalContainer from "./GoalContainer";
 import TodoContainer from "./TodoContainer";
+import { potsFromGarden } from "../../apis/dummy/pots";
+import { goalsFromPotId } from "../../apis/dummy/goals";
 
-/** 새 화분 생성 컴포넌트 */
+/** potId 의 목표, 투두 조회 및 생성 컴포넌트 */
 export default function TodoView({ potId, AddTodoModalHandler }) {
     const potColors = ["potPurple", "potGreen", "potRed", "potOrange", "potBlue", "potPink"];
-    const potName = pots[potId].potName;
-    const potColor = pots[potId].potColor;
+    // potId에 해당하는 화분, 목표 객체 받아오기
+    const currentPot = potsFromGarden.pots.find(pot => pot.potId === potId);
     
     return (   
         <Wrapper>
             <Container>
                 <TitleWrapper>
                     <PaddingDiv />
-                    <GardenTitle color={potColor}>{potName}</GardenTitle>
+                    <GardenTitle color={currentPot.potColor}>{currentPot.potName}</GardenTitle>
                     <EditButton />
                 </TitleWrapper>
                 <ScrollWrapper>
                     <TodoWrapper>
                         <GoalContainer></GoalContainer>
+                        <TodoContainer></TodoContainer>
                         <TodoContainer></TodoContainer>
                     </TodoWrapper>
                 </ScrollWrapper>
@@ -40,12 +42,15 @@ const Wrapper = styled.div`
 `
 
 const Container = styled.div`
-    margin: 40px 52px;
+    margin: 3vw 4vw;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    @media (max-width: 1280px) {
+        margin: 40px 52px;
+    }
 `
 
 const TitleWrapper = styled.div`
@@ -56,10 +61,16 @@ const TitleWrapper = styled.div`
 `
 
 const GardenTitle = styled.span`
-    padding: 8px 12px;
+    padding: 0.6vw 1vw;
     background-color: ${({theme, color}) => theme.colors[color].bg};
-    border-radius: 12px;
-    font-size: 32px;
+    border-radius: 1vw;
+    font-size: 2.4vw;
+    font-weight: 500;
+    @media (max-width: 1280px) {
+        font-size: 32px;
+        border-radius: 12px;
+        padding: 8px 12px;
+    }
 `
 
 const PaddingDiv = styled.div`
@@ -75,18 +86,18 @@ const EditButton = styled(HiDotsVertical)`
 const ScrollWrapper = styled.div`
     width: 100%;
     height: -webkit-fill-available;
-    border: 1px solid black;
-    margin: 30px 0;
+    margin: 2.4vw 0;
     overflow-y: auto;
+    @media (max-width: 1280px) {
+        margin: 30px 0;
+    }
 `
 
 const TodoWrapper = styled.div`
     display: flex;
     flex-direction: column;
     width: auto;
-    height: 100px;
-    border: 1px solid black;
-    margin: 10px;
+    height: auto;
 `
 
 const AddTodoWrapper = styled.div`

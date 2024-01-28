@@ -2,6 +2,7 @@ import styled from "styled-components";
 import todoEmpty from "../../assets/images/todoEmpty.svg";
 import todoFill from "../../assets/images/todoFill.svg";
 
+/** 화분 정보 -> 투두 */
 export default function TodoContainer() {
     return (
         <Container>
