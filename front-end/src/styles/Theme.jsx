@@ -9,6 +9,7 @@ const theme = {
         green07: '#3A4E39',
         green08: '#707769',
         green09: '#A9B388',
+        green10: '#5C846D',
 
         brown01: '#EDE3CE',
         brown02: '#D4C29E',
@@ -17,29 +18,30 @@ const theme = {
         gray: '#757373',
         strokeGray: '#BDBDBD',
         lightGray: '#E8E8E8',
+        tagGray: '#585757',
 
         pink01: '#FFD3C0',
         pink02: '#FFF5EE',
 
-        potRed: {
-            bg: '#FFEBEB',
-            text: '#E92C2C',
-        },
-        potBlue: {
-            bg: '#E5F3FF',
-            text: '#0085FF',
+        potPurple: {
+            bg: '#EFDFFF',
+            text: '#7932C0',
         },
         potGreen: {
             bg: '#E4FFDF',
             text: '#22A337',
         },
+        potRed: {
+            bg: '#FFEBEB',
+            text: '#E92C2C',
+        },
         potOrange: {
             bg: '#FFF4E8',
             text: '#FF9F2D',
         },
-        potPurple: {
-            bg: '#EFDFFF',
-            text: '#7932C0',
+        potBlue: {
+            bg: '#E5F3FF',
+            text: '#0085FF',
         },
         potPink: {
             bg: '#FCDFFF',

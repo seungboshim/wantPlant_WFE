@@ -1,16 +1,20 @@
 import styled from "styled-components";
 import React, {useState} from "react";
-export default function AutoLoginButton() {
-    const [imageSrc, setImageSrc] = useState("../../assets/images/auto_off.svg");
+import autoOn from "../../assets/images/auto_on.svg"
+import autoOff from "../../assets/images/auto_off.svg"
+
+/** 자동로그인 토글 */
+export default function AutoLoginToggle() {
+    const [imageSrc, setImageSrc] = useState(autoOff);
     const [isClicked, setIsClicked] = useState(false);
 
     const handleClick = () => {
         if (isClicked) {
-            setImageSrc("../../assets/images/auto_off.svg");
+            setImageSrc(autoOff);
             setIsClicked(false);
         } 
         else {
-            setImageSrc("../../assets/images/auto_on.svg");
+            setImageSrc(autoOn);
             setIsClicked(true);
         }
       };
