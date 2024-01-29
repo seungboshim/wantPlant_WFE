@@ -1,13 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Header } from "./components/layout/Header";
 import { Layout } from "./components/layout/Layout";
-// import { Footer } from "./components/layout/Footer";
+import { Footer } from "./components/layout/Footer";
 
-// import MainPage from "./pages/main/MainPage";
-// import LoginPage from "./pages/login/LoginPage";
-// import JoinPage from "./pages/join/JoinPage";
-// import KakaoAuthPage from "./pages/login/KakaoAuthPage";
-// import GardenPage from "./pages/garden/GardenPage";
+import MainPage from "./pages/main/MainPage";
+import LoginPage from "./pages/login/LoginPage";
+import JoinPage from "./pages/join/JoinPage";
+import KakaoAuthPage from "./pages/login/KakaoAuthPage";
+import GardenPage from "./pages/garden/GardenPage";
 import BookPage from "./pages/book/BookPage";
 
 function App() {
@@ -18,15 +18,15 @@ function App() {
         <Header />
         <Layout>
           <Routes>
-            {/* <Route path="/" element={<MainPage />} />
+            <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/join" element={<JoinPage />} />
             <Route path="/auth/kakao/callback" element={<KakaoAuthPage />} />
-            <Route path="/garden" element={<GardenPage />} /> */}
-            <Route path="/book" element={<BookPage/>}/>
+            <Route path="/garden" element={<GardenPage />} /> 
+            <Route path="garden/book" element={<BookPage/>}/>
           </Routes>
         </Layout>
-        {/* <Footer /> */}
+        <Footer />
       </BrowserRouter>
     </>
   );

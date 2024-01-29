@@ -1,73 +1,76 @@
 import {React} from "react";
 import styled from "styled-components";
 
+import PotCard from "../../components/bookContent/PotInform";
+
 export default function BookPage(){
 
     return(
-        <Main>
+        <Page>
             <Header>
 
             </Header>
-            <Layout>
-                <Subject>
-                    <Garden>
-                        <Name>
-                            공부
-                        </Name>
-                    </Garden>
-                    <Garden>
-                        <Name>
-                            운동
-                        </Name>
-                    </Garden>
-                    <Garden>
-                        <Name>
-                            취미
-                        </Name>
-                    </Garden>
-                </Subject>
-            </Layout>
-            <Footer>
-
-            </Footer>
-        </Main>
+            <Container>
+                <Layout>
+                    <Label>카테고리</Label>
+                    <Category>
+                        <PotCard/>
+                        <PotCard/>
+                        <PotCard/>
+                    </Category>
+                    <Label>카테고리</Label>
+                    <Category>
+                        <PotCard/>
+                        <PotCard/>
+                        <PotCard/>
+                    </Category>
+                    <Label>카테고리</Label>
+                    <Category>
+                        <PotCard/>
+                        <PotCard/>
+                        <PotCard/>
+                    </Category>
+                </Layout>
+            </Container>
+        </Page>
     )
 }
 
-const Main = styled.div`
+const Page = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: ${({theme}) => theme.colors.green02};
+    justify-content: center;
     width: 1280px;
     height: 1500px;
+    background-color: ${({ theme }) => theme.colors.green01};
 `
 const Header = styled.div`
-    display: flex;
     width: 100%;
-    height: 4%;
+    height: 8%;
+`
+const Container = styled.div`
+display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 92%;
 `
 const Layout = styled.div`
-    display: flex;
-    flex-direction: column;
+    width: 90%;
+    height: 70%;
+`
+const Label = styled.p`
     width: 100%;
-    height: 96%;
+    height: 5%;
+    font-weight: 200;
+    font-size: 30px;
 `
-const Footer = styled.div`
+const Category = styled.div`
     display: flex;
-`
-const Subject = styled.div`
-    display: flex;
-    flex-direction: column;
-    
-    margin-left: 3%;
-`
-const Garden = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 78%;
-    height: 34%;
-`
-const Name = styled.div`
-    width: 9%;
-    height: 13%;
+    flex-direction: row;
+    width: 100%;
+    height: 18%;
+    margin-top: 4%;
+    margin-bottom: 16%;
+    gap: 5%;
 `
