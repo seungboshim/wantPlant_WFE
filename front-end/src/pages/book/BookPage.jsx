@@ -2,13 +2,13 @@ import {React} from "react";
 import styled from "styled-components";
 
 import PotCard from "../../components/bookContent/PotInform";
-//import HeaderVenue from "../../components/headerComponent/Header";
+import HeaderVenue from "../../components/headerComponent/Header";
 
 export default function BookPage(){
 
     return(
         <Page>
-            {/*<HeaderVenue/>*/}
+            <HeaderVenue/>
             <Container>
                 <Layout>
                     <Label>카테고리</Label>
