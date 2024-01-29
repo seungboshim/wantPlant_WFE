@@ -25,8 +25,8 @@ export default function Header() {
 const Container = styled.div`
     display: flex;
     flex-direction: row;
-    width: 1280px;
-    height: 52px;
+    width: 100%;
+    height: 8%;
 `
 const Logo = styled.div`
     width: 84px;
