@@ -1,4 +1,5 @@
 import React from "react";
+
 //import {useState, useEffect} from "react";
 import styled from "styled-components";
 // import StudyButton from "../../components/makeGardenContent/StudyButton";
@@ -72,3 +73,4 @@ const InputWrapper = styled.div`
     margin-top: 120px;
     gap: 10px;
 `
+
