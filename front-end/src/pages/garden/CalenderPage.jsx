@@ -1,4 +1,6 @@
 import styled from "styled-components";
+
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import GardenHeader from "../../components/gardenHeader/GardenHeader";
@@ -12,6 +14,12 @@ export default function CalenderPage() {
     // pathname = ["", "garden", "{카테고리}"] 저장됨
     const category = pathname[2] ? pathname[2].toUpperCase() : "";
 
+    const [selectedDate, setSelectedDate] = useState(Date());
+
+    useEffect(() => {
+        console.log(selectedDate);
+    }, [selectedDate]);
+
     return (
         <Wrapper>
             <GardenHeader category={category} />
@@ -22,13 +30,17 @@ export default function CalenderPage() {
                 <FullContainer className="FullContainer">
                     <LeftContainer className="LeftContainer">
                         <CalenderWrapper>
-                            <Calender />
+                            <Calender setSelectedDate={setSelectedDate} />
                         </CalenderWrapper>
                     </LeftContainer>
                     <RightContainer className="RightContainer">
                         <RightWrapper className="RightWrapper">
-                            <TodoListContentBox className="TodoListContentBox"></TodoListContentBox>
-                            <FixPlanContentBox className="FixPlanContentBox"></FixPlanContentBox>
+                            <TodoListContentWrapper className="TodoListContentBox">
+                                <TodoListContentTitleWrapper>
+                                    {selectedDate.getMonth() + 1}월 {selectedDate.getDate()}일
+                                </TodoListContentTitleWrapper>
+                            </TodoListContentWrapper>
+                            <FixPlanContentWrapper className="FixPlanContentBox"></FixPlanContentWrapper>
                         </RightWrapper>
                     </RightContainer>
                 </FullContainer>
@@ -114,13 +126,20 @@ const RightWrapper = styled.div`
     align-items: center;
 `;
 
-const TodoListContentBox = styled.div`
+const TodoListContentWrapper = styled.div`
     width: 90%;
     height: 48%;
     border: 1px solid black;
 `;
 
-const FixPlanContentBox = styled.div`
+const TodoListContentTitleWrapper = styled.div`
+    width: 30%;
+    height: 8%;
+    border: 1px solid black;
+    margin: 5%;
+`;
+
+const FixPlanContentWrapper = styled.div`
     width: 90%;
     height: 48%;
     border: 1px solid black;
