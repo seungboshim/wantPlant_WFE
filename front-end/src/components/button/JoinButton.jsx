@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-/** green 07 버튼 */
+/** 랜딩페이지 버튼: green7-white, radius15 */
 export default function JoinButton({ label, onClick }) {
     return (
         <Wrapper onClick={onClick}>

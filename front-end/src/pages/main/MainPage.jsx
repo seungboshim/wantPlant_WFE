@@ -12,7 +12,7 @@ export default function MainPage() {
                 <img src={logoContainer} height={28} alt="logo Container"/>
                 <LoginWrapper>
                     <JoinButton label={'로그인'} onClick={() => navigate('/login')}/>
-                    <JoinButton label={'회원가입'} onClick={() => navigate('/join')}/>
+                    <JoinButton label={'회원가입'} onClick={() => navigate('/login')}/>
                 </LoginWrapper>
             </LandingHeader>
             <LandingImage>랜딩이미지 들어갈곳</LandingImage>
@@ -25,7 +25,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     background-color: ${({theme}) => theme.colors.green01};
     padding: 40px 0px;
-    width: 1280px;
+    width: 100vw;
 `
 
 const LandingHeader = styled.div`

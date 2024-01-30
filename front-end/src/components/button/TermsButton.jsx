@@ -1,16 +1,23 @@
 import styled from "styled-components";
-import termsImage from "../../assets/images/accessTerms.svg"
 
-export default function AccessTermsButton({ onClick }) {
+/** 이용약관 버튼: green10-white, radius30 */
+export default function TermsButton({ onClick, label }) {
     return (
         <Wrapper onClick={onClick}>
-            <img src={termsImage} width = {224} height={40} alt="terms" />
+            {label}
         </Wrapper>
     )
 }
 
 const Wrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 224px;
+    height: 40px;
+    border-radius: 30px;
+    background-color: ${({theme}) => theme.colors.green05};
+    color: white;
     cursor: pointer;
-    margin-top: 36px;
-    border-radius:  30px;
+    //font-weight: 300;
 `

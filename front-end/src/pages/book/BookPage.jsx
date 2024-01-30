@@ -2,13 +2,12 @@ import {React} from "react";
 import styled from "styled-components";
 
 import PotCard from "../../components/bookContent/PotInform";
-import HeaderVenue from "../../components/headerComponent/Header";
+
 
 export default function BookPage(){
 
     return(
         <Page>
-            <HeaderVenue/>
             <Container>
                 <Layout>
                     <Label>카테고리</Label>
@@ -43,6 +42,7 @@ const Page = styled.div`
     height: 1500px;
     background-color: ${({ theme }) => theme.colors.green01};
 `
+
 const Container = styled.div`
 display: flex;
     flex-direction: column;

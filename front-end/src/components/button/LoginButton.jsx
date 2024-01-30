@@ -1,15 +1,22 @@
 import styled from "styled-components";
-import login from "../../assets/images/login.svg"
 
-export default function AccessTermsButton({ onClick }) {
+/** 로그인화면 버튼: green10-white, radius12 */
+export default function LoginButton({ onClick, label }) {
     return (
         <Wrapper onClick={onClick}>
-            <img src={login} width = {210} height={50} alt="login" />
+            {label}
         </Wrapper>
     )
 }
 
 const Wrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 35px;
+    border-radius: 12px;
+    color: white;
+    background-color: ${({theme}) => theme.colors.green10};
     cursor: pointer;
-    margin-top: 22px;
 `
