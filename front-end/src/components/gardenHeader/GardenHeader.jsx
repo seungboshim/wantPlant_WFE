@@ -3,7 +3,7 @@ import GardenHeaderComponent from "./GardenHeaderComponent";
 import CalendarHeaderComponent from "./CalendarHeaderComponent";
 
 /** 정원 헤더 (카테고리를 인자로 받음) */
-export default function GardernHeader({ category }) {
+export default function GardenHeader({ category }) {
   // 카테고리에 따라서 컴포넌트 모양 변화
   if (category === "STUDY") {
     return (
@@ -24,7 +24,11 @@ export default function GardernHeader({ category }) {
           bgColor="green07"
           textColor="white"
         />
-        <CalendarHeaderComponent />
+        <GardenHeaderComponent 
+         label="캘린더"
+          bgColor="green01"
+          textColor="black" 
+          />
       </Wrapper>
     );
   } else if (category === "HOBBY") {
@@ -46,7 +50,10 @@ export default function GardernHeader({ category }) {
           bgColor="green07"
           textColor="white"
         />
-        <CalendarHeaderComponent />
+        <GardenHeaderComponent 
+          label="캘린더"
+          bgColor="green01"
+          textColor="black" />
       </Wrapper>
     );
   } else if (category === "EXERCISE") {
@@ -68,7 +75,11 @@ export default function GardernHeader({ category }) {
           textColor="white"
           selected
         />
-        <CalendarHeaderComponent />
+        <GardenHeaderComponent 
+         label="캘린더"
+          bgColor="green01"
+          textColor="black" 
+          />
       </Wrapper>
     );
   } else
@@ -89,7 +100,12 @@ export default function GardernHeader({ category }) {
           bgColor="green07"
           textColor="white"
         />
-        <CalendarHeaderComponent selected />
+        <GardenHeaderComponent 
+          label="캘린더"
+          bgColor="green01"
+          textColor="black" 
+          selected
+          />
       </Wrapper>
     );
 }
