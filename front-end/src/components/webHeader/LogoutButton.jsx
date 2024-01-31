@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import Logout from '../../assets/images/logout.svg';
+import { useNavigate } from 'react-router-dom';
 
 export default function LogoutButton(){
+    const navigate = useNavigate();
     return(
-        <Wrapper>
+        <Wrapper onClick={() => navigate("/login")}>
             <LogoutImg src={Logout}/>
         </Wrapper>
     )

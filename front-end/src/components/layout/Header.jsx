@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'; 
+import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 import MainLogoButton from '../webHeader/MainLogoButton';
@@ -31,15 +32,17 @@ export function Header({ name }) {
         };
     }, [])
 
+    const navigate = useNavigate();
+
     return (
         <Container isScrolled={isScrolled }>
             <MainLogoButton />
             <Menu>
                 <WelcomeMessage name={name}/>
                 <Buttons>
-                    <BookButton />
-                    <ProfileButton />
-                    <LogoutButton />
+                    <BookButton/>
+                    <ProfileButton/>
+                    <LogoutButton/>
                 </Buttons>
             </Menu>
         </Container>
