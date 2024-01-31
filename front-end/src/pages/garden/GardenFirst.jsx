@@ -106,7 +106,7 @@ export default function GardenFirst({
             {/* TODO : 동작에 따른 컴포넌트 렌더링, id값에 따른 처리 */}
             {/* <Information /> */}
             {/* <PotCreate /> */}
-            <TodoView potId={gardenPots[0].potId} AddTodoModalHandler={AddTodoModalHandler}/>
+            <TodoView potId={selectedPotId} AddTodoModalHandler={AddTodoModalHandler}/>
             {/* 투두 추가 모달, 수정 모달 여는 함수 전달 */}
           </RightContent>
         </ContentInner>

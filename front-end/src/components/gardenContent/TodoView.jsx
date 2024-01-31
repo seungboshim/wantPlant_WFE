@@ -11,10 +11,10 @@ import GoalCreateButton from "./GoalCreateButton";
 /** potId 의 목표, 투두 조회 및 생성 컴포넌트 */
 export default function TodoView({ potId, AddTodoModalHandler }) {
     const potColors = ["potPurple", "potGreen", "potRed", "potOrange", "potBlue", "potPink"];
-    // potId에 해당하는 화분, 목표 객체 받아오기
+    // TODO : potId에 해당하는 화분, 목표 객체 받아오기
     const currentPot = potsFromGarden.pots.find(pot => pot.potId === potId);
     const currentGoals = goalsFromPotId;
-    console.log(currentGoals)
+    
 
     return (   
         <Wrapper>
