@@ -10,18 +10,16 @@ export default function EmptyPotItem() {
 }
 
 const Container = styled.div`
+  display: flex;
+  border: 1px dashed black;
   width: 100%;
-  height: 23%;
+  height: 20%;
   border-radius: 2.5vw;
-  margin-bottom: 4%;
 
   @media (max-width: 1280px) {
     height: 120px;
     border-radius: 32px;
-    margin-bottom: 20px;
   }
-  display: flex;
-  border: 1px dashed black;
 `;
 
 const Wrapper = styled.div`

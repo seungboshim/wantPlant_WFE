@@ -3,7 +3,6 @@ import TodoContainer from "./TodoContainer";
 
 /** 화분 정보 -> 목표 */
 export default function GoalContainer({ goalTitle, todoList }) {
-    console.log(todoList[0])
     return (
         <Container>
             <GoalTitleWrapper>{goalTitle}</GoalTitleWrapper>

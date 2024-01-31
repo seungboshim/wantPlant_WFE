@@ -45,9 +45,19 @@ export default function GardenFirst({
     <EmptyPotItem key={index}/>
   });
 
+  const [selectedPotId, setSelectedPotId] = useState(1);
+
+  const handleSelectPot = (potId) => {
+    setSelectedPotId(potId);
+  }
+
   useEffect(() => {
     // TODO : page 바뀔때마다 getGarden.. 이놈 가져와서 데이터 다시 갱신
   }, page)
+
+  useEffect(() => {
+    console.log(selectedPotId)
+  }, [selectedPotId])
 
   // 카테고리에 따라 다른 컴포넌트 및 색상
   return (
@@ -67,7 +77,8 @@ export default function GardenFirst({
         <ContentInner className="ContentInner">
           <LeftContent className="LeftContent">
             {page > totalPage ?
-              emptyPots.map((pot, idx) => {
+            // TODO : gardenPot 배치함
+              emptyPots.map((idx) => {
                 return (
                   <EmptyPotItem key={idx} />
                 )
@@ -83,6 +94,8 @@ export default function GardenFirst({
                     potColor={pot.potColor}
                     proceed={pot.proceed}
                     potImageUrl={pot.potImageUrl}
+                    selected={selectedPotId === pot.potId}
+                    onClick={() => handleSelectPot(pot.potId)}
                   />
                 )
               })
