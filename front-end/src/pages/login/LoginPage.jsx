@@ -25,7 +25,7 @@ export default function LoginPage() {
 const Container = styled.div`
     width: 100vw;
     height: 100vh;
-    background-color: ${({theme}) => theme.colors.green02};
+    background: linear-gradient(180deg, #eebfb0 20%,#8bb58f 80%);
     display: flex;
     align-items: center;
 `
