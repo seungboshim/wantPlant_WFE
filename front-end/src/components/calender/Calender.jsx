@@ -6,14 +6,6 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const localizer = momentLocalizer(moment);
 
-const events = [
-    {
-        start: moment().toDate(),
-        end: moment().add(1, "days").toDate(),
-        title: "Some title",
-    },
-];
-
 const CustomMonthDateHeader = ({ label }) => {
     // label에서 연도와 월을 추출
     const [month, year] = label.split(" ");
@@ -44,7 +36,7 @@ const Calender = (props) => {
             localizer={localizer}
             defaultDate={new Date()}
             defaultView="month"
-            events={events}
+            events={props.tags}
             components={{
                 toolbar: CustomToolbar, // 커스텀 툴바 사용
                 month: {
@@ -55,6 +47,7 @@ const Calender = (props) => {
             onSelectSlot={(e) => onClickSlot(e)}
             onDrillDown={(e) => onClickDateBtn(e)}
             selectable
+            eventPropGetter={props.eventPropGetter}
         />
     );
 };
