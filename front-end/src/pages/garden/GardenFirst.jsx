@@ -9,6 +9,8 @@ import PotCreate from "../../components/gardenContent/PotCreate";
 import TodoView from "../../components/gardenContent/TodoView";
 import { gardensFromId } from "../../apis/dummy/gardens";
 import { potsFromGarden } from "../../apis/dummy/pots";
+import { useEffect, useState } from "react";
+import PotPagenation from "../../components/pagenation/PotPagenation";
 
 /** 정원페이지 상단 컴포넌트 */
 export default function GardenFirst({
@@ -23,15 +25,30 @@ export default function GardenFirst({
   const category = pathname[2].toUpperCase();
   // category = "STUDY" 저장
   const gardenId = pathname[3];
-
-  // TODO : gardenFromId(gardenId) 로 정원 정보 받아오기
+  const [page, setPage] = useState(1);
+  // TODO : getGardenWithPagenation(gardenId, page) 로 정원 정보 받아오기
   
   // 해당 정원의 모든 화분 배열
   // TODO : potsFromGarden(gardenId)
   const gardenPots = potsFromGarden.pots
-  // TODO : 페이지네이션 용 데이터도 가져오기
 
-  
+  // TODO : 페이지네이션 용 데이터도 가져오기 (이떈 useState로 저장)
+  const listSize = potsFromGarden.listSize;
+  const totalPage = potsFromGarden.totalPage;
+  const totalElements = potsFromGarden.totalElements;
+  const isFirst = potsFromGarden.isFirst;
+
+  const remain = totalElements % listSize;
+  const emptyPotSize = listSize - remain;
+
+  const emptyPots = Array.from({ length: emptyPotSize }, (_, index) => {
+    <EmptyPotItem key={index}/>
+  });
+
+  useEffect(() => {
+    // TODO : page 바뀔때마다 getGarden.. 이놈 가져와서 데이터 다시 갱신
+  }, page)
+
   // 카테고리에 따라 다른 컴포넌트 및 색상
   return (
     <Wrapper className="GardenFirstPage_Wrapper">
@@ -49,26 +66,35 @@ export default function GardenFirst({
         </ContentHeader>
         <ContentInner className="ContentInner">
           <LeftContent className="LeftContent">
-            {/** TODO : 화분 데이터에 따른 페이지네이션 */}
-            {gardenPots.map((pot, idx) => {
-              const potIndex = idx + 1;
-              return (
-                <PotItem 
-                  key={potIndex}
-                  potName={pot.potName} 
-                  startAt={pot.startAt}
-                  potColor={pot.potColor}
-                  proceed={pot.proceed}
-                  potImageUrl={pot.potImageUrl}
-                />
-              )
-            })}
+            {page > totalPage ?
+              emptyPots.map((pot, idx) => {
+                return (
+                  <EmptyPotItem key={idx} />
+                )
+              })
+            :
+              gardenPots.map((pot, idx) => {
+                const potIndex = idx + 1;
+                return (
+                  <PotItem 
+                    key={potIndex}
+                    potName={pot.potName}
+                    startAt={pot.startAt}
+                    potColor={pot.potColor}
+                    proceed={pot.proceed}
+                    potImageUrl={pot.potImageUrl}
+                  />
+                )
+              })
+            }
+            <PotPagenation page={page} setPage={setPage} totalPage={totalPage} />
           </LeftContent>
           <RightContent className="RightContent">
             {/* TODO : 동작에 따른 컴포넌트 렌더링, id값에 따른 처리 */}
             {/* <Information /> */}
             {/* <PotCreate /> */}
             <TodoView potId={gardenPots[0].potId} AddTodoModalHandler={AddTodoModalHandler}/>
+            {/* 투두 추가 모달, 수정 모달 여는 함수 전달 */}
           </RightContent>
         </ContentInner>
       </Content>
@@ -186,6 +212,7 @@ const LeftContent = styled.div`
   height: 100%;
   margin-right: 6%;
   justify-content: space-between;
+  align-items: center;
 
   @media (max-width: 1280px) {
     width: 532px;
