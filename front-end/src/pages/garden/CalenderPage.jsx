@@ -14,7 +14,15 @@ export default function CalenderPage() {
     // pathname = ["", "garden", "{카테고리}"] 저장됨
     const category = pathname[2] ? pathname[2].toUpperCase() : "";
 
-    const [selectedDate, setSelectedDate] = useState(Date());
+    // 태그 추가 옵션들
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [tagName, setTagName] = useState("");
+    const [timeStartDate, setTimeStartDate] = useState(new Date(0));
+    const [timeEndDate, setTimeEndDate] = useState(new Date(0));
+    const [selectedTagColor, setSelectedTagColor] = useState("");
+
+    const theme = useTheme();
+    const [tagColors, setTagColors] = useState([]);
 
     useEffect(() => {
         console.log(selectedDate);
@@ -35,12 +43,96 @@ export default function CalenderPage() {
                     </LeftContainer>
                     <RightContainer className="RightContainer">
                         <RightWrapper className="RightWrapper">
-                            <TodoListContentWrapper className="TodoListContentBox">
-                                <TodoListContentTitleWrapper>
-                                    {selectedDate.getMonth() + 1}월 {selectedDate.getDate()}일
-                                </TodoListContentTitleWrapper>
+                            <TodoListContentWrapper className="TodoListContentWrapper">
+                                <TodoListContentDateWrapper className="TodoListContentDateWrapper">
+                                    <DateBox>
+                                        {(selectedDate ? selectedDate : new Date()).getMonth() + 1}
+                                        <DateUnit>월</DateUnit>
+                                    </DateBox>
+                                    <DateBox>
+                                        {(selectedDate ? selectedDate : new Date()).getDate()}
+                                        <DateUnit>일</DateUnit>
+                                    </DateBox>
+                                </TodoListContentDateWrapper>
                             </TodoListContentWrapper>
-                            <FixPlanContentWrapper className="FixPlanContentBox"></FixPlanContentWrapper>
+                            <FixPlanContentWrapper className="FixPlanContentWrapper">
+                                <FixPlanContentTitleWrapper className="FixPlanContentTitleWrapper">
+                                    중요한 일정을 고정해보세요!
+                                </FixPlanContentTitleWrapper>
+                                <FixPlanContentDateWrapper className="FixPlanContentDateWrapper">
+                                    <DateBox>
+                                        {(selectedDate ? selectedDate : new Date()).getMonth() + 1}
+                                        <DateUnit>월</DateUnit>
+                                    </DateBox>
+                                    <DateBox>
+                                        {(selectedDate ? selectedDate : new Date()).getDate()}
+                                        <DateUnit>일</DateUnit>
+                                    </DateBox>
+                                </FixPlanContentDateWrapper>
+                                <FixPlanContentTagNameInput
+                                    placeHolder="태그 이름을 작성해주세요."
+                                    onChange={(e) => {
+                                        console.log(e.currentTarget.value);
+                                        setTagName(e.currentTarget.value);
+                                    }}
+                                />
+                                <FixPlanContentTimeWrapper className="FixPlanContentTimeWrapper">
+                                    <FixPlanContentTimeTextWrapper>시간을 입력해주세요.</FixPlanContentTimeTextWrapper>
+                                    <FixPlanContentTimeBox className="FixPlanContentTimeBox">
+                                        <FixPlanContentTimeData
+                                            selected={timeStartDate} // 현재 선택된 날짜
+                                            onChange={(date) => setTimeStartDate(date)} // 날짜가 변경되었을 때 실행되는 함수
+                                            selectsStart // DatePicker가 시작 날짜를 선택하는 데 사용되는 것임을 나타냅니다.
+                                            startDate={timeStartDate} // 범위 선택기에서 사용자가 선택할 수 있는 시작 날짜를 결정
+                                            endDate={timeEndDate} // 범위 선택기에서 사용자가 선택할 수 있는 종료 날짜를 결정
+                                            showTimeSelect // 사용자가 시간을 선택할 수 있도록 DatePicker에 시간 선택 옵션을 활성화
+                                            showTimeSelectOnly // 날짜를 선택하는 대신 시간만을 선택할 수 있게 하는 옵션
+                                            timeIntervals={10} // 사용자가 선택할 수 있는 시간 간격을 분 단위로 설정
+                                            timeCaption="Start Time" // 시간 선택 부분 옆에 표시되는 레이블
+                                            dateFormat="HH:mm" // 사용자에게 날짜와 시간을 어떻게 표시할지를 결정하는 포맷
+                                        />
+                                        ~
+                                        <FixPlanContentTimeData
+                                            selected={timeEndDate}
+                                            onChange={(date) => setTimeEndDate(date)}
+                                            selectsEnd
+                                            startDate={timeStartDate}
+                                            endDate={timeEndDate}
+                                            showTimeSelect
+                                            showTimeSelectOnly
+                                            timeIntervals={10}
+                                            timeCaption="End Time"
+                                            dateFormat="HH:mm"
+                                        />
+                                    </FixPlanContentTimeBox>
+                                </FixPlanContentTimeWrapper>
+                                <FixPlanContentTagColorWrapper>
+                                    {tagColors.map((color, idx) => {
+                                        return (
+                                            <FixPlanContentTagColorCircleBtn
+                                                key={idx}
+                                                tagcolor={color}
+                                                onClick={(e) => {
+                                                    setSelectedTagColor(e.currentTarget.getAttribute("tagcolor"));
+                                                }}
+                                            />
+                                        );
+                                    })}
+                                </FixPlanContentTagColorWrapper>
+                                <FixPlanContentAddButtonWrapper>
+                                    <FixPlanContentAddButton
+                                        onClick={() => {
+                                            console.log(
+                                                selectedDate,
+                                                tagName,
+                                                timeStartDate,
+                                                timeEndDate,
+                                                selectedTagColor,
+                                            );
+                                        }}
+                                    />
+                                </FixPlanContentAddButtonWrapper>
+                            </FixPlanContentWrapper>
                         </RightWrapper>
                     </RightContainer>
                 </FullContainer>
@@ -63,8 +155,8 @@ const Wrapper = styled.div`
 `;
 
 const Content = styled.div`
-    height: 68vw;
-    width: 88vw;
+    height: 62vw;
+    width: 90%;
     display: flex;
     flex-direction: column;
     /* align-items: center; */
@@ -89,7 +181,7 @@ const CalenderTitleWrapper = styled.div`
 
 const FullContainer = styled.div`
     width: 100%;
-    height: 68vw;
+    height: 55vw;
     display: flex;
 `;
 
@@ -128,7 +220,7 @@ const RightWrapper = styled.div`
 
 const TodoListContentWrapper = styled.div`
     width: 90%;
-    height: 48%;
+    height: 31vw;
     border: 1px solid black;
 `;
 
@@ -141,6 +233,124 @@ const TodoListContentTitleWrapper = styled.div`
 
 const FixPlanContentWrapper = styled.div`
     width: 90%;
-    height: 48%;
+    height: 18vw;
     border: 1px solid black;
+    border-radius: 1vw;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+`;
+
+const FixPlanContentTitleWrapper = styled.div`
+    width: 100%;
+    height: 1vw;
+    margin: 1vw;
+    font-size: 1vw;
+    font-family: Pretendard;
+    font-weight: 600;
+    letter-spacing: 0em;
+`;
+
+const FixPlanContentDateWrapper = styled.div`
+    width: 5.5vw;
+    height: 2vw;
+    border: 1px solid black;
+    margin-left: 1vw;
+    background-color: ${({ theme }) => theme.colors.pink02};
+    border-radius: 0.7vw;
+    font-size: 1.4vw;
+    font-weight: 600;
+    font-family: Pretendard;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const DateBox = styled.div`
+    margin: 2px;
+`;
+
+const DateUnit = styled.span`
+    display: inline-block;
+    font-size: 0.9vw;
+`;
+
+const FixPlanContentTagNameInput = styled.input`
+    width: 65%;
+    height: 2.2vw;
+    border: 1px solid black;
+    margin: 1vw;
+    border-radius: 1vw;
+    padding-left: 10px;
+`;
+
+const FixPlanContentTimeWrapper = styled.div`
+    width: 75%;
+    height: 2.2vw;
+    border: 1px solid black;
+    margin-left: 1vw;
+    border-radius: 1vw;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+`;
+
+const FixPlanContentTimeTextWrapper = styled.div`
+    width: 55%;
+    font-size: 1vw;
+    font-family: Pretendard;
+    font-weight: 600;
+    letter-spacing: 0em;
+`;
+
+const FixPlanContentTimeBox = styled.div`
+    width: 45%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: end;
+    margin-left: auto;
+`;
+
+const FixPlanContentTimeData = styled(DatePicker)`
+    width: 2.5vw;
+    height: 25px;
+    text-align: center;
+    font-size: 0.8vw;
+    opacity: 0.5;
+    border: none;
+`;
+
+const FixPlanContentTagColorWrapper = styled.div`
+    width: 100%;
+    height: 3vw;
+    margin-top: 0.3vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const FixPlanContentTagColorCircleBtn = styled.button`
+    width: 1.3vw;
+    height: 1.3vw;
+    border-radius: 50%; // 항상 원형을 유지하기 위해 50%로 설정
+    border: 1px solid black;
+    background-color: ${(props) => props.tagcolor};
+    margin: 0.7vw;
+`;
+const FixPlanContentAddButtonWrapper = styled.div`
+    width: 100%;
+    height: 3vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const FixPlanContentAddButton = styled(FaCirclePlus)`
+    width: auto;
+    border-radius: 2vw;
+    height: 2vw;
+    color: #ffe7dd;
+    background-color: #ff824c;
 `;
