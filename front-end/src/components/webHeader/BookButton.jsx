@@ -4,7 +4,7 @@ import Book from '../../assets/images/bookButton.svg';
 export default function BookButton(){
     return(
         <Wrapper>
-            <Img src={Book}/>
+            <BookImg src={Book}/>
         </Wrapper>
     )
 }
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
     width: 20px;
     height: 20px;
 `
-const Img = styled.img`
+const BookImg = styled.img`
     width: 100%;
     height: 100%;
 `

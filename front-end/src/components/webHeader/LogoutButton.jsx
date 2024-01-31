@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import Logout from '../../assets/images/logout.svg';
 
-export default function BookButton(){
+export default function LogoutButton(){
     return(
         <Wrapper>
-            <Img src={Logout}/>
+            <LogoutImg src={Logout}/>
         </Wrapper>
     )
 }
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
     width: 20px;
     height: 20px;
 `
-const Img = styled.img`
+const LogoutImg = styled.img`
     width: 100%;
     height: 100%;
 `
