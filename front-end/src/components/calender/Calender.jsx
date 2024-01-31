@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
@@ -13,13 +14,19 @@ const events = [
     },
 ];
 
-// Month 헤더를 커스텀하는 컴포넌트
-const CustomMonthHeader = ({ label }) => (
-    <div style={{ textAlign: "left", fontSize: "1.1vw", margin: "5px" }}>{label}</div>
-);
+const CustomMonthDateHeader = ({ label }) => {
+    // label에서 연도와 월을 추출
+    const [month, year] = label.split(" ");
 
-// Drill 날짜를 커스텀하는 컴포넌트
-const CustomDateHeader = ({ date }) => <div style={{ backgroundColor: "lightgreen", color: "red" }}>a</div>;
+    // 월이 한 자리 수이면 앞의 0을 제거
+    const parsedMonth = month.startsWith("0") ? month.slice(1) : month;
+
+    return <div style={{ textAlign: "left", fontSize: "0.8vw", margin: "5px" }}>{`${parsedMonth}`}</div>;
+};
+
+const CustomMonthHeader = ({ label }) => {
+    return <div style={{ fontSize: "0.8vw", margin: "5px", opacity: 0.2 }}>{label}</div>;
+};
 
 // 빈 컴포넌트를 툴바로 사용
 const CustomToolbar = () => null;
@@ -33,7 +40,7 @@ const Calender = (props) => {
     };
 
     return (
-        <Calendar
+        <StyledCalendar
             localizer={localizer}
             defaultDate={new Date()}
             defaultView="month"
@@ -41,10 +48,8 @@ const Calender = (props) => {
             components={{
                 toolbar: CustomToolbar, // 커스텀 툴바 사용
                 month: {
-                    dateHeader: CustomMonthHeader, // Month 헤더 커스텀 컴포넌트 사용
-                },
-                day: {
-                    header: CustomDateHeader, // Drill 날짜 커스텀 컴포넌트 사용
+                    dateHeader: CustomMonthDateHeader, // Month 헤더 커스텀 컴포넌트 사용
+                    header: CustomMonthHeader,
                 },
             }}
             onSelectSlot={(e) => onClickSlot(e)}
@@ -55,3 +60,10 @@ const Calender = (props) => {
 };
 
 export default Calender;
+
+const StyledCalendar = styled(Calendar)`
+    .rbc-month-view .rbc-event-container {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+`;
