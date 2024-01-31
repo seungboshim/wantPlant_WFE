@@ -1,7 +1,13 @@
+import styled from "styled-components"
+
 export function Layout({children}) {
     return (
-        <div>
+        <LayoutWrapper>
             {children}
-        </div>
+        </LayoutWrapper>
     )
 }
+
+const LayoutWrapper = styled.div`
+    padding-top: 80px;
+`

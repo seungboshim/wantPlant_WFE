@@ -22,7 +22,7 @@ function App() {
     <>
       <BrowserRouter>
         {/** TODO : isLoggedIn일 때만 헤더 보이게 */}
-        <Header />
+        <Header name={"ㅇㅇㅇ"}/>
         <Layout>
           <Routes>
             <Route path="/" element={<MainPage />} />
