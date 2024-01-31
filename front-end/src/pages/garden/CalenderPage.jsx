@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import { useTheme } from "styled-components";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 
 import GardenHeader from "../../components/gardenHeader/GardenHeader";
 import GardenSecond from "./GardenSecond";
 import Calender from "../../components/calender/Calender";
+
+import moment from "moment";
 
 import DatePicker from "react-datepicker";
 
@@ -29,6 +31,38 @@ export default function CalenderPage() {
     const theme = useTheme();
     const [tagColors, setTagColors] = useState([]);
 
+    const [tempTags, setTempTags] = useState([]);
+
+    const addTagHandler = () => {
+        const formattedDate = moment(selectedDate).format("YYYY-MM-DD");
+
+        const newTag = {
+            title: tagName,
+            start: moment(formattedDate).toDate(),
+            end: moment(formattedDate).toDate(),
+            selectedTagColor: selectedTagColor,
+        };
+
+        setTempTags([...tempTags, newTag]);
+    };
+
+    const eventPropGetter = useCallback(
+        (event, start, end, isSelected) => ({
+            ...{
+                style: {
+                    backgroundColor: event.selectedTagColor,
+                },
+            },
+            ...(moment(start).hour() < 12 && {
+                className: "powderBlue",
+            }),
+            ...(event.title.includes("Meeting") && {
+                className: "darkGreen",
+            }),
+        }),
+        [],
+    );
+
     useEffect(() => {
         const themeTagColors = Object.entries(theme.colors)
             .filter(([key, value]) => key.startsWith("tag")) // 'tag'로 시작하는 키만 선택
@@ -37,7 +71,8 @@ export default function CalenderPage() {
         if (tagColors.length === 0) {
             setTagColors(themeTagColors);
         }
-    }, [selectedDate, tagColors]);
+        console.log(tempTags);
+    }, [selectedDate, tagColors, tempTags]);
 
     return (
         <Wrapper>
@@ -49,7 +84,11 @@ export default function CalenderPage() {
                 <FullContainer className="FullContainer">
                     <LeftContainer className="LeftContainer">
                         <CalenderWrapper>
-                            <Calender setSelectedDate={setSelectedDate} />
+                            <Calender
+                                setSelectedDate={setSelectedDate}
+                                tags={tempTags}
+                                eventPropGetter={eventPropGetter}
+                            />
                         </CalenderWrapper>
                     </LeftContainer>
                     <RightContainer className="RightContainer">
@@ -82,10 +121,7 @@ export default function CalenderPage() {
                                 </FixPlanContentDateWrapper>
                                 <FixPlanContentTagNameInput
                                     placeHolder="태그 이름을 작성해주세요."
-                                    onChange={(e) => {
-                                        console.log(e.currentTarget.value);
-                                        setTagName(e.currentTarget.value);
-                                    }}
+                                    onChange={(e) => setTagName(e.currentTarget.value)}
                                 />
                                 <FixPlanContentTimeWrapper className="FixPlanContentTimeWrapper">
                                     <FixPlanContentTimeTextWrapper>시간을 입력해주세요.</FixPlanContentTimeTextWrapper>
@@ -131,17 +167,7 @@ export default function CalenderPage() {
                                     })}
                                 </FixPlanContentTagColorWrapper>
                                 <FixPlanContentAddButtonWrapper>
-                                    <FixPlanContentAddButton
-                                        onClick={() => {
-                                            console.log(
-                                                selectedDate,
-                                                tagName,
-                                                timeStartDate,
-                                                timeEndDate,
-                                                selectedTagColor,
-                                            );
-                                        }}
-                                    />
+                                    <FixPlanContentAddButton onClick={() => addTagHandler()} />
                                 </FixPlanContentAddButtonWrapper>
                             </FixPlanContentWrapper>
                         </RightWrapper>
@@ -239,7 +265,7 @@ const TodoListContentWrapper = styled.div`
 `;
 
 const TodoListContentDateWrapper = styled.div`
-    width: 5.5vw;
+    width: 5.8vw;
     height: 2vw;
     border: 1px solid black;
     margin: 1vw;
@@ -274,7 +300,7 @@ const FixPlanContentTitleWrapper = styled.div`
 `;
 
 const FixPlanContentDateWrapper = styled.div`
-    width: 5.5vw;
+    width: 5.8vw;
     height: 2vw;
     border: 1px solid black;
     margin-left: 1vw;
