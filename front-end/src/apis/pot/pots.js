@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
 import { Server } from "../setting";
 
 /** gardenId, page번호를 받아 화분 정보 GET */
 export const getPotsForPage = async ({ gardenId, page }) => {
-    const response = await Server.get(`/pots?gardenId=${gardenId}&page=${page}`)
-    console.log(response)
+    const response = await Server.get(`/pots?gardenId=${gardenId}&page=${page}`) // 쿼리 스트링은 이렇게 쓰면 됩니다
+    console.log(response) // 콘솔은 언제 어디서나 찍어봐야 함
     return response.result.pots;
 }
 
