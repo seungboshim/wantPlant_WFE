@@ -13,6 +13,8 @@ import DatePicker from "react-datepicker";
 
 import { FaCirclePlus } from "react-icons/fa6";
 
+import axios from "axios";
+
 export default function CalenderPage() {
     const location = useLocation();
     // location = "/garden/{카테고리}"
@@ -26,31 +28,49 @@ export default function CalenderPage() {
     const [timeStartDate, setTimeStartDate] = useState(new Date(0));
     const [timeEndDate, setTimeEndDate] = useState(new Date(0));
     const [selectedTagColor, setSelectedTagColor] = useState("");
+    const [selectedTagColorNum, setSelectedTagColorNum] = useState(0); // 임시. 나중에 바꿔야됨
 
     const theme = useTheme();
     const [tagColors, setTagColors] = useState([]);
-
     const [tags, setTags] = useState([]);
 
     const addTagHandler = () => {
         const formattedDate = moment(selectedSlot.start).format("YYYY-MM-DD");
+        const hours = timeStartDate.getHours().toString().padStart(2, "0");
+        const minutes = timeStartDate.getMinutes().toString().padStart(2, "0");
+        const formattedTime = `${hours}:${minutes}`;
 
+        /* 특정한 날에 태그 2개 넘게 추가 못하도록 구현 */
         const sameDayEvents = tags.filter((event) => moment(event.start).isSame(selectedSlot.start, "day"));
         if (sameDayEvents.length >= 2) {
             alert("같은 날에 추가할 수 있는 태그의 최대 개수는 2개입니다.");
             return;
         }
 
-        const newTag = {
-            title: tagName,
-            start: moment(formattedDate).toDate(),
-            end: moment(formattedDate).toDate(),
-            selectedTagColor: selectedTagColor,
+        /* 태그 추가 axios */
+        const body = {
+            tagColor: `COLOR_${selectedTagColorNum}`,
+            tagName: tagName,
+            tagTime: formattedTime,
+            date: formattedDate,
         };
 
-        setTags([...tags, newTag]);
+        axios
+            .post(`${process.env.REACT_APP_SERVER_URL}/tag/add`, body)
+            .then((res) => {
+                const newTag = body;
+                newTag.id = res.data.result.id;
+                newTag.start = newTag.date;
+                newTag.end = newTag.date;
+                newTag.title = newTag.tagName;
+                newTag.selectedTagColor = selectedTagColor;
+                console.log("add success", res);
+                setTags([...tags, newTag]);
+            })
+            .catch((err) => console.log(err));
     };
 
+    /* 밑에 코드를 통해서 각 태그들의 색상 입힘 */
     const eventPropGetter = useCallback(
         (event, start, end, isSelected) => ({
             ...{
@@ -62,6 +82,7 @@ export default function CalenderPage() {
         [],
     );
 
+    /* theme 컴포넌트에서 tag 색깔들 다 갖고오는거임 */
     useEffect(() => {
         const themeTagColors = Object.entries(theme.colors)
             .filter(([key, value]) => key.startsWith("tag")) // 'tag'로 시작하는 키만 선택
@@ -70,7 +91,28 @@ export default function CalenderPage() {
         if (tagColors.length === 0) {
             setTagColors(themeTagColors);
         }
-    }, [selectedSlot, tagColors, tags]);
+    }, [selectedSlot, tagColors]);
+
+    /* 백에서 태그들 갖고오는거 요청 */
+    useEffect(() => {
+        if (tagColors.length > 0 && tags.length === 0) {
+            axios(`http://ec2-3-34-198-148.ap-northeast-2.compute.amazonaws.com:8080/api/tag/month?year=2024&month=2`)
+                .then((res) => {
+                    const tempTags = res.data.result.tagResponseDtos;
+                    // console.log(tempTags);
+                    // 아직 갖고온 tag들에는 start와 end 데이터가 없어서 임시로 넣어줌
+                    tempTags.map((tag) => {
+                        const tagColorIdx = tag.tagColor[tag.tagColor.length - 1];
+                        tag.start = tag.date;
+                        tag.end = tag.date;
+                        tag.title = tag.tagName;
+                        tag.selectedTagColor = tagColors[tagColorIdx];
+                    });
+                    setTags(tempTags);
+                })
+                .catch((err) => console.log(err));
+        }
+    }, [tags, tagColors]);
 
     return (
         <Wrapper>
@@ -155,6 +197,7 @@ export default function CalenderPage() {
                                                 tagcolor={color}
                                                 onClick={(e) => {
                                                     setSelectedTagColor(e.currentTarget.getAttribute("tagcolor"));
+                                                    setSelectedTagColorNum(idx);
                                                 }}
                                             />
                                         );
