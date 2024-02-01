@@ -33,10 +33,22 @@ const Container = styled.div`
   border: ${({selected, theme}) => 
     selected ? `1px solid ${theme.colors.strokeGray}` : '1px solid white'
   };
+  box-shadow: ${({selected, theme}) => {
+    if (selected) {
+      return `0px 0px 10px 0px ${theme.colors.strokeGray}`
+    } else {
+      return 'none'
+    }
+  }};
+  transition: box-shadow 0.3s;
 
   @media (max-width: 1280px) {
     height: 120px;
     border-radius: 32px;
+  }
+
+  &:hover {
+    box-shadow: 0px 0px 10px 0px ${({theme}) => theme.colors.strokeGray}
   }
 `;
 

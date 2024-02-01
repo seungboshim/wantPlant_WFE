@@ -103,10 +103,12 @@ export default function GardenFirst({
             <PotPagenation page={page} setPage={setPage} totalPage={totalPage} />
           </LeftContent>
           <RightContent className="RightContent">
-            {/* TODO : 동작에 따른 컴포넌트 렌더링, id값에 따른 처리 */}
-            {/* <Information /> */}
-            {/* <PotCreate /> */}
-            <TodoView potId={selectedPotId} AddTodoModalHandler={AddTodoModalHandler}/>
+            {/* gardenPots 비어있으면 설명 컴포넌트 */}
+            {gardenPots.length === 0 ? (
+              <Information />
+            ) : (
+              <TodoView potId={selectedPotId} AddTodoModalHandler={AddTodoModalHandler}/>
+            )}
             {/* 투두 추가 모달, 수정 모달 여는 함수 전달 */}
           </RightContent>
         </ContentInner>
