@@ -21,7 +21,7 @@ export default function CalenderPage() {
     const category = pathname[2] ? pathname[2].toUpperCase() : "";
 
     // 태그 추가 옵션들
-    const [selectedSlot, setSelectedSlot] = useState({});
+    const [selectedSlot, setSelectedSlot] = useState({ start: new Date() });
     const [tagName, setTagName] = useState("");
     const [timeStartDate, setTimeStartDate] = useState(new Date(0));
     const [timeEndDate, setTimeEndDate] = useState(new Date(0));
@@ -37,7 +37,7 @@ export default function CalenderPage() {
 
         const sameDayEvents = tags.filter((event) => moment(event.start).isSame(selectedSlot.start, "day"));
         if (sameDayEvents.length >= 2) {
-            alert("같은 날에 추가할 수 있는 태그의 개수는 2개입니다.");
+            alert("같은 날에 추가할 수 있는 태그의 최대 개수는 2개입니다.");
             return;
         }
 
@@ -132,7 +132,7 @@ export default function CalenderPage() {
                                             timeCaption="Start Time" // 시간 선택 부분 옆에 표시되는 레이블
                                             dateFormat="HH:mm" // 사용자에게 날짜와 시간을 어떻게 표시할지를 결정하는 포맷
                                         />
-                                        ~
+                                        <FixPlanContentTimeDataUnit>~</FixPlanContentTimeDataUnit>
                                         <FixPlanContentTimeData
                                             selected={timeEndDate}
                                             onChange={(date) => setTimeEndDate(date)}
@@ -253,6 +253,9 @@ const TodoListContentWrapper = styled.div`
     width: 90%;
     height: 31vw;
     border: 1px solid black;
+    background-color: white;
+    border-radius: 1vw;
+    margin-bottom: 2vw;
 `;
 
 const TodoListContentDateWrapper = styled.div`
@@ -324,14 +327,7 @@ const FixPlanContentTimeWrapper = styled.div`
     padding-left: 10px;
     display: flex;
     align-items: center;
-`;
-
-const FixPlanContentTimeTextWrapper = styled.div`
-    width: 55%;
-    font-size: 1vw;
-    font-family: Pretendard;
-    font-weight: 600;
-    letter-spacing: 0em;
+    justify-content: center;
 `;
 
 const FixPlanContentTimeBox = styled.div`
@@ -344,9 +340,32 @@ const FixPlanContentTimeBox = styled.div`
     margin-left: auto;
 `;
 
+const FixPlanContentTimeTextWrapper = styled.div`
+    width: 55%;
+    height: 100%;
+    font-size: 1vw;
+    font-family: Pretendard;
+    font-weight: 600;
+    letter-spacing: 0em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const FixPlanContentTimeDataUnit = styled.div`
+    height: auto;
+    font-size: 1vw;
+`;
+
+const FixPlanContentTimeDataWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
 const FixPlanContentTimeData = styled(DatePicker)`
     width: 2.5vw;
-    height: 25px;
+    height: auto;
     text-align: center;
     font-size: 0.8vw;
     opacity: 0.5;
