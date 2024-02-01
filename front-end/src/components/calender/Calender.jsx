@@ -57,8 +57,27 @@ const Calender = (props) => {
 export default Calender;
 
 const StyledCalendar = styled(Calendar)`
-    .rbc-month-view .rbc-event-container {
+    .rbc-row-content {
+        height: 100%;
         display: flex;
         flex-direction: column-reverse;
+        justify-content: flex-start; // 모든 자식 요소를 아래로 정렬
+    }
+
+    .rbc-event {
+        height: auto; /* 이벤트의 높이 조절 */
+        width: fit-content; /* 이벤트의 너비 조절 */
+        max-width: 6.5vw;
+        margin-left: 0.4vw;
+        margin-bottom: 0.3vw;
+        border-radius: 1vw;
+        font-size: 1vw;
+    }
+
+    .rbc-row-content .rbc-row:first-child {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
     }
 `;
