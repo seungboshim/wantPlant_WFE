@@ -16,6 +16,9 @@ import ExerciseGardenPage from "./pages/garden/ExerciseGardenPage";
 import MakeGardenPage from "./pages/garden/MakeGardenPage";
 import TestPage from "./pages/components/TestPage";
 
+import ProfilePage from "./pages/myPage/ProfilePage";
+import InformPage from "./pages/myPage/InformPage";
+import FAQPage from "./pages/myPage/FAQPage";
 
 function App() {
   return (
@@ -35,8 +38,11 @@ function App() {
               <Route path="/garden/exercise" element={<ExerciseGardenPage />} />
             </Route>
             <Route path="/garden/add" element={<MakeGardenPage />} />
-            <Route path="garden/book" element={<BookPage/>}/>
+            <Route path="/garden/book" element={<BookPage/>}/>
             <Route path="/test" element={<TestPage />} />
+            <Route path="/profile" element={<ProfilePage/>}/>
+            <Route path="/inform" element={<InformPage/>}/>
+            <Route path="/faq" element={<FAQPage/>}/>
           </Routes>
         </Layout>
         <Footer />
