@@ -35,6 +35,25 @@ export default function CalenderPage() {
     const [tagColors, setTagColors] = useState([]);
     const [tags, setTags] = useState([]);
 
+    /* 백에서 태그들 갖고옴 */
+    const getTags = () => {
+        axios(`${process.env.REACT_APP_SERVER_URL}/tag/month?year=2024&month=2`)
+            .then((res) => {
+                const tempTags = res.data.result.tagResponseDtos;
+                // console.log(tempTags);
+                // 아직 갖고온 tag들에는 start와 end 데이터가 없어서 임시로 넣어줌
+                tempTags.map((tag) => {
+                    const tagColorIdx = tag.tagColor[tag.tagColor.length - 1];
+                    tag.start = tag.date;
+                    tag.end = tag.date;
+                    tag.title = tag.tagName;
+                    tag.selectedTagColor = tagColors[tagColorIdx];
+                });
+                setTags(tempTags);
+            })
+            .catch((err) => console.log(err));
+    };
+
     const addTagHandler = () => {
         const formattedDate = moment(selectedSlot.start).format("YYYY-MM-DD");
         const hours = timeStartDate.getHours().toString().padStart(2, "0");
@@ -94,26 +113,9 @@ export default function CalenderPage() {
         }
     }, [selectedSlot, tagColors]);
 
-    /* 백에서 태그들 갖고오는거 요청 */
     useEffect(() => {
-        if (tagColors.length > 0 && tags.length === 0) {
-            axios(`http://ec2-3-34-198-148.ap-northeast-2.compute.amazonaws.com:8080/api/tag/month?year=2024&month=2`)
-                .then((res) => {
-                    const tempTags = res.data.result.tagResponseDtos;
-                    // console.log(tempTags);
-                    // 아직 갖고온 tag들에는 start와 end 데이터가 없어서 임시로 넣어줌
-                    tempTags.map((tag) => {
-                        const tagColorIdx = tag.tagColor[tag.tagColor.length - 1];
-                        tag.start = tag.date;
-                        tag.end = tag.date;
-                        tag.title = tag.tagName;
-                        tag.selectedTagColor = tagColors[tagColorIdx];
-                    });
-                    setTags(tempTags);
-                })
-                .catch((err) => console.log(err));
-        }
-    }, [tags, tagColors]);
+        getTags();
+    }, [tagColors]);
 
     return (
         <Wrapper>
@@ -125,7 +127,12 @@ export default function CalenderPage() {
                 <FullContainer className="FullContainer">
                     <LeftContainer className="LeftContainer">
                         <CalenderWrapper>
-                            <Calender setSelectedSlot={setSelectedSlot} tags={tags} eventPropGetter={eventPropGetter} />
+                            <Calender
+                                setSelectedSlot={setSelectedSlot}
+                                tags={tags}
+                                eventPropGetter={eventPropGetter}
+                                updateTags={getTags}
+                            />
                         </CalenderWrapper>
                     </LeftContainer>
                     <RightContainer className="RightContainer">
