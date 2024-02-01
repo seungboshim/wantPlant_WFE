@@ -18,7 +18,7 @@ import TestPage from "./pages/components/TestPage";
 
 import ProfilePage from "./pages/myPage/ProfilePage";
 import InformPage from "./pages/myPage/InformPage";
-import FAQ from "./pages/myPage/FAQ";
+import FAQPage from "./pages/myPage/FAQPage";
 
 function App() {
   return (
@@ -42,7 +42,7 @@ function App() {
             <Route path="/test" element={<TestPage />} />
             <Route path="/profile" element={<ProfilePage/>}/>
             <Route path="/inform" element={<InformPage/>}/>
-            <Route path="/faq" element={<FAQ/>}/>
+            <Route path="/faq" element={<FAQPage/>}/>
           </Routes>
         </Layout>
         <Footer />

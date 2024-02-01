@@ -1,15 +1,17 @@
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
- 
-export default function FAQButton(){
+import MyPageButton from "./MyPageButton"; 
+
+export default function ProfileButton(){
     const [buttonColor, setBack] = useState("none");
     const [opacity, setOpacity] = useState(100);
     const url = useLocation();
     const pathName = url.pathname.split("/");
 
     const navigate = useNavigate();
-    useEffect(()=>{if(pathName[1] === "faq"){
+
+    useEffect(()=>{if(pathName[1] === "profile"){
         setBack("#F3B8B8");
         setOpacity(100);
     }
@@ -17,9 +19,14 @@ export default function FAQButton(){
         setBack("none");
         setOpacity(100);
     }},[]);
+
     return(
         <Wrapper>
-            <Button onClick={() => navigate("/faq")} style={{backgroundColor: buttonColor, opacity: opacity}}>FAQ</Button>
+            <MyPageButton 
+                onClick={() => navigate("/profile")} 
+                style={{backgroundColor: buttonColor, opacity: opacity}} 
+                label="프로필"
+            />
         </Wrapper>
     )
 }
@@ -32,15 +39,4 @@ const Wrapper = styled.div`
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     background-color: rgba(255, 255, 255, 0.4);
-`
-const Button = styled.div`
-    display: flex;
-    width: 90%;
-    height: 90%;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    border-color: none;
-    color: #FB5454;
-    cursor: pointer;
 `

@@ -1,15 +1,16 @@
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import MyPageButton from "./MyPageButton";
  
-export default function InformButton(){
+export default function FAQButton(){
     const [buttonColor, setBack] = useState("none");
     const [opacity, setOpacity] = useState(100);
     const url = useLocation();
     const pathName = url.pathname.split("/");
 
     const navigate = useNavigate();
-    useEffect(()=>{if(pathName[1] === "inform"){
+    useEffect(()=>{if(pathName[1] === "faq"){
         setBack("#F3B8B8");
         setOpacity(100);
     }
@@ -19,7 +20,11 @@ export default function InformButton(){
     }},[]);
     return(
         <Wrapper>
-            <Button onClick={() => navigate("/inform")} style={{backgroundColor: buttonColor, opacity: opacity}}>하고심다 사용 방법 소개</Button>
+            <MyPageButton 
+                onClick={() => navigate("/faq")} 
+                style={{backgroundColor: buttonColor, opacity: opacity}} 
+                label="FAQ"
+            />
         </Wrapper>
     )
 }
@@ -32,15 +37,4 @@ const Wrapper = styled.div`
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     background-color: rgba(255, 255, 255, 0.4);
-`
-const Button = styled.div`
-    display: flex;
-    width: 90%;
-    height: 90%;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    border-color: none;
-    color: #FB5454;
-    cursor: pointer;
 `

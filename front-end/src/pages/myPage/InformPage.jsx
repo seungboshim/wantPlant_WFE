@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import ProfileButton from "./ProfileButton";
-import InformButton from "./InformButton";
-import FAQButton from "./FAQButton";
+import ProfileButton from "../../components/myPage/ProfileButton";
+import InformButton from "../../components/myPage/InformButton";
+import FAQButton from "../../components/myPage/FAQButton";
 
 export default function informPage() {
     return (
@@ -30,13 +30,11 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 1280px;
-    height: 1000px;
+    width: 100%;
+    height: 100vh;
     background: linear-gradient(180deg, #eebfb0 20%,#8bb58f 80%);
 `
 const Question = styled.p`
-    width: 36%;
-    height: 7%;
     font-size: 50px;
     font-weight: 700;
 `
