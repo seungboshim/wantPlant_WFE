@@ -32,6 +32,10 @@ const Calender = (props) => {
         props.setSelectedDate(e);
     };
 
+    useEffect(() => {
+        console.log(props.tags);
+    }, []);
+
     return (
         <StyledCalendar
             localizer={localizer}
