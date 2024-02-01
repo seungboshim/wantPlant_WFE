@@ -4,6 +4,7 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import tagComponent from "../../components/tag/ScheduleTagItem";
+import axios from "axios";
 
 const localizer = momentLocalizer(moment);
 
@@ -32,9 +33,16 @@ const Calender = (props) => {
         props.setSelectedDate(e);
     };
 
-    useEffect(() => {
-        console.log(props.tags);
-    }, []);
+    const onSelectEventHandler = (e) => {
+        console.log(e);
+        axios
+            .delete(`${process.env.REACT_APP_SERVER_URL}/tag/${e.id}`)
+            .then((res) => {
+                console.log(res);
+                props.updateTags();
+            })
+            .catch((err) => console.log(err));
+    };
 
     return (
         <StyledCalendar
@@ -54,6 +62,7 @@ const Calender = (props) => {
             onDrillDown={(e) => onClickDateBtn(e)}
             selectable
             eventPropGetter={props.eventPropGetter}
+            onSelectEvent={onSelectEventHandler}
         />
     );
 };
