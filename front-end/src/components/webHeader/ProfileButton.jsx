@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import Profile from '../../assets/images/profile.svg';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProfileButton(){
+    const navigate = useNavigate();
     return(
-        <Wrapper>
+        <Wrapper onClick={() => navigate("/profile")}>
             <ProfileImg src={Profile}/>
         </Wrapper>
     )

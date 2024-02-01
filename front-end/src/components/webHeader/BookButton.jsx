@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import Book from '../../assets/images/bookButton.svg';
+import { useNavigate } from 'react-router-dom';
 
 export default function BookButton(){
+    const navigate = useNavigate();
     return(
-        <Wrapper>
+        <Wrapper onClick={()=>navigate('/garden/book')}>
             <BookImg src={Book}/>
         </Wrapper>
     )
