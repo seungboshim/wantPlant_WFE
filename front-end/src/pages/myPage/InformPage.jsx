@@ -13,7 +13,14 @@ export default function informPage() {
                     <InformButton/>
                     <FAQButton/>
                 </Buttons>
-                <ProfileContent/>
+                <InformContent>
+                    <List>
+                        <Menu>1.카테고리 선택하기(공부/운동/취미)</Menu>
+                        <Menu>2.정원 이름 정하기</Menu>
+                        <Menu>3.정원 속 키우고 싶은 목표 화분 심기</Menu>
+                        <Menu>4.화분을 키우기 위한 투두리스트 작성하기</Menu>
+                    </List>
+                </InformContent>
             </Container>
         </Wrapper>
     )
@@ -32,7 +39,6 @@ const Question = styled.p`
     height: 7%;
     font-size: 50px;
     font-weight: 700;
-    border: 1px solid black;
 `
 const Container = styled.div`
     display: flex;
@@ -40,7 +46,6 @@ const Container = styled.div`
     align-items: center;
     width: 80%;
     height: 60%;
-    border: 1px solid black;
 `
 const Buttons = styled.div`
     display: flex;
@@ -48,10 +53,32 @@ const Buttons = styled.div`
     justify-content: space-around;
     width:70%;
     height: 10%;
-    border: 1px solid black;
 `
-const ProfileContent = styled.div`
+const InformContent = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 90%;
-    border: 1px solid black;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+`
+const List = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    width: 60%;
+    height: 60%;
+`
+const Menu = styled.p`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 20%;
+    background-color: #F6F6F6;
+    color: #000000;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 400;
 `

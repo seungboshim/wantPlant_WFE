@@ -2,9 +2,13 @@ import styled from "styled-components";
 import ProfileButton from "./ProfileButton";
 import InformButton from "./InformButton";
 import FAQButton from "./FAQButton";
-import { useNavigate } from "react-router-dom";
 
 export default function ProfilePage() {
+    const src="";
+    const name="ㅇㅇㅇ";
+    const nickName="현재 닉네임";
+    const tel="현재 휴대폰 번호";
+    const email="현재 이메일";
     return (
         <Wrapper>
             <Question>궁금한 점이 있나요?</Question>
@@ -15,7 +19,26 @@ export default function ProfilePage() {
                     <FAQButton/>
                 </Buttons>
                 <ProfileContent>
-
+                    <FisrtWrapper>
+                        <Picture>
+                            <img src={src} width={100} height={100} alt="profile"/>
+                        </Picture>
+                        <Name>{name}님의 프로필</Name>
+                    </FisrtWrapper>
+                    <SecondWrapper>
+                        <Part>
+                            <Label>닉네임</Label>
+                            <Inform>{nickName}</Inform>
+                        </Part>
+                        <Part>
+                            <Label>휴대폰 번호</Label>
+                            <Inform>{tel}</Inform>
+                        </Part>
+                        <Part>
+                            <Label>현재 이메일</Label>
+                            <Inform>{email}</Inform>
+                        </Part>
+                    </SecondWrapper>
                 </ProfileContent>
             </Container>
         </Wrapper>
@@ -35,7 +58,6 @@ const Question = styled.p`
     height: 7%;
     font-size: 50px;
     font-weight: 700;
-    border: 1px solid black;
 `
 const Container = styled.div`
     display: flex;
@@ -43,7 +65,6 @@ const Container = styled.div`
     align-items: center;
     width: 80%;
     height: 60%;
-    border: 1px solid black;
 `
 const Buttons = styled.div`
     display: flex;
@@ -51,17 +72,61 @@ const Buttons = styled.div`
     justify-content: space-around;
     width:70%;
     height: 10%;
-    border: 1px solid black;
 `
 const ProfileContent = styled.div`
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
     width: 100%;
     height: 90%;
-    border: 1px solid black;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
 `
 const FisrtWrapper = styled.div`
     width: 20%;
     height: 50%;
-    border: 1px solid black;
+`
+const Picture = styled.div`
+    width: 100%;
+    height: 85%;
+`
+const Name = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 15%;
+    font-size: 20px;
+    font-weight: 600;
+`
+const SecondWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 50%;
+    height: 70%;
+`
+const Part = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    width: 100%;
+    height: 30%;
+`
+const Label = styled.label`
+    width: 100%;
+    height: 70%;
+    font-size: 20px;
+    color: #FB5454;
+`
+const Inform = styled.p`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 70%;
+    border-radius: 5px;
+    background-color: #F6F6F6;
+    color: #BDBDBD;
 `
