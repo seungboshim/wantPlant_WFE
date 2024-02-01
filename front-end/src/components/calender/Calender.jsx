@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import tagComponent from "../../components/tag/ScheduleTagItem";
 
 const localizer = momentLocalizer(moment);
 
@@ -25,7 +26,7 @@ const CustomToolbar = () => null;
 
 const Calender = (props) => {
     const onClickSlot = (e) => {
-        props.setSelectedDate(e.start);
+        props.setSelectedSlot(e);
     };
     const onClickDateBtn = (e) => {
         props.setSelectedDate(e);
@@ -43,6 +44,7 @@ const Calender = (props) => {
                     dateHeader: CustomMonthDateHeader, // Month 헤더 커스텀 컴포넌트 사용
                     header: CustomMonthHeader,
                 },
+                style: tagComponent,
             }}
             onSelectSlot={(e) => onClickSlot(e)}
             onDrillDown={(e) => onClickDateBtn(e)}

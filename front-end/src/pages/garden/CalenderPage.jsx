@@ -21,7 +21,7 @@ export default function CalenderPage() {
     const category = pathname[2] ? pathname[2].toUpperCase() : "";
 
     // 태그 추가 옵션들
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedSlot, setSelectedSlot] = useState({});
     const [tagName, setTagName] = useState("");
     const [timeStartDate, setTimeStartDate] = useState(new Date(0));
     const [timeEndDate, setTimeEndDate] = useState(new Date(0));
@@ -30,10 +30,16 @@ export default function CalenderPage() {
     const theme = useTheme();
     const [tagColors, setTagColors] = useState([]);
 
-    const [tempTags, setTempTags] = useState([]);
+    const [tags, setTags] = useState([]);
 
     const addTagHandler = () => {
-        const formattedDate = moment(selectedDate).format("YYYY-MM-DD");
+        const formattedDate = moment(selectedSlot.start).format("YYYY-MM-DD");
+
+        const sameDayEvents = tags.filter((event) => moment(event.start).isSame(selectedSlot.start, "day"));
+        if (sameDayEvents.length >= 2) {
+            alert("같은 날에 추가할 수 있는 태그의 개수는 2개입니다.");
+            return;
+        }
 
         const newTag = {
             title: tagName,
@@ -42,7 +48,7 @@ export default function CalenderPage() {
             selectedTagColor: selectedTagColor,
         };
 
-        setTempTags([...tempTags, newTag]);
+        setTags([...tags, newTag]);
     };
 
     const eventPropGetter = useCallback(
@@ -52,12 +58,6 @@ export default function CalenderPage() {
                     backgroundColor: event.selectedTagColor,
                 },
             },
-            ...(moment(start).hour() < 12 && {
-                className: "powderBlue",
-            }),
-            ...(event.title.includes("Meeting") && {
-                className: "darkGreen",
-            }),
         }),
         [],
     );
@@ -70,8 +70,7 @@ export default function CalenderPage() {
         if (tagColors.length === 0) {
             setTagColors(themeTagColors);
         }
-        console.log(tempTags);
-    }, [selectedDate, tagColors, tempTags]);
+    }, [selectedSlot, tagColors, tags]);
 
     return (
         <Wrapper>
@@ -83,11 +82,7 @@ export default function CalenderPage() {
                 <FullContainer className="FullContainer">
                     <LeftContainer className="LeftContainer">
                         <CalenderWrapper>
-                            <Calender
-                                setSelectedDate={setSelectedDate}
-                                tags={tempTags}
-                                eventPropGetter={eventPropGetter}
-                            />
+                            <Calender setSelectedSlot={setSelectedSlot} tags={tags} eventPropGetter={eventPropGetter} />
                         </CalenderWrapper>
                     </LeftContainer>
                     <RightContainer className="RightContainer">
@@ -95,11 +90,11 @@ export default function CalenderPage() {
                             <TodoListContentWrapper className="TodoListContentWrapper">
                                 <TodoListContentDateWrapper className="TodoListContentDateWrapper">
                                     <DateBox>
-                                        {(selectedDate ? selectedDate : new Date()).getMonth() + 1}
+                                        {(selectedSlot ? selectedSlot.start : new Date()).getMonth() + 1}
                                         <DateUnit>월</DateUnit>
                                     </DateBox>
                                     <DateBox>
-                                        {(selectedDate ? selectedDate : new Date()).getDate()}
+                                        {(selectedSlot ? selectedSlot.start : new Date()).getDate()}
                                         <DateUnit>일</DateUnit>
                                     </DateBox>
                                 </TodoListContentDateWrapper>
@@ -110,11 +105,11 @@ export default function CalenderPage() {
                                 </FixPlanContentTitleWrapper>
                                 <FixPlanContentDateWrapper className="FixPlanContentDateWrapper">
                                     <DateBox>
-                                        {(selectedDate ? selectedDate : new Date()).getMonth() + 1}
+                                        {(selectedSlot ? selectedSlot.start : new Date()).getMonth() + 1}
                                         <DateUnit>월</DateUnit>
                                     </DateBox>
                                     <DateBox>
-                                        {(selectedDate ? selectedDate : new Date()).getDate()}
+                                        {(selectedSlot ? selectedSlot.start : new Date()).getDate()}
                                         <DateUnit>일</DateUnit>
                                     </DateBox>
                                 </FixPlanContentDateWrapper>
