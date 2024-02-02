@@ -261,22 +261,23 @@ const CalenderTitleContainer = styled.div`
     justify-content: center;
     align-items: center;
     @media (max-width: 1280px) {
-        height: 52px;
-        width: 732px;
+        height: 50px;
+        width: 750px;
+        padding-top: 50px;
     }
 `;
 
 const CalenderTitleInput = styled.input`
-    width: 14vw;
-    height: 2vw;
+    width: 16vw;
+    height: 2.3vw;
     border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 0.8vw;
+    border-radius: 1vw;
     background-color: white;
-    font-size: 1vw;
+    font-size: 1.15vw;
     padding-left: 1vw;
     @media (max-width: 1280px) {
-        width: 180px;
-        height: 25px;
+        width: 200px;
+        height: 30px;
         border-radius: 15px;
         font-size: 14px;
         padding-left: 12.8px;
@@ -289,7 +290,7 @@ const FullContainer = styled.div`
     display: flex;
     @media (max-width: 1280px) {
         width: 1120px;
-        height: 794px;
+        height: 730px;
     }
 `;
 
