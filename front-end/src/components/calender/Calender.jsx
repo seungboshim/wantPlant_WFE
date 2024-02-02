@@ -8,6 +8,7 @@ import axios from "axios";
 
 const localizer = momentLocalizer(moment);
 
+// 캘린터 날짜의 header
 const CustomMonthDateHeader = ({ label }) => {
     // label에서 연도와 월을 추출
     const [month, year] = label.split(" ");
@@ -15,11 +16,12 @@ const CustomMonthDateHeader = ({ label }) => {
     // 월이 한 자리 수이면 앞의 0을 제거
     const parsedMonth = month.startsWith("0") ? month.slice(1) : month;
 
-    return <div style={{ textAlign: "left", fontSize: "0.8vw", margin: "5px" }}>{`${parsedMonth}`}</div>;
+    return <MonthDateHeaderWrapper>{`${parsedMonth}`}</MonthDateHeaderWrapper>;
 };
 
+// 요일 헤더
 const CustomMonthHeader = ({ label }) => {
-    return <div style={{ fontSize: "0.8vw", margin: "5px", opacity: 0.2 }}>{label}</div>;
+    return <MonthHeaderWrapper>{label}</MonthHeaderWrapper>;
 };
 
 // 빈 컴포넌트를 툴바로 사용
@@ -85,6 +87,13 @@ const StyledCalendar = styled(Calendar)`
         margin-bottom: 0.3vw;
         border-radius: 1vw;
         font-size: 1vw;
+        @media (max-width: 1280px) {
+            max-width: 84px;
+            margin-left: 5.1px;
+            margin-bottom: 4px;
+            border-radius: 12.8px;
+            font-size: 12.8px;
+        }
     }
 
     .rbc-row-content .rbc-row:first-child {
@@ -92,5 +101,24 @@ const StyledCalendar = styled(Calendar)`
         top: 0;
         left: 0;
         width: 100%;
+    }
+`;
+
+const MonthDateHeaderWrapper = styled.div`
+    text-align: left;
+    font-size: 0.8vw;
+    margin: 5px;
+
+    @media (max-width: 1280px) {
+        font-size: 10.24px; // 0.8vw * 12.8px
+    }
+`;
+
+const MonthHeaderWrapper = styled.div`
+    font-size: 0.8vw;
+    margin: 5px;
+    opacity: 0.2;
+    @media (max-width: 1280px) {
+        font-size: 10.24px; // 0.8vw * 12.8px
     }
 `;
