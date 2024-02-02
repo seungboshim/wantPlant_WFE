@@ -117,7 +117,7 @@ export default function CalenderPage() {
     }, [tagColors]);
 
     return (
-        <Wrapper>
+        <Wrapper className="Wrapper">
             <GardenHeader category={category} />
             <Content className="Content">
                 <CalenderTitleContainer className="CalenderTitleWrapper">
@@ -198,7 +198,17 @@ export default function CalenderPage() {
                                 </FixPlanContentTimeWrapper>
                                 <FixPlanContentTagColorWrapper>
                                     {tagColors.map((color, idx) => {
-                                        return (
+                                        return idx === selectedTagColorNum ? (
+                                            <FixPlanContentTagColorCircleBtn
+                                                key={idx}
+                                                tagcolor={color}
+                                                onClick={(e) => {
+                                                    setSelectedTagColor(e.currentTarget.getAttribute("tagcolor"));
+                                                    setSelectedTagColorNum(idx);
+                                                }}
+                                                selected
+                                            />
+                                        ) : (
                                             <FixPlanContentTagColorCircleBtn
                                                 key={idx}
                                                 tagcolor={color}
@@ -224,46 +234,63 @@ export default function CalenderPage() {
 }
 
 const Wrapper = styled.div`
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+`;
+
+const Content = styled.div`
+    height: 68vw;
+    width: 88vw;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
     border: 1px solid black;
+    background-color: #ffe7dd;
     @media (max-width: 1280px) {
         height: 800px;
         width: 1120px;
     }
 `;
 
-const Content = styled.div`
-    height: 62vw;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    justify-content: center;
-    border: 1px solid black;
-`;
-
 const CalenderTitleContainer = styled.div`
     width: 65%;
-    height: 8%;
-    border: 1px solid black;
+    height: 6%;
     display: flex;
     justify-content: center;
     align-items: center;
+    @media (max-width: 1280px) {
+        height: 52px;
+        width: 732px;
+    }
 `;
 
-const CalenderTitleWrapper = styled.div`
-    width: 30%;
-    height: 50%;
-    border: 1px solid black;
+const CalenderTitleInput = styled.input`
+    width: 14vw;
+    height: 2vw;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 0.8vw;
+    background-color: white;
+    font-size: 1vw;
+    padding-left: 1vw;
+    @media (max-width: 1280px) {
+        width: 180px;
+        height: 25px;
+        border-radius: 15px;
+        font-size: 14px;
+        padding-left: 12.8px;
+    }
 `;
 
 const FullContainer = styled.div`
     width: 100%;
-    height: 55vw;
+    height: 62vw;
     display: flex;
+    @media (max-width: 1280px) {
+        width: 1120px;
+        height: 794px;
+    }
 `;
 
 const LeftContainer = styled.div`
@@ -280,6 +307,10 @@ const CalenderWrapper = styled.div`
     height: 93%;
     border: 1px solid black;
     margin: 1vw;
+    background-color: white;
+    @media (max-width: 1280px) {
+        margin: 12.8px;
+    }
 `;
 
 const RightContainer = styled.div`
@@ -297,32 +328,59 @@ const RightWrapper = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    @media (max-width: 1280px) {
+        margin: 12.8px;
+    }
 `;
 
 const TodoListContentWrapper = styled.div`
     width: 90%;
-    height: 31vw;
+    height: 36vw;
     border: 1px solid black;
     background-color: white;
     border-radius: 1vw;
     margin-bottom: 2vw;
+    @media (max-width: 1280px) {
+        height: 460px;
+        border-radius: 12.8px;
+        margin-bottom: 25.6px;
+    }
 `;
 
 const TodoListContentDateWrapper = styled.div`
     width: 5.8vw;
     height: 2vw;
     border: 1px solid black;
-    margin: 5%;
+    margin: 1vw;
+    background-color: ${({ theme }) => theme.colors.pink02};
+    border-radius: 0.7vw;
+    font-size: 1.4vw;
+    font-weight: 600;
+    font-family: Pretendard;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media (max-width: 1280px) {
+        width: 74px;
+        height: 25px;
+        margin: 12.8px;
+        border-radius: 9px;
+        font-size: 18px;
+    }
 `;
 
 const FixPlanContentWrapper = styled.div`
     width: 90%;
-    height: 18vw;
+    height: 19vw;
     border: 1px solid black;
     border-radius: 1vw;
     display: flex;
     flex-direction: column;
     background-color: white;
+    @media (max-width: 1280px) {
+        height: 242px;
+        border-radius: 12.8px;
+    }
 `;
 
 const FixPlanContentTitleWrapper = styled.div`
@@ -332,7 +390,12 @@ const FixPlanContentTitleWrapper = styled.div`
     font-size: 1vw;
     font-family: Pretendard;
     font-weight: 600;
-    letter-spacing: 0em;
+    letter-spacing: 0;
+    @media (max-width: 1280px) {
+        height: 12.8px;
+        margin: 12.8px;
+        font-size: 12.8px;
+    }
 `;
 
 const FixPlanContentDateWrapper = styled.div`
@@ -348,6 +411,13 @@ const FixPlanContentDateWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    @media (max-width: 1280px) {
+        width: 74px;
+        height: 25.6px;
+        margin-left: 12.8px;
+        border-radius: 9px;
+        font-size: 18px;
+    }
 `;
 
 const DateBox = styled.div`
@@ -357,6 +427,9 @@ const DateBox = styled.div`
 const DateUnit = styled.span`
     display: inline-block;
     font-size: 0.9vw;
+    @media (max-width: 1280px) {
+        font-size: 11.5px;
+    }
 `;
 
 const FixPlanContentTagNameInput = styled.input`
@@ -366,6 +439,11 @@ const FixPlanContentTagNameInput = styled.input`
     margin: 1vw;
     border-radius: 1vw;
     padding-left: 10px;
+    @media (max-width: 1280px) {
+        height: 28px;
+        margin: 12.8px;
+        border-radius: 12.8px;
+    }
 `;
 
 const FixPlanContentTimeWrapper = styled.div`
@@ -378,6 +456,11 @@ const FixPlanContentTimeWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    @media (max-width: 1280px) {
+        height: 28px;
+        margin-left: 12.8px;
+        border-radius: 12.8px;
+    }
 `;
 
 const FixPlanContentTimeBox = styled.div`
@@ -400,11 +483,17 @@ const FixPlanContentTimeTextWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    @media (max-width: 1280px) {
+        font-size: 12.8px;
+    }
 `;
 
 const FixPlanContentTimeDataUnit = styled.div`
     height: auto;
     font-size: 1vw;
+    @media (max-width: 1280px) {
+        font-size: 12.8px;
+    }
 `;
 
 const FixPlanContentTimeDataWrapper = styled.div`
@@ -420,6 +509,10 @@ const FixPlanContentTimeData = styled(DatePicker)`
     font-size: 0.8vw;
     opacity: 0.5;
     border: none;
+    @media (max-width: 1280px) {
+        width: 32px;
+        font-size: 11px;
+    }
 `;
 
 const FixPlanContentTagColorWrapper = styled.div`
@@ -429,22 +522,35 @@ const FixPlanContentTagColorWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    @media (max-width: 1280px) {
+        height: 38px;
+        margin-top: 4px;
+    }
 `;
 
 const FixPlanContentTagColorCircleBtn = styled.button`
-    width: 1.3vw;
-    height: 1.3vw;
+    width: ${(props) => (props.selected ? "1.7vw" : "1.3vw")};
+    height: ${(props) => (props.selected ? "1.7vw" : "1.3vw")};
     border-radius: 50%; // 항상 원형을 유지하기 위해 50%로 설정
     border: 1px solid black;
     background-color: ${(props) => props.tagcolor};
     margin: 0.7vw;
+    @media (max-width: 1280px) {
+        width: ${(props) => (props.selected ? "20px" : "16px")};
+        height: ${(props) => (props.selected ? "20px" : "16px")};
+        margin: 9px;
+    }
 `;
+
 const FixPlanContentAddButtonWrapper = styled.div`
     width: 100%;
     height: 3vw;
     display: flex;
     justify-content: center;
     align-items: center;
+    @media (max-width: 1280px) {
+        height: 38px;
+    }
 `;
 
 const FixPlanContentAddButton = styled(FaCirclePlus)`
@@ -453,4 +559,8 @@ const FixPlanContentAddButton = styled(FaCirclePlus)`
     height: 2vw;
     color: #ffe7dd;
     background-color: #ff824c;
+    @media (max-width: 1280px) {
+        border-radius: 24px;
+        height: 24px;
+    }
 `;
