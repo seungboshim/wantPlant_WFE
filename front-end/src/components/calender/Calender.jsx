@@ -36,15 +36,12 @@ const Calender = (props) => {
     };
 
     const onSelectEventHandler = (e) => {
-        console.log(e);
-        axios
-            .delete(`${process.env.REACT_APP_SERVER_URL}/tag/${e.id}`)
-            .then((res) => {
-                console.log(res);
-                props.updateTags();
-            })
-            .catch((err) => console.log(err));
+        props.onClickTag(true, e);
     };
+
+    useEffect(() => {
+        console.log(props.isDeleteTagModalOn);
+    }, [props.isDeleteTagModalOn]);
 
     return (
         <StyledCalendar
@@ -65,6 +62,7 @@ const Calender = (props) => {
             selectable
             eventPropGetter={props.eventPropGetter}
             onSelectEvent={onSelectEventHandler}
+            isDeleteTagModalOn={props.isDeleteTagModalOn}
         />
     );
 };
@@ -72,6 +70,10 @@ const Calender = (props) => {
 export default Calender;
 
 const StyledCalendar = styled(Calendar)`
+    .rbc-month-view {
+        pointer-events: ${(props) => (props.isDeleteTagModalOn ? "none" : "auto")};
+        z-index: ${(props) => (props.isDeleteTagModalOn ? 0 : 1)};
+    }
     .rbc-row-content {
         height: 100%;
         display: flex;
@@ -87,6 +89,7 @@ const StyledCalendar = styled(Calendar)`
         margin-bottom: 0.3vw;
         border-radius: 1vw;
         font-size: 1vw;
+
         @media (max-width: 1280px) {
             max-width: 84px;
             margin-left: 5.1px;
