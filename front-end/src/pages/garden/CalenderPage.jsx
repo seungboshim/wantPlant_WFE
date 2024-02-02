@@ -15,6 +15,8 @@ import { FaCirclePlus } from "react-icons/fa6";
 
 import axios from "axios";
 
+import DeleteTagModal from "../../components/modal/DeleteTagModal";
+
 export default function CalenderPage() {
     const location = useLocation();
     // location = "/garden/{카테고리}"
@@ -28,25 +30,43 @@ export default function CalenderPage() {
     const [timeStartDate, setTimeStartDate] = useState(new Date(0));
     const [timeEndDate, setTimeEndDate] = useState(new Date(0));
     const [selectedTagColor, setSelectedTagColor] = useState("");
-    const [selectedTagColorNum, setSelectedTagColorNum] = useState(0); // 임시. 나중에 바꿔야됨
 
     const theme = useTheme();
     const [tagColors, setTagColors] = useState([]);
     const [tags, setTags] = useState([]);
+    const [selectedTagColorNum, setSelectedTagColorNum] = useState(0);
+
+    const [isDeleteTagModalOn, setIsDeleteTagModalOn] = useState(false);
+    const [selectedTag, setSelectedTag] = useState({});
+
+    const deleteTagModalHandler = (isOpen, e) => {
+        setIsDeleteTagModalOn(isOpen);
+        document.body.style.overflow = isOpen ? "hidden" : "unset";
+        console.log(isOpen, e);
+        setSelectedTag(e);
+    };
+
+    const deleteTagHandler = () => {
+        axios
+            .delete(`${process.env.REACT_APP_SERVER_URL}/tag/${selectedTag.id}`)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => console.log(err));
+    };
 
     /* 백에서 태그들 갖고옴 */
     const getTags = () => {
         axios(`${process.env.REACT_APP_SERVER_URL}/tag/month?year=2024&month=2`)
             .then((res) => {
                 const tempTags = res.data.result.tagResponseDtos;
-                // console.log(tempTags);
+
                 // 아직 갖고온 tag들에는 start와 end 데이터가 없어서 임시로 넣어줌
                 tempTags.map((tag) => {
-                    const tagColorIdx = tag.tagColor[tag.tagColor.length - 1];
                     tag.start = tag.date;
                     tag.end = tag.date;
                     tag.title = tag.tagName;
-                    tag.selectedTagColor = tagColors[tagColorIdx];
+                    tag.selectedTagColor = theme.colors[tag.tagColor];
                 });
                 setTags(tempTags);
             })
@@ -101,135 +121,144 @@ export default function CalenderPage() {
         [],
     );
 
-    /* theme 컴포넌트에서 tag 색깔들 다 갖고오는거임 */
     useEffect(() => {
-        const themeTagColors = Object.entries(theme.colors)
-            .filter(([key, value]) => key.startsWith("tag")) // 'tag'로 시작하는 키만 선택
-            .map(([key, value]) => value); // 선택된 키-값 쌍을 객체로 변환
-
         if (tagColors.length === 0) {
-            setTagColors(themeTagColors);
+            const tempTagColors = Object.entries(theme.colors).filter(([key, value]) => key.startsWith("COLOR_"));
+            const tagColorValues = tempTagColors.map(([key, value]) => value);
+            console.log(tagColorValues);
+            setTagColors(tagColorValues);
         }
-    }, [selectedSlot, tagColors]);
+    }, [tagColors]);
 
     useEffect(() => {
         getTags();
-    }, [tagColors]);
+    }, [tags]);
 
     return (
-        <Wrapper className="Wrapper">
-            <GardenHeader category={category} />
-            <Content className="Content">
-                <CalenderTitleContainer className="CalenderTitleWrapper">
-                    <CalenderTitleWrapper></CalenderTitleWrapper>
-                </CalenderTitleContainer>
-                <FullContainer className="FullContainer">
-                    <LeftContainer className="LeftContainer">
-                        <CalenderWrapper>
-                            <Calender
-                                setSelectedSlot={setSelectedSlot}
-                                tags={tags}
-                                eventPropGetter={eventPropGetter}
-                                updateTags={getTags}
-                            />
-                        </CalenderWrapper>
-                    </LeftContainer>
-                    <RightContainer className="RightContainer">
-                        <RightWrapper className="RightWrapper">
-                            <TodoListContentWrapper className="TodoListContentWrapper">
-                                <TodoListContentDateWrapper className="TodoListContentDateWrapper">
-                                    <DateBox>
-                                        {(selectedSlot ? selectedSlot.start : new Date()).getMonth() + 1}
-                                        <DateUnit>월</DateUnit>
-                                    </DateBox>
-                                    <DateBox>
-                                        {(selectedSlot ? selectedSlot.start : new Date()).getDate()}
-                                        <DateUnit>일</DateUnit>
-                                    </DateBox>
-                                </TodoListContentDateWrapper>
-                            </TodoListContentWrapper>
-                            <FixPlanContentWrapper className="FixPlanContentWrapper">
-                                <FixPlanContentTitleWrapper className="FixPlanContentTitleWrapper">
-                                    중요한 일정을 고정해보세요!
-                                </FixPlanContentTitleWrapper>
-                                <FixPlanContentDateWrapper className="FixPlanContentDateWrapper">
-                                    <DateBox>
-                                        {(selectedSlot ? selectedSlot.start : new Date()).getMonth() + 1}
-                                        <DateUnit>월</DateUnit>
-                                    </DateBox>
-                                    <DateBox>
-                                        {(selectedSlot ? selectedSlot.start : new Date()).getDate()}
-                                        <DateUnit>일</DateUnit>
-                                    </DateBox>
-                                </FixPlanContentDateWrapper>
-                                <FixPlanContentTagNameInput
-                                    placeHolder="태그 이름을 작성해주세요."
-                                    onChange={(e) => setTagName(e.currentTarget.value)}
+        <div>
+            <DeleteTagModal
+                isDeleteTagModalOn={isDeleteTagModalOn}
+                deleteTagModalHandler={deleteTagModalHandler}
+                deleteTagHandler={deleteTagHandler}
+                updateCalender={getTags}
+            />
+            <Wrapper className="Wrapper">
+                <GardenHeader category={category} />
+                <Content className="Content">
+                    <CalenderTitleContainer className="CalenderTitleWrapper">
+                        <CalenderTitleInput placeHolder="캘린더 제목을 입력해주세요!" />
+                    </CalenderTitleContainer>
+                    <FullContainer className="FullContainer">
+                        <LeftContainer className="LeftContainer">
+                            <CalenderWrapper>
+                                <Calender
+                                    setSelectedSlot={setSelectedSlot}
+                                    tags={tags}
+                                    eventPropGetter={eventPropGetter}
+                                    onClickTag={deleteTagModalHandler}
+                                    isDeleteTagModalOn={isDeleteTagModalOn}
                                 />
-                                <FixPlanContentTimeWrapper className="FixPlanContentTimeWrapper">
-                                    <FixPlanContentTimeTextWrapper>시간을 입력해주세요.</FixPlanContentTimeTextWrapper>
-                                    <FixPlanContentTimeBox className="FixPlanContentTimeBox">
-                                        <FixPlanContentTimeData
-                                            selected={timeStartDate} // 현재 선택된 날짜
-                                            onChange={(date) => setTimeStartDate(date)} // 날짜가 변경되었을 때 실행되는 함수
-                                            selectsStart // DatePicker가 시작 날짜를 선택하는 데 사용되는 것임을 나타냅니다.
-                                            startDate={timeStartDate} // 범위 선택기에서 사용자가 선택할 수 있는 시작 날짜를 결정
-                                            endDate={timeEndDate} // 범위 선택기에서 사용자가 선택할 수 있는 종료 날짜를 결정
-                                            showTimeSelect // 사용자가 시간을 선택할 수 있도록 DatePicker에 시간 선택 옵션을 활성화
-                                            showTimeSelectOnly // 날짜를 선택하는 대신 시간만을 선택할 수 있게 하는 옵션
-                                            timeIntervals={10} // 사용자가 선택할 수 있는 시간 간격을 분 단위로 설정
-                                            timeCaption="Start Time" // 시간 선택 부분 옆에 표시되는 레이블
-                                            dateFormat="HH:mm" // 사용자에게 날짜와 시간을 어떻게 표시할지를 결정하는 포맷
-                                        />
-                                        <FixPlanContentTimeDataUnit>~</FixPlanContentTimeDataUnit>
-                                        <FixPlanContentTimeData
-                                            selected={timeEndDate}
-                                            onChange={(date) => setTimeEndDate(date)}
-                                            selectsEnd
-                                            startDate={timeStartDate}
-                                            endDate={timeEndDate}
-                                            showTimeSelect
-                                            showTimeSelectOnly
-                                            timeIntervals={10}
-                                            timeCaption="End Time"
-                                            dateFormat="HH:mm"
-                                        />
-                                    </FixPlanContentTimeBox>
-                                </FixPlanContentTimeWrapper>
-                                <FixPlanContentTagColorWrapper>
-                                    {tagColors.map((color, idx) => {
-                                        return idx === selectedTagColorNum ? (
-                                            <FixPlanContentTagColorCircleBtn
-                                                key={idx}
-                                                tagcolor={color}
-                                                onClick={(e) => {
-                                                    setSelectedTagColor(e.currentTarget.getAttribute("tagcolor"));
-                                                    setSelectedTagColorNum(idx);
-                                                }}
-                                                selected
+                            </CalenderWrapper>
+                        </LeftContainer>
+                        <RightContainer className="RightContainer">
+                            <RightWrapper className="RightWrapper">
+                                <TodoListContentWrapper className="TodoListContentWrapper">
+                                    <TodoListContentDateWrapper className="TodoListContentDateWrapper">
+                                        <DateBox>
+                                            {(selectedSlot ? selectedSlot.start : new Date()).getMonth() + 1}
+                                            <DateUnit>월</DateUnit>
+                                        </DateBox>
+                                        <DateBox>
+                                            {(selectedSlot ? selectedSlot.start : new Date()).getDate()}
+                                            <DateUnit>일</DateUnit>
+                                        </DateBox>
+                                    </TodoListContentDateWrapper>
+                                </TodoListContentWrapper>
+                                <FixPlanContentWrapper className="FixPlanContentWrapper">
+                                    <FixPlanContentTitleWrapper className="FixPlanContentTitleWrapper">
+                                        중요한 일정을 고정해보세요!
+                                    </FixPlanContentTitleWrapper>
+                                    <FixPlanContentDateWrapper className="FixPlanContentDateWrapper">
+                                        <DateBox>
+                                            {(selectedSlot ? selectedSlot.start : new Date()).getMonth() + 1}
+                                            <DateUnit>월</DateUnit>
+                                        </DateBox>
+                                        <DateBox>
+                                            {(selectedSlot ? selectedSlot.start : new Date()).getDate()}
+                                            <DateUnit>일</DateUnit>
+                                        </DateBox>
+                                    </FixPlanContentDateWrapper>
+                                    <FixPlanContentTagNameInput
+                                        placeHolder="태그 이름을 작성해주세요."
+                                        onChange={(e) => setTagName(e.currentTarget.value)}
+                                    />
+                                    <FixPlanContentTimeWrapper className="FixPlanContentTimeWrapper">
+                                        <FixPlanContentTimeTextWrapper>
+                                            시간을 입력해주세요.
+                                        </FixPlanContentTimeTextWrapper>
+                                        <FixPlanContentTimeBox className="FixPlanContentTimeBox">
+                                            <FixPlanContentTimeData
+                                                selected={timeStartDate} // 현재 선택된 날짜
+                                                onChange={(date) => setTimeStartDate(date)} // 날짜가 변경되었을 때 실행되는 함수
+                                                selectsStart // DatePicker가 시작 날짜를 선택하는 데 사용되는 것임을 나타냅니다.
+                                                startDate={timeStartDate} // 범위 선택기에서 사용자가 선택할 수 있는 시작 날짜를 결정
+                                                endDate={timeEndDate} // 범위 선택기에서 사용자가 선택할 수 있는 종료 날짜를 결정
+                                                showTimeSelect // 사용자가 시간을 선택할 수 있도록 DatePicker에 시간 선택 옵션을 활성화
+                                                showTimeSelectOnly // 날짜를 선택하는 대신 시간만을 선택할 수 있게 하는 옵션
+                                                timeIntervals={10} // 사용자가 선택할 수 있는 시간 간격을 분 단위로 설정
+                                                timeCaption="Start Time" // 시간 선택 부분 옆에 표시되는 레이블
+                                                dateFormat="HH:mm" // 사용자에게 날짜와 시간을 어떻게 표시할지를 결정하는 포맷
                                             />
-                                        ) : (
-                                            <FixPlanContentTagColorCircleBtn
-                                                key={idx}
-                                                tagcolor={color}
-                                                onClick={(e) => {
-                                                    setSelectedTagColor(e.currentTarget.getAttribute("tagcolor"));
-                                                    setSelectedTagColorNum(idx);
-                                                }}
+                                            <FixPlanContentTimeDataUnit>~</FixPlanContentTimeDataUnit>
+                                            <FixPlanContentTimeData
+                                                selected={timeEndDate}
+                                                onChange={(date) => setTimeEndDate(date)}
+                                                selectsEnd
+                                                startDate={timeStartDate}
+                                                endDate={timeEndDate}
+                                                showTimeSelect
+                                                showTimeSelectOnly
+                                                timeIntervals={10}
+                                                timeCaption="End Time"
+                                                dateFormat="HH:mm"
                                             />
-                                        );
-                                    })}
-                                </FixPlanContentTagColorWrapper>
-                                <FixPlanContentAddButtonWrapper>
-                                    <FixPlanContentAddButton onClick={() => addTagHandler()} />
-                                </FixPlanContentAddButtonWrapper>
-                            </FixPlanContentWrapper>
-                        </RightWrapper>
-                    </RightContainer>
-                </FullContainer>
-            </Content>
-            <GardenSecond />
-        </Wrapper>
+                                        </FixPlanContentTimeBox>
+                                    </FixPlanContentTimeWrapper>
+                                    <FixPlanContentTagColorWrapper>
+                                        {tagColors.map((color, idx) => {
+                                            return idx === selectedTagColorNum ? (
+                                                <FixPlanContentTagColorCircleBtn
+                                                    key={idx}
+                                                    tagcolor={color}
+                                                    onClick={(e) => {
+                                                        setSelectedTagColor(e.currentTarget.getAttribute("tagcolor"));
+                                                        setSelectedTagColorNum(idx);
+                                                    }}
+                                                    selected
+                                                />
+                                            ) : (
+                                                <FixPlanContentTagColorCircleBtn
+                                                    key={idx}
+                                                    tagcolor={color}
+                                                    onClick={(e) => {
+                                                        setSelectedTagColor(e.currentTarget.getAttribute("tagcolor"));
+                                                        setSelectedTagColorNum(idx);
+                                                    }}
+                                                />
+                                            );
+                                        })}
+                                    </FixPlanContentTagColorWrapper>
+                                    <FixPlanContentAddButtonWrapper>
+                                        <FixPlanContentAddButton onClick={() => addTagHandler()} />
+                                    </FixPlanContentAddButtonWrapper>
+                                </FixPlanContentWrapper>
+                            </RightWrapper>
+                        </RightContainer>
+                    </FullContainer>
+                </Content>
+                <GardenSecond />
+            </Wrapper>
+        </div>
     );
 }
 
