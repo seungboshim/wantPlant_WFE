@@ -47,7 +47,9 @@ export default function GardenFirst({
 
   const [selectedPotId, setSelectedPotId] = useState(1);
 
+  /** isChanged=false, selectedPotId=potId */
   const handleSelectPot = (potId) => {
+    setIsChanged(false);
     setSelectedPotId(potId);
   }
 
@@ -58,6 +60,13 @@ export default function GardenFirst({
   useEffect(() => {
     console.log(selectedPotId)
   }, [selectedPotId])
+
+  // 화분 추가를 위한 상태변수
+  const [isChanged, setIsChanged] = useState(false);
+
+  const handleOpenPotCreate = () => {
+    setIsChanged(true);
+  }
 
   // 카테고리에 따라 다른 컴포넌트 및 색상
   return (
@@ -80,7 +89,7 @@ export default function GardenFirst({
             // TODO : gardenPot 배치함
               emptyPots.map((idx) => {
                 return (
-                  <EmptyPotItem key={idx} />
+                  <EmptyPotItem key={idx} onClick={handleOpenPotCreate} />
                 )
               })
             :
@@ -107,7 +116,11 @@ export default function GardenFirst({
             {gardenPots.length === 0 ? (
               <Information />
             ) : (
-              <TodoView potId={selectedPotId} AddTodoModalHandler={AddTodoModalHandler}/>
+              isChanged ? (
+                <PotCreate />
+              ) : (
+                <TodoView potId={selectedPotId} AddTodoModalHandler={AddTodoModalHandler}/>
+              )
             )}
             {/* 투두 추가 모달, 수정 모달 여는 함수 전달 */}
           </RightContent>

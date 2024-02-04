@@ -2,9 +2,9 @@ import styled from "styled-components";
 import green05Plus from "../../assets/images/green05Plus.svg";
 
 /** 빈 화분 */
-export default function EmptyPotItem() {
+export default function EmptyPotItem({ onClick }) {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Wrapper>
         <Plus src={green05Plus} alt="plus" />
       </Wrapper>
