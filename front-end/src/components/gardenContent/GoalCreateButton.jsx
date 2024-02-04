@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import green05Plus from "../../assets/images/green05Plus.svg"
 
+/** 목표 추가 버튼, 클릭시 컴포넌트 변경 */
 export default function GoalCreateButton({ onClick }) {
     return (
         <Container onClick={onClick}>

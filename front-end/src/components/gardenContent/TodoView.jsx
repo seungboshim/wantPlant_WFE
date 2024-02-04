@@ -7,6 +7,7 @@ import TodoContainer from "./TodoContainer";
 import { potsFromGarden } from "../../apis/dummy/pots";
 import { goalsFromPotId } from "../../apis/dummy/goals";
 import GoalCreateButton from "./GoalCreateButton";
+import GoalCreateInput from "./GoalCreateInput";
 
 /** potId 의 목표, 투두 조회 및 생성 컴포넌트 */
 export default function TodoView({ potId, AddTodoModalHandler }) {
@@ -15,6 +16,15 @@ export default function TodoView({ potId, AddTodoModalHandler }) {
     const currentPot = potsFromGarden.pots.find(pot => pot.potId === potId);
     const currentGoals = goalsFromPotId;
     
+    const [isChanged, setIsChanged] = useState(false);
+
+    const handleOpenGoalCreateInput = () => {
+        setIsChanged(true);
+    };
+
+    const handleCloseGoalCreateInput = () => {
+        setIsChanged(false);
+    };
 
     return (   
         <Wrapper>
@@ -32,10 +42,16 @@ export default function TodoView({ potId, AddTodoModalHandler }) {
                                     key={idx}
                                     goalTitle={goals.goalTitle}
                                     todoList={goals.todoList}
+                                    onClick={AddTodoModalHandler}
                                 />
                             )
                         })}
-                        <GoalCreateButton />
+                        {/** GoalCreateButton 누르면 Input으로 변경 */}
+                        {isChanged ? 
+                            <GoalCreateInput onClick={handleCloseGoalCreateInput}/>
+                            :
+                            <GoalCreateButton onClick={handleOpenGoalCreateInput}/>
+                        }
                     </TodoWrapper>
                 </ScrollWrapper>
                 {/* <AddTodoWrapper>

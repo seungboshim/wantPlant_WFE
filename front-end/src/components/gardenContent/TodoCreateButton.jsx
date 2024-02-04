@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import green05Plus from "../../assets/images/green05Plus.svg"
 
+/** 투두 추가 버튼, 클릭시 모달 오픈 */
 export default function TodoCreateButton({ onClick }) {
     return (
         <Container onClick={onClick}>

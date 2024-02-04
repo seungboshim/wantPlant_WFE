@@ -3,7 +3,7 @@ import TodoContainer from "./TodoContainer";
 import TodoCreateButton from "./TodoCreateButton";
 
 /** 화분 정보 -> 목표 */
-export default function GoalContainer({ goalTitle, todoList }) {
+export default function GoalContainer({ goalTitle, todoList, onClick }) {
     return (
         <Container>
             <GoalTitleWrapper>{goalTitle}</GoalTitleWrapper>
@@ -16,7 +16,7 @@ export default function GoalContainer({ goalTitle, todoList }) {
                     />
                 )
             })}
-            <TodoCreateButton />
+            <TodoCreateButton onClick={onClick} />
         </Container>
     )
 }
