@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import splitAuthCode from "../kakao/SplitAuthCode";
 import { Server } from "../setting";
 import axios from "axios";
@@ -29,25 +28,6 @@ export const getKakaoAccessToken = async (code) => {
         console.log(response.data.access_token);
         return response.data.access_token;
         
-=======
-import { Server } from "../setting";
-import axios from "axios";
-
-/** 카카오 인가코드를 서버에 전송 */
-export const getKakaoAccessToken = async () => {
-    try {
-        // TODO
-        /** 카카오에서 토큰 받기 */
-        /** main Server에 카카오 토큰 보내서 우리 토큰 받기 */
-        const response = await Server.post("/members/token/test");
-        const result = response.data.result;
-        /** 발급받은 토큰을 localStorage에 저장 */
-        localStorage.setItem("access", result.accessToken);
-        localStorage.setItem("refresh", result.refreshToken);
-
-        console.log("accessToken: " + localStorage.getItem("access"));
-        console.log("refreshToken: " + localStorage.getItem("refresh"));
->>>>>>> 986ed53 (feat: todoList 뷰 & 더미 데이터로 임시 기능 구현)
     } catch (error) {
         console.log(`getKakaoAccessToken 에러: ${error}`);
         // TODO
@@ -61,7 +41,6 @@ export const getKakaoAccessToken = async () => {
         //     }
         // }
     }
-<<<<<<< HEAD
 }
 
 export const getAccessToken = async (accessToken) => {
@@ -123,6 +102,3 @@ Server.interceptors.request.use((config) => {
 //         console.log('로그아웃 에러:', error);
 //     }
 // };
-=======
-};
->>>>>>> 986ed53 (feat: todoList 뷰 & 더미 데이터로 임시 기능 구현)
