@@ -1,20 +1,30 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { HiDotsVertical } from "react-icons/hi";
-import TodoCreateButton from "./TodoCreateButton";
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import TodoCreateButton from "./TodoCreateButtonWrapped";
 import GoalContainer from "./GoalContainer";
 import TodoContainer from "./TodoContainer";
 import { potsFromGarden } from "../../apis/dummy/pots";
 import { goalsFromPotId } from "../../apis/dummy/goals";
 import GoalCreateButton from "./GoalCreateButton";
+import GoalCreateInput from "./GoalCreateInput";
 
 /** potId 의 목표, 투두 조회 및 생성 컴포넌트 */
 export default function TodoView({ potId, AddTodoModalHandler }) {
     const potColors = ["potPurple", "potGreen", "potRed", "potOrange", "potBlue", "potPink"];
-    // potId에 해당하는 화분, 목표 객체 받아오기
+    // TODO : potId에 해당하는 화분, 목표 객체 받아오기
     const currentPot = potsFromGarden.pots.find(pot => pot.potId === potId);
     const currentGoals = goalsFromPotId;
-    console.log(currentGoals)
+    
+    const [isChanged, setIsChanged] = useState(false);
+
+    const handleOpenGoalCreateInput = () => {
+        setIsChanged(true);
+    };
+
+    const handleCloseGoalCreateInput = () => {
+        setIsChanged(false);
+    };
 
     return (   
         <Wrapper>
@@ -32,15 +42,21 @@ export default function TodoView({ potId, AddTodoModalHandler }) {
                                     key={idx}
                                     goalTitle={goals.goalTitle}
                                     todoList={goals.todoList}
+                                    onClick={AddTodoModalHandler}
                                 />
                             )
                         })}
-                        <GoalCreateButton />
+                        {/** GoalCreateButton 누르면 Input으로 변경 */}
+                        {isChanged ? 
+                            <GoalCreateInput onClick={handleCloseGoalCreateInput}/>
+                            :
+                            <GoalCreateButton onClick={handleOpenGoalCreateInput}/>
+                        }
                     </TodoWrapper>
                 </ScrollWrapper>
-                <AddTodoWrapper>
+                {/* <AddTodoWrapper>
                     <TodoCreateButton AddTodoModalHandler={AddTodoModalHandler}/>
-                </AddTodoWrapper>
+                </AddTodoWrapper> */}
             </Container>
         </Wrapper>
     )
@@ -88,9 +104,10 @@ const PaddingDiv = styled.div`
     width: 24px;
 `
 
-const EditButton = styled(HiDotsVertical)`
+const EditButton = styled(HiOutlineDotsHorizontal)`
     height: 24px;
     width: 24px;
+    cursor: pointer;
 `
 
 const ScrollWrapper = styled.div`

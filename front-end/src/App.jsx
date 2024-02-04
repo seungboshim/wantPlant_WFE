@@ -38,7 +38,7 @@ function App() {
               <Route path="/garden/exercise" element={<ExerciseGardenPage />} />
             </Route>
             <Route path="/garden/add" element={<MakeGardenPage />} />
-            <Route path="garden/book" element={<BookPage/>}/>
+            <Route path="/garden/book" element={<BookPage/>}/>
             <Route path="/test" element={<TestPage />} />
             <Route path="/profile" element={<ProfilePage/>}/>
             <Route path="/inform" element={<InformPage/>}/>

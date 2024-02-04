@@ -1,28 +1,38 @@
-import styled from "styled-components";
+import styled from "styled-components"
 import green05Plus from "../../assets/images/green05Plus.svg"
 
-export default function TodoCreateButton({AddTodoModalHandler}) {
+/** 투두 추가 버튼, 클릭시 모달 오픈 */
+export default function TodoCreateButton({ onClick }) {
     return (
-        <Container onClick={() => AddTodoModalHandler(true)}>
-            <img src={green05Plus} width={20} alt="정원추가 아이콘" />
-            <TodoCreateText>할 일 추가하기</TodoCreateText>
+        <Container onClick={onClick}>
+            <TodoTitleWrapper>
+                <PlusWrapper src={green05Plus} width={16} alt="plus" />
+                할 일 추가하기
+            </TodoTitleWrapper>
         </Container>
     )
 }
 
 const Container = styled.div`
     display: flex;
-    width: 100%;
-    height: 64px;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid black;
-    border-radius: 20px;
-    box-shadow: 0px 0px 6px 0px ${({theme}) => theme.colors.strokeGray};
+    width: auto;
+    height: 50%;
+    margin: 10px 20px;
+    cursor: pointer;
 `
 
-const TodoCreateText = styled.span`
-    font-size: 20px;
-    color: ${({theme}) => theme.colors.strokeGray};
-    margin-left: 12px;
+const PlusWrapper = styled.img`
+    margin-right: 10px;
+`
+
+const TodoTitleWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    height: auto;
+    opacity: 0.5;
+    transition: opacity 0.25s;
+
+    ${Container}:hover & {
+        opacity: 1;
+    }
 `
