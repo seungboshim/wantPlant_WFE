@@ -17,6 +17,7 @@ const Container = styled.div`
     width: auto;
     height: 50%;
     margin: 10px 20px;
+    cursor: pointer;
 `
 
 const PlusWrapper = styled.img`
@@ -27,4 +28,10 @@ const TodoTitleWrapper = styled.div`
     display: flex;
     align-items: center;
     height: auto;
+    opacity: 0.5;
+    transition: opacity 0.25s;
+
+    ${Container}:hover & {
+        opacity: 1;
+    }
 `

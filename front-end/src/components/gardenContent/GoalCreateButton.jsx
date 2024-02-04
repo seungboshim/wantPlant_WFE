@@ -17,6 +17,7 @@ const Container = styled.div`
     width: auto;
     height: 50%;
     margin-bottom: 10px;
+    cursor: pointer;
 `
 
 const PlusWrapper = styled.img`
@@ -30,4 +31,10 @@ const GoalTitleWrapper = styled.div`
     border-left: 1px solid black;
     padding: 10px 15px;
     font-size: 18px;
+    opacity: 0.5;
+    transition: opacity 0.25s;
+
+    ${Container}:hover & {
+        opacity: 1;
+    }
 `
