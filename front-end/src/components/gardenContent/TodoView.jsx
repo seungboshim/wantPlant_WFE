@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { HiDotsVertical } from "react-icons/hi";
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import TodoCreateButton from "./TodoCreateButtonWrapped";
 import GoalContainer from "./GoalContainer";
 import TodoContainer from "./TodoContainer";
@@ -104,9 +104,10 @@ const PaddingDiv = styled.div`
     width: 24px;
 `
 
-const EditButton = styled(HiDotsVertical)`
+const EditButton = styled(HiOutlineDotsHorizontal)`
     height: 24px;
     width: 24px;
+    cursor: pointer;
 `
 
 const ScrollWrapper = styled.div`
