@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { HiDotsVertical } from "react-icons/hi";
-import TodoCreateButton from "./TodoCreateButton";
+import TodoCreateButton from "./TodoCreateButtonWrapped";
 import GoalContainer from "./GoalContainer";
 import TodoContainer from "./TodoContainer";
 import { potsFromGarden } from "../../apis/dummy/pots";
@@ -38,9 +38,9 @@ export default function TodoView({ potId, AddTodoModalHandler }) {
                         <GoalCreateButton />
                     </TodoWrapper>
                 </ScrollWrapper>
-                <AddTodoWrapper>
+                {/* <AddTodoWrapper>
                     <TodoCreateButton AddTodoModalHandler={AddTodoModalHandler}/>
-                </AddTodoWrapper>
+                </AddTodoWrapper> */}
             </Container>
         </Wrapper>
     )

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import TodoContainer from "./TodoContainer";
+import TodoCreateButton from "./TodoCreateButton";
 
 /** 화분 정보 -> 목표 */
 export default function GoalContainer({ goalTitle, todoList }) {
@@ -15,6 +16,7 @@ export default function GoalContainer({ goalTitle, todoList }) {
                     />
                 )
             })}
+            <TodoCreateButton />
         </Container>
     )
 }
@@ -24,7 +26,7 @@ const Container = styled.div`
     flex-direction: column;
     width: auto;
     height: 50%;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 `
 
 const GoalTitleWrapper = styled.div`
@@ -32,4 +34,5 @@ const GoalTitleWrapper = styled.div`
     padding: 10px 15px;
     border-left: 1px solid black;
     font-size: 18px;
+    font-weight: 500;
 `
