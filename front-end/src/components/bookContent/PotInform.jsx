@@ -33,7 +33,7 @@ const Pot = styled.div`
     justify-content: center;
     width: 30%;
     height: 100%;
-    border-radius: 2%;
+    border-radius: 10px;
     background-color: #FFFFFF;
 `
 const Layout = styled.div`

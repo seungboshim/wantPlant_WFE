@@ -1,5 +1,6 @@
 import {React} from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 import PotCard from "../../components/bookContent/PotInform";
 
@@ -12,21 +13,21 @@ export default function BookPage(){
                 <Layout>
                     <Label>카테고리</Label>
                     <Category>
+                        {/* <PotCard/>
                         <PotCard/>
-                        <PotCard/>
-                        <PotCard/>
+                        <PotCard/> */}
                     </Category>
                     <Label>카테고리</Label>
                     <Category>
+                        {/* <PotCard/>
                         <PotCard/>
-                        <PotCard/>
-                        <PotCard/>
+                        <PotCard/> */}
                     </Category>
                     <Label>카테고리</Label>
                     <Category>
+                        {/* <PotCard/>
                         <PotCard/>
-                        <PotCard/>
-                        <PotCard/>
+                        <PotCard/> */}
                     </Category>
                 </Layout>
             </Container>
