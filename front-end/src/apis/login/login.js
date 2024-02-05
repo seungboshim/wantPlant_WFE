@@ -2,6 +2,9 @@ import splitAuthCode from "../kakao/SplitAuthCode";
 import { Server } from "../setting";
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+
 
 /** 카카오 인가코드를 받아 토큰 생성 */
 export const getKakaoAccessToken = async (code) => {
@@ -22,18 +25,9 @@ export const getKakaoAccessToken = async (code) => {
             },
         );
 
-        const kakaoToken = response.data.access_token;
-        console.log("토큰: "+kakaoToken)
-        // /** main Server에 카카오 토큰 보내서 우리 토큰 받기 */
-        // const response = await Server.post('/members/token/test');
-        // const result = response.data.result;
-        // /** 발급받은 토큰을 localStorage에 저장 */
-        // localStorage.setItem('access', result.accessToken);
-        // localStorage.setItem('refresh', result.refreshToken);
-
-        // console.log("accessToken: "+localStorage.getItem('access'))
-        // console.log("refreshToken: "+localStorage.getItem('refresh'))
-
+        console.log(response.data.access_token);
+        return response.data.access_token;
+        
     } catch (error) {
         console.log(`getKakaoAccessToken 에러: ${error}`);
         // TODO
@@ -48,6 +42,27 @@ export const getKakaoAccessToken = async (code) => {
         // }
     }
 }
+
+export const getAccessToken = async (accessToken) => {
+
+    console.log("getAccessToken 실행 accessToken: "+accessToken)
+    try {
+        /** main Server에 카카오 토큰 보내서 우리 토큰 받기 */
+        const response = await Server.post(`/members/login?accessToken=${accessToken}`);
+        const result = response.data.result;
+        /** 발급받은 토큰을 localStorage에 저장 */
+        localStorage.setItem('access', result.accessToken);
+        localStorage.setItem('refresh', result.refreshToken);
+
+        console.log("accessToken: "+localStorage.getItem('access'))
+        console.log("refreshToken: "+localStorage.getItem('refresh'))
+
+        
+    } catch (error) {
+        
+    }
+}
+
 
 /** 만료된 토큰 갱신 */
 // export const getRefresh = async () => {
