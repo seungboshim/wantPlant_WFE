@@ -39,10 +39,6 @@ const Calender = (props) => {
         props.onClickTag(true, e);
     };
 
-    useEffect(() => {
-        console.log(props.isDeleteTagModalOn);
-    }, [props.isDeleteTagModalOn]);
-
     return (
         <StyledCalendar
             localizer={localizer}

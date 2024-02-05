@@ -31,7 +31,7 @@ export default function DeleteTagModal(props) {
                     onClick={() => {
                         props.deleteTagHandler();
                         props.deleteTagModalHandler(false);
-                        props.updateCalender();
+                        props.updateCalender(true);
                     }}
                 >
                     삭제

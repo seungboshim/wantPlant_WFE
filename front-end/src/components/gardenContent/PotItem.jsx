@@ -3,11 +3,10 @@ import logo from "../../assets/images/logo.svg";
 
 /** 화분 데이터를 인자로 받는 화분 컴포넌트 */
 export default function PotItem({ 
-  potName, startAt, proceed, potImageUrl, potColor
+  potName, startAt, proceed, potImageUrl, potColor, selected, onClick
 }) {
-    // TODO : onClick으로 투두 컴포넌트 불러오기
     return (
-        <Container className="PotItemContainer">
+        <Container selected={selected} className="PotItemContainer" onClick={onClick}>
             <Wrapper>
                 <PotImage src={potImageUrl} alt="화분"/>
                 <PotInfoWrapper className="PotInfoWrapper">
@@ -30,10 +29,26 @@ const Container = styled.div`
   width: 100%;
   height: 20%;
   background-color: white;
-  border-radius: 2vw;
+  border-radius: 2.5vw;
+  border: ${({selected, theme}) => 
+    selected ? `1px solid ${theme.colors.strokeGray}` : '1px solid white'
+  };
+  box-shadow: ${({selected, theme}) => {
+    if (selected) {
+      return `0px 0px 10px 0px ${theme.colors.strokeGray}`
+    } else {
+      return 'none'
+    }
+  }};
+  transition: box-shadow 0.3s;
+
   @media (max-width: 1280px) {
     height: 120px;
     border-radius: 32px;
+  }
+
+  &:hover {
+    box-shadow: 0px 0px 10px 0px ${({theme}) => theme.colors.strokeGray}
   }
 `;
 
