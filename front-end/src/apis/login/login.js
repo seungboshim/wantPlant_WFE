@@ -57,11 +57,19 @@ export const getAccessToken = async (accessToken) => {
         console.log("accessToken: "+localStorage.getItem('access'))
         console.log("refreshToken: "+localStorage.getItem('refresh'))
 
-        
+        axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem('access')}`
+        console.log(axios.defaults.headers.common);
     } catch (error) {
         
     }
 }
+
+Server.interceptors.request.use((config) => {
+    const token = localStorage.getItem('access');
+    config.headers.Authorization = token ? `Bearer ${token}` : '';
+    //console.log(token);
+    return config;
+});
 
 
 /** 만료된 토큰 갱신 */

@@ -21,14 +21,16 @@ export default function KakaoAuthPage() {
     }, [authCode])
 
     useEffect(() => {
-        getAccessToken(kakaoToken);
+        if (kakaoToken) {
+            getAccessToken(kakaoToken);
+        }
     }, [kakaoToken])
 
     useEffect(() => {
         if (localStorage.getItem("access")) {
             navigate('/garden/study')
         }
-    })
+    }, [localStorage.getItem("access")])
 
     return (
         <div>loading...</div>
