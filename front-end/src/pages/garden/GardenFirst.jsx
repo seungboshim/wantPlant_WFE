@@ -13,110 +13,120 @@ import { useEffect, useState } from "react";
 import PotPagenation from "../../components/pagenation/PotPagenation";
 
 /** 정원페이지 상단 컴포넌트 */
-export default function GardenFirst({ EditGardenModalHandler, AddTodoModalHandler, EditTodoModalHandler }) {
-    const location = useLocation();
-    // location = "/garden/{카테고리}"
-    const pathname = location.pathname.split("/");
-    // pathname = ["", "garden", "{카테고리}"] 저장됨
-    const category = pathname[2] ? pathname[2].toUpperCase() : "";
-    // category = "STUDY" 저장
-    const gardenId = pathname[3];
-    const [page, setPage] = useState(1);
-    // TODO : getGardenWithPagenation(gardenId, page) 로 정원 정보 받아오기
+export default function GardenFirst({
+  EditGardenModalHandler,
+  AddTodoModalHandler,
+  EditTodoModalHandler,
+}) {
+  const location = useLocation();
+  // location = "/garden/{카테고리}"
+  const pathname = location.pathname.split("/");
+  // pathname = ["", "garden", "{카테고리}"] 저장됨
+  const category = pathname[2].toUpperCase();
+  // category = "STUDY" 저장
+  const gardenId = pathname[3];
+  const [page, setPage] = useState(1);
+  // TODO : getGardenWithPagenation(gardenId, page) 로 정원 정보 받아오기
+  
+  // 해당 정원의 모든 화분 배열
+  // TODO : potsFromGarden(gardenId)
+  const gardenPots = potsFromGarden.pots
 
-    // 해당 정원의 모든 화분 배열
-    // TODO : potsFromGarden(gardenId)
-    const gardenPots = potsFromGarden.pots;
+  // TODO : 페이지네이션 용 데이터도 가져오기 (이떈 useState로 저장)
+  const listSize = potsFromGarden.listSize;
+  const totalPage = potsFromGarden.totalPage;
+  const totalElements = potsFromGarden.totalElements;
+  const isFirst = potsFromGarden.isFirst;
 
-    // TODO : 페이지네이션 용 데이터도 가져오기 (이떈 useState로 저장)
-    const listSize = potsFromGarden.listSize;
-    const totalPage = potsFromGarden.totalPage;
-    const totalElements = potsFromGarden.totalElements;
-    const isFirst = potsFromGarden.isFirst;
+  const remain = totalElements % listSize;
+  const emptyPotSize = listSize - remain;
 
-    const remain = totalElements % listSize;
-    const emptyPotSize = listSize - remain;
+  const emptyPots = Array.from({ length: emptyPotSize }, (_, index) => {
+    <EmptyPotItem key={index}/>
+  });
 
-    const emptyPots = Array.from({ length: emptyPotSize }, (_, index) => {
-        <EmptyPotItem key={index} />;
-    });
+  const [selectedPotId, setSelectedPotId] = useState(1);
 
-    const [selectedPotId, setSelectedPotId] = useState(1);
+  /** isChanged=false, selectedPotId=potId */
+  const handleSelectPot = (potId) => {
+    setIsChanged(false);
+    setSelectedPotId(potId);
+  }
 
-    /** isChanged=false, selectedPotId=potId */
-    const handleSelectPot = (potId) => {
-        setIsChanged(false);
-        setSelectedPotId(potId);
-    };
+  useEffect(() => {
+    // TODO : page 바뀔때마다 getGarden.. 이놈 가져와서 데이터 다시 갱신
+  }, page)
 
-    useEffect(() => {
-        // TODO : page 바뀔때마다 getGarden.. 이놈 가져와서 데이터 다시 갱신
-    }, page);
+  useEffect(() => {
+    console.log(selectedPotId)
+  }, [selectedPotId])
 
-    useEffect(() => {
-        console.log(selectedPotId);
-    }, [selectedPotId]);
+  // 화분 추가를 위한 상태변수
+  const [isChanged, setIsChanged] = useState(false);
 
-    // 화분 추가를 위한 상태변수
-    const [isChanged, setIsChanged] = useState(false);
+  const handleOpenPotCreate = () => {
+    setIsChanged(true);
+  }
 
-    const handleOpenPotCreate = () => {
-        setIsChanged(true);
-    };
-
-    // 카테고리에 따라 다른 컴포넌트 및 색상
-    return (
-        <Wrapper className="GardenFirstPage_Wrapper">
-            <GardernHeader category={category} />
-            {/** $을 붙이는 이유 : transient props (배포시 문제 방지) */}
-            <Content $category={category} className="Content">
-                <ContentHeader className="ContentHeader">
-                    <TextWrapper $category={category} className="TextWrapper">
-                        <GardenTitle className="GardenTitle">{gardensFromId[0].name}</GardenTitle>
-                        <GardenDescription>{gardensFromId[0].description}</GardenDescription>
-                    </TextWrapper>
-                    <DeleteBtn>
-                        <GardenDeleteButton label="정원 삭제하기" />
-                    </DeleteBtn>
-                </ContentHeader>
-                <ContentInner className="ContentInner">
-                    <LeftContent className="LeftContent">
-                        {page > totalPage
-                            ? // TODO : gardenPot 배치함
-                              emptyPots.map((idx) => {
-                                  return <EmptyPotItem key={idx} onClick={handleOpenPotCreate} />;
-                              })
-                            : gardenPots.map((pot, idx) => {
-                                  const potIndex = idx + 1;
-                                  return (
-                                      <PotItem
-                                          key={potIndex}
-                                          potName={pot.potName}
-                                          startAt={pot.startAt}
-                                          potColor={pot.potColor}
-                                          proceed={pot.proceed}
-                                          potImageUrl={pot.potImageUrl}
-                                          selected={selectedPotId === pot.potId}
-                                          onClick={() => handleSelectPot(pot.potId)}
-                                      />
-                                  );
-                              })}
-                        <PotPagenation page={page} setPage={setPage} totalPage={totalPage} />
-                    </LeftContent>
-                    <RightContent className="RightContent">
-                        {/* gardenPots 비어있으면 설명 컴포넌트 */}
-                        {gardenPots.length === 0 ? (
-                            <Information />
-                        ) : isChanged ? (
-                            <PotCreate />
-                        ) : (
-                            <TodoView potId={selectedPotId} AddTodoModalHandler={AddTodoModalHandler} />
-                        )}
-                        {/* 투두 추가 모달, 수정 모달 여는 함수 전달 */}
-                    </RightContent>
-                </ContentInner>
-            </Content>
-            {/* <button onClick={() => EditGardenModalHandler(true)}>
+  // 카테고리에 따라 다른 컴포넌트 및 색상
+  return (
+    <Wrapper className="GardenFirstPage_Wrapper">
+      <GardernHeader category={category} />
+      {/** $을 붙이는 이유 : transient props (배포시 문제 방지) */}
+      <Content $category={category} className="Content">
+        <ContentHeader className="ContentHeader">
+          <TextWrapper $category={category} className="TextWrapper">
+            <GardenTitle className="GardenTitle">{gardensFromId[0].name}</GardenTitle>
+            <GardenDescription>{gardensFromId[0].description}</GardenDescription>
+          </TextWrapper>
+          <DeleteBtn>
+            <GardenDeleteButton label="정원 삭제하기" />
+          </DeleteBtn>
+        </ContentHeader>
+        <ContentInner className="ContentInner">
+          <LeftContent className="LeftContent">
+            {page > totalPage ?
+            // TODO : gardenPot 배치함
+              emptyPots.map((idx) => {
+                return (
+                  <EmptyPotItem key={idx} onClick={handleOpenPotCreate} />
+                )
+              })
+            :
+              gardenPots.map((pot, idx) => {
+                const potIndex = idx + 1;
+                return (
+                  <PotItem 
+                    key={potIndex}
+                    potName={pot.potName}
+                    startAt={pot.startAt}
+                    potColor={pot.potColor}
+                    proceed={pot.proceed}
+                    potImageUrl={pot.potImageUrl}
+                    selected={selectedPotId === pot.potId}
+                    onClick={() => handleSelectPot(pot.potId)}
+                  />
+                )
+              })
+            }
+            <PotPagenation page={page} setPage={setPage} totalPage={totalPage} />
+          </LeftContent>
+          <RightContent className="RightContent">
+            {/* gardenPots 비어있으면 설명 컴포넌트 */}
+            {gardenPots.length === 0 ? (
+              <Information />
+            ) : (
+              isChanged ? (
+                <PotCreate />
+              ) : (
+                <TodoView potId={selectedPotId} AddTodoModalHandler={AddTodoModalHandler}/>
+              )
+            )}
+            {/* 투두 추가 모달, 수정 모달 여는 함수 전달 */}
+          </RightContent>
+        </ContentInner>
+      </Content>
+      {/* <button onClick={() => EditGardenModalHandler(true)}>
         정원수정모달 열기
       </button>
       <button onClick={() => AddTodoModalHandler(true)}>
@@ -224,13 +234,13 @@ const ContentInner = styled.div`
 `;
 
 const LeftContent = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    height: 100%;
-    margin-right: 6%;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+  margin-right: 6%;
+  justify-content: space-between;
+  align-items: center;
 
     @media (max-width: 1280px) {
         width: 532px;
