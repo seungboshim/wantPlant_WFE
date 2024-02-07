@@ -1,19 +1,31 @@
 import splitAuthCode from "../kakao/SplitAuthCode";
+import { Server } from "../setting";
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-/** 카카오 인가코드를 서버에 전송 */
-export const getKakaoAccessToken = async () => {
-    const code = splitAuthCode();
-    console.log(`kakao 인가코드: ${code}`);
+/** 카카오 인가코드를 받아 토큰 생성 */
+export const getKakaoAccessToken = async (code) => {
+    const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+    const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+    console.log("getkakaotoken 실행")
     try {
         // TODO
-        /** main Server에 인가코드 보내서 토큰 받기 */
-        // const result = await Server.post('url', {code});
-        // TODO : Server 객체에 우리 서버 정보 axios로 저장
+        /** 카카오에서 토큰 받기 */
+        console.log("인가코드: "+code);
 
-        /** 발급받은 토큰을 localStorage에 저장 */
-        // localStorage.setItem('access', result.data.access_token);
-        // localStorage.setItem('refresh', result.data.refresh_token);
-        // return result.data.user;
+        const response = await axios.post(
+            `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${code}`,
+            {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+                },
+            },
+        );
+
+        console.log(response.data.access_token);
+        return response.data.access_token;
+        
     } catch (error) {
         console.log(`getKakaoAccessToken 에러: ${error}`);
         // TODO
@@ -28,6 +40,35 @@ export const getKakaoAccessToken = async () => {
         // }
     }
 }
+
+export const getAccessToken = async (accessToken) => {
+
+    console.log("getAccessToken 실행 accessToken: "+accessToken)
+    try {
+        /** main Server에 카카오 토큰 보내서 우리 토큰 받기 */
+        const response = await Server.post(`/members/login?accessToken=${accessToken}`);
+        const result = response.data.result;
+        /** 발급받은 토큰을 localStorage에 저장 */
+        localStorage.setItem('access', result.accessToken);
+        localStorage.setItem('refresh', result.refreshToken);
+
+        console.log("accessToken: "+localStorage.getItem('access'))
+        console.log("refreshToken: "+localStorage.getItem('refresh'))
+
+        axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem('access')}`
+        console.log(axios.defaults.headers.common);
+    } catch (error) {
+        
+    }
+}
+
+Server.interceptors.request.use((config) => {
+    const token = localStorage.getItem('access');
+    config.headers.Authorization = token ? `Bearer ${token}` : '';
+    //console.log(token);
+    return config;
+});
+
 
 /** 만료된 토큰 갱신 */
 // export const getRefresh = async () => {
