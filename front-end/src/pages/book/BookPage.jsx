@@ -1,32 +1,72 @@
-import {React} from "react";
+import {React, useState} from "react";
 import styled from "styled-components";
-
+import axios from "axios";
 import PotCard from "../../components/bookContent/PotInform";
+import CompletedPot from "../../apis/pot/completedPot";
 
 
 export default function BookPage(){
+    const [completedPots, setData] = useState([]);
+    
+    setData(CompletedPot);
 
     return(
         <Page>
             <Container>
                 <Layout>
-                    <Label>카테고리</Label>
+                    <Label>공부</Label>
                     <Category>
-                        <PotCard/>
-                        <PotCard/>
-                        <PotCard/>
+                        {   
+                            completedPots.map((pot) => {
+                                if(pot.gardenCategory == "STUDY"){
+                                    return <PotCard
+                                    potName={pot.potName} 
+                                    gardenName={pot.gardenName} 
+                                    startAt={pot.startAt} 
+                                    completedAt={pot.completedAt} 
+                                    potImgUrl={pot.potImgUrl} 
+                                    todoTitle1={todoTitle1} 
+                                    todoTitle2={todoTitle2}
+                                    />
+                                }
+                            })
+                        }
                     </Category>
-                    <Label>카테고리</Label>
+                    <Label>운동</Label>
                     <Category>
-                        <PotCard/>
-                        <PotCard/>
-                        <PotCard/>
+                        {
+                            completedPots.map((pot) => {
+                                if(pot.gardenCategory == "EXERCISE"){
+                                    return <PotCard
+                                    potName={pot.potName} 
+                                    gardenName={pot.gardenName} 
+                                    startAt={pot.startAt} 
+                                    completedAt={pot.completedAt} 
+                                    potImgUrl={pot.potImgUrl} 
+                                    todoTitle1={todoTitle1} 
+                                    todoTitle2={todoTitle2}
+                                    />
+                                }
+                            })
+                        }
                     </Category>
-                    <Label>카테고리</Label>
+                    <Label>취미</Label>
                     <Category>
-                        <PotCard/>
-                        <PotCard/>
-                        <PotCard/>
+                        {
+                            completedPots.map((pot) => {
+                                if(pot.gardenCategory == "HOBBY"){
+                                    return <PotCard
+                                    potName={pot.potName} 
+                                    gardenName={pot.gardenName} 
+                                    startAt={pot.startAt} 
+                                    completedAt={pot.completedAt} 
+                                    potImgUrl={pot.potImgUrl} 
+                                    todoTitle1={todoTitle1} 
+                                    todoTitle2={todoTitle2}
+                                    />
+                                }
+                            })
+                        }
                     </Category>
                 </Layout>
             </Container>
