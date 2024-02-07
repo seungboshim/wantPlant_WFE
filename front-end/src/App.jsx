@@ -25,8 +25,10 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        {/** TODO : isLoggedIn일 때만 헤더 보이게 */}
-        <Header name={"ㅇㅇㅇ"}/>
+      {/** localStorage에 access 토큰 유무로 로그인 여부 확인하여 헤더 렌더링 */}
+        {localStorage.getItem("access") ? 
+          <Header name={"ㅇㅇㅇ"}/> : <></>
+        }
         <Layout>
           <Routes>
             <Route path="/" element={<MainPage />} />
