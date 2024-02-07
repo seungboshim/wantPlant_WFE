@@ -22,7 +22,7 @@ export default function GardenFirst({
   // location = "/garden/{카테고리}"
   const pathname = location.pathname.split("/");
   // pathname = ["", "garden", "{카테고리}"] 저장됨
-  const category = pathname[2].toUpperCase();
+  const category = pathname[2] ? pathname[2].toUpperCase() : "";
   // category = "STUDY" 저장
   const gardenId = pathname[3];
   const [page, setPage] = useState(1);
