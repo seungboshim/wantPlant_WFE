@@ -1,24 +1,24 @@
 import styled from "styled-components";
 import axios from "axios";
 
-export default function PotInform(){
+export default function PotInform({gardenCategoty, potName, gardenName, startAt, completedAt, potImgUrl, todoTitle1, todoTitle2}){
     
     return(
         <Pot>
             <Layout>
                 <Info>
-                    <PotName>화분 이름</PotName>
-                    <GardenName>정원 이름</GardenName>
+                    <PotName>{potName}</PotName>
+                    <GardenName>{gardenName}</GardenName>
                     <Period>소요 기간</Period>
-                    <Record>20xx.xx.xx ~ 20xx.xx.xx</Record>
+                    <Record>{startAt} ~ {completedAt}</Record>
                     <List>
-                        <Summary>물 줬던 기록 요약</Summary>
-                        <Summary>물 줬던 기록 요약</Summary>
+                        <Summary>{todoTitle1}</Summary>
+                        <Summary>{todoTitle2}</Summary>
                     </List>
                 </Info>
                 <Image>
                     <Img>
-                        <img width={"100%"} height={"100%"}></img>
+                        <img src={potImgUrl} width={"100%"} height={"100%"}></img>
                     </Img>
                     <Name>화분 이름/꽃말</Name>
                 </Image>
@@ -33,7 +33,7 @@ const Pot = styled.div`
     justify-content: center;
     width: 30%;
     height: 100%;
-    border-radius: 2%;
+    border-radius: 10px;
     background-color: #FFFFFF;
 `
 const Layout = styled.div`
