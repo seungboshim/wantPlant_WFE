@@ -4,8 +4,6 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
-
 /** 카카오 인가코드를 받아 토큰 생성 */
 export const getKakaoAccessToken = async (code) => {
     const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useTheme } from "styled-components";
 
 import React, { useState, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
