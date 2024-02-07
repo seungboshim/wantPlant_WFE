@@ -1,77 +1,90 @@
-import {React, useState} from "react";
+import { React, useState, useEffect } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import PotCard from "../../components/bookContent/PotInform";
-import CompletedPot from "../../apis/pot/completedPot";
+import { getCompletedPots } from "../../apis/pot/completedPot";
 
 
 export default function BookPage(){
     const [completedPots, setData] = useState([]);
     
-    setData(CompletedPot);
+    useEffect(() => {
+        getCompletedPots().then((pots) => {
+            setData(pots);
+        })
+    }, [])
 
-    return(
-        <Page>
-            <Container>
-                <Layout>
-                    <Label>공부</Label>
-                    <Category>
-                        {   
-                            completedPots.map((pot) => {
-                                if(pot.gardenCategory == "STUDY"){
-                                    return <PotCard
-                                    potName={pot.potName} 
-                                    gardenName={pot.gardenName} 
-                                    startAt={pot.startAt} 
-                                    completedAt={pot.completedAt} 
-                                    potImgUrl={pot.potImgUrl} 
-                                    todoTitle1={todoTitle1} 
-                                    todoTitle2={todoTitle2}
-                                    />
-                                }
-                            })
-                        }
-                    </Category>
-                    <Label>운동</Label>
-                    <Category>
-                        {
-                            completedPots.map((pot) => {
-                                if(pot.gardenCategory == "EXERCISE"){
-                                    return <PotCard
-                                    potName={pot.potName} 
-                                    gardenName={pot.gardenName} 
-                                    startAt={pot.startAt} 
-                                    completedAt={pot.completedAt} 
-                                    potImgUrl={pot.potImgUrl} 
-                                    todoTitle1={todoTitle1} 
-                                    todoTitle2={todoTitle2}
-                                    />
-                                }
-                            })
-                        }
-                    </Category>
-                    <Label>취미</Label>
-                    <Category>
-                        {
-                            completedPots.map((pot) => {
-                                if(pot.gardenCategory == "HOBBY"){
-                                    return <PotCard
-                                    potName={pot.potName} 
-                                    gardenName={pot.gardenName} 
-                                    startAt={pot.startAt} 
-                                    completedAt={pot.completedAt} 
-                                    potImgUrl={pot.potImgUrl} 
-                                    todoTitle1={todoTitle1} 
-                                    todoTitle2={todoTitle2}
-                                    />
-                                }
-                            })
-                        }
-                    </Category>
-                </Layout>
-            </Container>
-        </Page>
-    )
+    console.log(completedPots)
+
+    // TODO : 도감이 비어있을 때 구현
+    // 카테고리에 따라 비어있는 뷰 구현해야 할 시엔 분리
+    if (completedPots===undefined) {
+        return (
+            <span>없어요</span>
+        )
+    } else {
+        return (
+            <Page>
+                <Container>
+                    <Layout>
+                        <Label>공부</Label>
+                        <Category>
+                            {/* {   
+                                completedPots.map((pot) => {
+                                    if(pot.gardenCategory == "STUDY"){
+                                        return <PotCard
+                                        potName={pot.potName} 
+                                        gardenName={pot.gardenName} 
+                                        startAt={pot.startAt} 
+                                        completedAt={pot.completedAt} 
+                                        potImgUrl={pot.potImgUrl} 
+                                        todoTitle1={pot.todoTitle1} 
+                                        todoTitle2={pot.todoTitle2}
+                                        />
+                                    }
+                                })
+                            } */}
+                        </Category>
+                        <Label>운동</Label>
+                        <Category>
+                            {/* {
+                                completedPots.map((pot) => {
+                                    if(pot.gardenCategory == "EXERCISE"){
+                                        return <PotCard
+                                        potName={pot.potName} 
+                                        gardenName={pot.gardenName} 
+                                        startAt={pot.startAt} 
+                                        completedAt={pot.completedAt} 
+                                        potImgUrl={pot.potImgUrl} 
+                                        todoTitle1={pot.todoTitle1} 
+                                        todoTitle2={pot.todoTitle2}
+                                        />
+                                    }
+                                })
+                            } */}
+                        </Category>
+                        <Label>취미</Label>
+                        <Category>
+                            {/* {
+                                completedPots.map((pot) => {
+                                    if(pot.gardenCategory == "HOBBY"){
+                                        return <PotCard
+                                        potName={pot.potName} 
+                                        gardenName={pot.gardenName} 
+                                        startAt={pot.startAt} 
+                                        completedAt={pot.completedAt} 
+                                        potImgUrl={pot.potImgUrl} 
+                                        todoTitle1={pot.todoTitle1} 
+                                        todoTitle2={pot.todoTitle2}
+                                        />
+                                    }
+                                })
+                            } */}
+                        </Category>
+                    </Layout>
+                </Container>
+            </Page>
+        )
+    }
 }
 
 const Page = styled.div`
