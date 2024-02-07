@@ -47,8 +47,7 @@ export default function CalenderPage() {
     const config = {
         headers: {
             Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MzgsImlhdCI6MTcwNzEzODU4MywiZXhwIjoxNzA3MjI0OTgzfQ.AREo1RvbzrBtp0n2Nm1xyeViosGlXUF_wt65LwnrdJo", // 'token'은 실제 토큰 값입니다.
-            "Access-Control-Allow-Credentials": true,
+                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MzksImlhdCI6MTcwNzIxNDA4MCwiZXhwIjoxNzA3MzAwNDgwfQ.GtXkVzPzM1UmLdWyOM9bn1D6GCaLEOlv5nKXqdMlsRs",
         },
     };
 
@@ -60,18 +59,18 @@ export default function CalenderPage() {
 
     // 백에서 gardens 갖고옴
     const getGardens = () => {
-        axios(`${process.env.REACT_APP_SERVER_URL}/gardens?page=${1}&pageSize=${1000}`)
+        axios(`${process.env.REACT_APP_SERVER_URL}/gardens/?memberId=2`, config)
             .then((res) => {
-                console.log(res);
+                // console.log(res);
             })
             .catch((err) => console.log(err));
     };
 
     // 백에서 todos 갖고옴
     const getTodos = () => {
-        axios(`${process.env.REACT_APP_SERVER_URL}/todos`)
+        axios(`${process.env.REACT_APP_SERVER_URL}/todos`, config)
             .then((res) => {
-                console.log(res);
+                // console.log(res);
             })
             .catch((err) => console.log(err));
     };
@@ -85,7 +84,7 @@ export default function CalenderPage() {
 
     const deleteTagHandler = () => {
         axios
-            .delete(`${process.env.REACT_APP_SERVER_URL}/tag/${selectedTag.id}`)
+            .delete(`${process.env.REACT_APP_SERVER_URL}/tag/${selectedTag.id}`, config)
             .then((res) => {
                 console.log(res);
             })
@@ -96,7 +95,6 @@ export default function CalenderPage() {
     const getTags = () => {
         axios(`${process.env.REACT_APP_SERVER_URL}/tag/month?year=2024&month=2`, config)
             .then((res) => {
-                console.log(res);
                 const tempTags = res.data.result.tagResponseDtos;
 
                 // 아직 갖고온 tag들에는 start와 end 데이터가 없어서 임시로 넣어줌
@@ -133,7 +131,7 @@ export default function CalenderPage() {
         };
 
         axios
-            .post(`${process.env.REACT_APP_SERVER_URL}/tag/add`, body)
+            .post(`${process.env.REACT_APP_SERVER_URL}/tag/add`, body, config)
             .then((res) => {
                 const newTag = body;
                 newTag.id = res.data.result.id;
@@ -170,13 +168,10 @@ export default function CalenderPage() {
 
     // 백에서 tag, todo, garden 갖고옴
     useEffect(() => {
-        // axios("http://ec2-3-34-198-148.ap-northeast-2.compute.amazonaws.com:8080/api/token/test")
-        //     .then((res) => console.log(res))
-        //     .catch((err) => console.log(err));
         getTags();
-        // getTodos();
-        // getGardens();
-        // setIsUpdateCalender(false);
+        getTodos();
+        getGardens();
+        setIsUpdateCalender(false);
     }, [isUpdateCalender]);
 
     return (

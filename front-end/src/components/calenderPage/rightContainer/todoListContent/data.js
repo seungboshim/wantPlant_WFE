@@ -193,3 +193,11 @@ export const goal_res_2 = {
         ],
     },
 };
+
+{
+    /* <PotWrapper key={idx4}>
+    {todo.isComplete ? <CompletedCheckIcon isfilled /> : <CompletedCheckIcon />}
+    <TodoTitleWrapper>{todo.todoTitle}</TodoTitleWrapper>
+    <GardenNameTagWrapper pottagcolor={getPotTagColor(pot.potTagColor)}>{pot.garden.name}</GardenNameTagWrapper>
+</PotWrapper>; */
+}

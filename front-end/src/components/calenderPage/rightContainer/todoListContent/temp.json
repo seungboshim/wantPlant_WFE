@@ -1,0 +1,35 @@
+{
+  "isSuccess": true,
+  "code": "COMMON200",
+  "message": "성공입니다.",
+  "result": {
+    "totalElements": 2,
+    "gardens": [{
+      "gardenId": 13,
+      "name": "0_garden1",
+      "description": "0_garden1",
+      "gardenCategory": "STUDY",
+      "potList": [{
+        "potId": 8,
+        "potName": "1_pot1",
+        "potType": "GERANIUM",
+        "proceed": 0,
+        "potTagColor": "PURPLE",
+        "potImageUrl": "https://anak-s3.s3.ap-northeast-2.amazonaws.com/pot/geranium-0",
+        "startAt": "2024-02-07",
+        "garden": {
+          "id": 13,
+          "name": "0_garden1",
+          "description": "0_garden1",
+          "category": "STUDY",
+          "member": {
+            "id": 1,
+            "nickname": "남윤호",
+            "email": "nam2660433@naver.com",
+            "profileImage": "http://k.kakaocdn.net/dn/bcr2OE/btshj4fgX1L/aTT3EkuFJAIemRrku36ox0/img_640x640.jpg"
+          }
+        }
+      }]
+    }]
+  }
+}
