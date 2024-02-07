@@ -1,11 +1,10 @@
-import Server from "../setting";
+import { Server } from "../setting";
 
 export const CompletedPot = async () => {
-    try{
+    try {
         const response = await Server.get("/api/completed-pots/web");
         return response.result.pots;
-    }
-    catch(error){
+    } catch (error) {
         console.log(error);
     }
-}
+};

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useTheme } from "styled-components";
-import { garden_res, goal_res_1, goal_res_2 } from "./data";
 import axios from "axios";
+import { Server } from "../../../../apis/setting";
 import todoEmpty from "../../../../assets/images/todoEmpty.svg";
 import todoFill from "../../../../assets/images/todoFill.svg";
 import moment from "moment";
+import { dummy } from "./dummy";
 
 export default function MyTodoListContentContainer(props) {
     const theme = useTheme();
@@ -13,14 +14,6 @@ export default function MyTodoListContentContainer(props) {
     const [categories, setCategories] = useState([]);
     const [gardens, setGardens] = useState([]);
     const [todos, setTodos] = useState([]);
-
-    // api Config
-    const config = {
-        headers: {
-            Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MzksImlhdCI6MTcwNzIxNDA4MCwiZXhwIjoxNzA3MzAwNDgwfQ.GtXkVzPzM1UmLdWyOM9bn1D6GCaLEOlv5nKXqdMlsRs",
-        },
-    };
 
     const body = {
         memberID: 1,
@@ -41,58 +34,17 @@ export default function MyTodoListContentContainer(props) {
 
     const getCategories = () => {
         // const garden_res = await axios
-        //     .get(`${process.env.REACT_APP_SERVER_URL}/gardens/?memberId=2`, config)
+        //     .get(`${process.env.REACT_APP_SERVER_URL}/gardens/?memberId=2`)
         //     .then((res) => {
         //         console.log(res.data);
         //         return res.data;
         //     })
         //     .catch((err) => console.log(err, "!!!!!!!!!!!!!"));
 
-        const garden_res = {
-            isSuccess: true,
-            code: "COMMON200",
-            message: "성공입니다.",
-            result: {
-                totalElements: 5,
-                gardens: [
-                    {
-                        // 기존 데이터
-                        gardenId: 13,
-                        name: "0_garden1",
-                        description: "0_garden1",
-                        gardenCategory: "STUDY",
-                        potList: [
-                            {
-                                potId: 8,
-                                potName: "1_pot1",
-                                potType: "GERANIUM",
-                                proceed: 0,
-                                potTagColor: "PURPLE",
-                                potImageUrl: "https://anak-s3.s3.ap-northeast-2.amazonaws.com/pot/geranium-0",
-                                startAt: "2024-02-07",
-                                garden: {
-                                    id: 13,
-                                    name: "0_garden1",
-                                    description: "0_garden1",
-                                    category: "STUDY",
-                                    member: {
-                                        id: 1,
-                                        nickname: "남윤호",
-                                        email: "nam2660433@naver.com",
-                                        profileImage:
-                                            "http://k.kakaocdn.net/dn/bcr2OE/btshj4fgX1L/aTT3EkuFJAIemRrku36ox0/img_640x640.jpg",
-                                    },
-                                },
-                            },
-                        ],
-                    },
-                ],
-            },
-        };
+        const garden_res = dummy;
 
         // category 별로 garden들 배열로 묶음
         const categorizedData = [];
-        console.log(garden_res);
         garden_res.result.gardens.map((garden) => {
             let categoryIdx = convertCategoryToIndex(garden.gardenCategory);
             if (!categorizedData[categoryIdx]) {
@@ -101,24 +53,15 @@ export default function MyTodoListContentContainer(props) {
 
             categorizedData[categoryIdx].push(garden);
         });
-
-        console.log(categorizedData);
         setCategories(categorizedData);
     };
 
     const getTodos = () => {
-        let newTodos = [];
-        axios
-            .get(
-                `${process.env.REACT_APP_SERVER_URL}/pots/todos/date?date=${moment(props.selectedSlot.start).format("YYYY-MM-DD")}`,
-                config,
-            )
+        Server.get(`/pots/todos/date?date=${moment(props.selectedSlot.start).format("YYYY-MM-DD")}`)
             .then((res) => {
-                res.data.result.todos.map((todo) => newTodos.push(todo));
+                setTodos(res.data.result.todos);
             })
             .catch((err) => console.log(err));
-        console.log(newTodos);
-        setTodos(newTodos);
     };
 
     const getCategoryKoreanName = (category) => {
@@ -128,8 +71,7 @@ export default function MyTodoListContentContainer(props) {
     };
 
     const getGoalsByPotId = async (potId) => {
-        return await axios
-            .get(`${process.env.REACT_APP_SERVER_URL}/goals/todos?potId=${potId}`, config)
+        return await Server.get(`/goals/todos?potId=${potId}`)
             .then((res) => {
                 return res.data;
             })
@@ -149,12 +91,8 @@ export default function MyTodoListContentContainer(props) {
     };
 
     useEffect(() => {
-        getCategories();
+        getCategories(categories);
         getTodos();
-    }, []);
-
-    useEffect(() => {
-        console.log(todos);
     }, [props.selectedSlot]);
 
     return (
@@ -178,28 +116,37 @@ export default function MyTodoListContentContainer(props) {
 
             <ContentWrapper>
                 {categories.map((category, idx) => {
-                    // console.log(category);
                     return (
                         <div key={idx}>
                             <CategoryTitleWrapper>
                                 {getCategoryKoreanName(category[0].gardenCategory)}
                             </CategoryTitleWrapper>
-                            {category.map((garden) => {
-                                const filtered_todos = todos.filter((todo) => {
-                                    return todo.category === garden.gardenCategory;
-                                });
-                                filtered_todos.map((todo, idx1) => {
-                                    console.log(todo);
-                                    return (
-                                        <PotWrapper key={idx1}>
-                                            {todo.complete ? <CompletedCheckIcon isfilled /> : <CompletedCheckIcon />}
-                                            <TodoTitleWrapper>{todo.todoTitle}</TodoTitleWrapper>
-                                            {/* pottagcolor={getPotTagColor(pot.potTagColor)} */}
-                                            <GardenNameTagWrapper>{garden.name}</GardenNameTagWrapper>
-                                        </PotWrapper>
+
+                            {todos ? (
+                                category.map((garden) => {
+                                    const filtered_todos = todos.filter(
+                                        (todo) => todo.category === garden.gardenCategory,
                                     );
-                                });
-                            })}
+                                    return filtered_todos.map((todo, idx1) => {
+                                        return (
+                                            <PotWrapper key={idx1}>
+                                                {todo.complete ? (
+                                                    <CompletedCheckIcon isfilled />
+                                                ) : (
+                                                    <CompletedCheckIcon />
+                                                )}
+                                                <TodoTitleWrapper>{todo.todoTitle}</TodoTitleWrapper>
+
+                                                <GardenNameTagWrapper pottagcolor={getPotTagColor(todo.potTagColor)}>
+                                                    {garden.name}
+                                                </GardenNameTagWrapper>
+                                            </PotWrapper>
+                                        );
+                                    });
+                                })
+                            ) : (
+                                <div>none</div>
+                            )}
                         </div>
                     );
                 })}
@@ -317,8 +264,8 @@ const GardenNameTagWrapper = styled.div`
     border-radius: 0.6vw;
     margin: 0 7px;
     margin-top: 3px;
-    background-color: ${(props) => props.pottagcolor[1].bg};
-    color: ${(props) => props.pottagcolor[1].text};
+    background-color: ${(props) => (props.pttagcolor !== null ? props.pottagcolor[1].bg : "")};
+    color: ${(props) => (props.pttagcolor !== null ? props.pottagcolor[1].text : "")};
     @media (max-width: 1280px) {
         font-size: 11.5px;
         border-radius: 7.5px;

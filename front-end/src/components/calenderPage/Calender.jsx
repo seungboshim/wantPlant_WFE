@@ -35,10 +35,6 @@ const Calender = (props) => {
         props.setSelectedDate(e);
     };
 
-    const onSelectEventHandler = (e) => {
-        props.onClickTag(true, e);
-    };
-
     return (
         <StyledCalendar
             localizer={localizer}
@@ -57,7 +53,7 @@ const Calender = (props) => {
             onDrillDown={(e) => onClickDateBtn(e)}
             selectable
             eventPropGetter={props.eventPropGetter}
-            onSelectEvent={onSelectEventHandler}
+            onSelectEvent={(e) => props.onClickTag(true, e)}
             isDeleteTagModalOn={props.isDeleteTagModalOn}
         />
     );
