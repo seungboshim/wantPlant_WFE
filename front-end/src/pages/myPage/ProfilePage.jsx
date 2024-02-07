@@ -1,14 +1,30 @@
+import { React, useState, useEffect } from "react";
 import styled from "styled-components";
 import ProfileButton from "../../components/myPage/ProfileButton";
 import InformButton from "../../components/myPage/InformButton";
 import FAQButton from "../../components/myPage/FAQButton";
+import { getMemberInform } from "../../apis/memberInform/memberInform";
 
 export default function ProfilePage() {
-    const src="";
-    const name="ㅇㅇㅇ";
-    const nickName="현재 닉네임";
-    const tel="현재 휴대폰 번호";
-    const email="현재 이메일";
+    const [src, setSrc] = useState("");
+    const [name, setName] = useState("");
+    const [nickname, setNickname] = useState("");
+    const [email, setEmail] = useState("");
+    
+    useEffect(() => {
+        getMemberInform().then((inform) => {
+            setSrc(inform.profileImage)
+            setName(inform.nickname)
+            setNickname(inform.nickname)
+            setEmail(inform.email)
+        })
+    }, [])
+
+    console.log(src)
+    console.log(name)
+    console.log(nickname)
+    console.log(email)
+
     return (
         <Wrapper>
             <Question>궁금한 점이 있나요?</Question>
@@ -28,7 +44,7 @@ export default function ProfilePage() {
                     <SecondWrapper>
                         <Part>
                             <Label>닉네임</Label>
-                            <Inform>{nickName}</Inform>
+                            <Inform>{nickname}</Inform>
                         </Part>
                         <Part>
                             <Label>휴대폰 번호</Label>
