@@ -12,7 +12,7 @@ export default function ProfilePage() {
     const [email, setEmail] = useState("");
     
     useEffect(() => {
-        getMemberInform().then((inform) => {
+        getMemberInform(37).then((inform) => {
             setSrc(inform.profileImage)
             setName(inform.nickname)
             setNickname(inform.nickname)
@@ -45,10 +45,6 @@ export default function ProfilePage() {
                         <Part>
                             <Label>닉네임</Label>
                             <Inform>{nickname}</Inform>
-                        </Part>
-                        <Part>
-                            <Label>휴대폰 번호</Label>
-                            <Inform>{tel}</Inform>
                         </Part>
                         <Part>
                             <Label>현재 이메일</Label>
