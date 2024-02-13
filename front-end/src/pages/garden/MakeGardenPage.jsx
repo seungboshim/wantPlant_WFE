@@ -1,5 +1,5 @@
 import React from "react";
-//import {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import styled from "styled-components";
 // import StudyButton from "../../components/makeGardenContent/StudyButton";
 // import ExerciseButton from "../../components/makeGardenContent/ExerciseButton";
@@ -14,10 +14,30 @@ import ReverseModalButton from '../../components/button/ReverseModalButton';
 
 /** 정원 생성 페이지 */
 export default function MakeGardenPage() {
-    const handleSubmit = () => {
-        console.log("dd")
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [selectedCategory, setCategory] = useState("STUDY");
+
+    const handleTitle = (e) => {
+        const text = e.target.value;
+        setTitle(text);
     }
 
+    const handleDescription = (e) => {
+        const text = e.target.value;
+        setDescription(text);
+    }
+
+
+    const handleSubmit = () => {
+        console.log(selectedCategory)
+        console.log(title)
+        console.log(description)
+    }
+
+    const handleQuit = () => {
+        console.log("취소")
+    }
 
     return (
         <Layout>
@@ -26,15 +46,15 @@ export default function MakeGardenPage() {
                 <Title>
                     키워갈 정원을 선택해주세요!
                 </Title>
-                <ClickHandler />
+                <ClickHandler setCategory={setCategory}/>
             </Category>
             <InputContainer>
-                <Input placeholder={"정원 이름을 적어주세요."} />
-                <Input placeholder={"정원에 대한 설명을 작성해주세요."} />
+                <Input onChange={handleTitle} value={title} placeholder={"정원 이름을 적어주세요."} />
+                <Input onChange={handleDescription} value={description} placeholder={"정원에 대한 설명을 작성해주세요."} />
             </InputContainer>
             <ButtonContainer>
                 <ModalButton label="확인" onClick={handleSubmit}/>
-                <ReverseModalButton label="취소" onClick={handleSubmit}/>
+                <ReverseModalButton label="취소" onClick={handleQuit}/>
             </ButtonContainer>
         </Layout>
     );

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export default function Input({ onChange, placeholder }) {
+export default function Input({ onChange, value, placeholder }) {
     return (
-        <Wrapper type="text" onClick={onChange} placeholder={placeholder} />
+        <Wrapper type="text" onChange={onChange} value={value} placeholder={placeholder} />
     )
 }
 
