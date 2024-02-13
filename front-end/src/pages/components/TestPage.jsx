@@ -1,15 +1,10 @@
 import styled from "styled-components";
-import PotTagItem from "../../components/tag/PotTagItem";
-import TodoTagItem from "../../components/tag/TodoTagItem";
-import ScheduleTagItem from "../../components/tag/ScheduleTagItem";
-import NewGardenBox from '../../components/gardenContent/NewGardenBox';
-import PotCreate from "../../components/gardenContent/PotCreate";
-
 
 export default function TestPage() {
+
     return (
         <Container>
-            <PotCreate />
+            <span></span>
         </Container>
     )
 }

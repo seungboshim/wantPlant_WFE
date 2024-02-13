@@ -12,6 +12,7 @@ export default function GardenHeaderComponent({
 
     /** 각 label에 해당하는 정원으로 navigate */
     const handleClick = () => {
+      console.log(label);
         // TODO : 누르면 각 카테고리의 맨 처음 정원으로
         // TODO : 카테고리에 정원이 없다면 /garden/add로 ㄱㄱ
         if (label === "공부") {
@@ -20,6 +21,8 @@ export default function GardenHeaderComponent({
             navigate("/garden/hobby");
         } else if (label === "운동") {
             navigate("/garden/exercise");
+        } else if (label === "캘린더") {
+            navigate("/calender");
         }
     };
     

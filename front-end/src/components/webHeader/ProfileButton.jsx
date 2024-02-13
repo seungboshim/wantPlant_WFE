@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 import Profile from '../../assets/images/profile.svg';
+import { useNavigate } from 'react-router-dom';
 
-export default function BookButton(){
+export default function ProfileButton(){
+    const navigate = useNavigate();
     return(
-        <Wrapper>
-            <Img src={Profile}/>
+        <Wrapper onClick={() => navigate("/profile")}>
+            <ProfileImg src={Profile}/>
         </Wrapper>
     )
 }
@@ -14,7 +16,7 @@ const Wrapper = styled.div`
     width: 20px;
     height: 20px;
 `
-const Img = styled.img`
+const ProfileImg = styled.img`
     width: 100%;
     height: 100%;
 `

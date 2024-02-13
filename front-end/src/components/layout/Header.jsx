@@ -1,16 +1,44 @@
+import { useState, useEffect } from 'react'; 
+import { useNavigate } from 'react-router-dom';
+
 import styled from 'styled-components';
-import MainLogo from '../webHeader/LogoButton';
-import Welcome from "../webHeader/WelcomMessage";
+import MainLogoButton from '../webHeader/MainLogoButton';
+import WelcomeMessage from "../webHeader/WelcomMessage";
 import BookButton from "../webHeader/BookButton";
 import ProfileButton from "../webHeader/ProfileButton";
 import LogoutButton from "../webHeader/LogoutButton";
 
-export function Header() {
+/** 사용자 닉네임을 받는 Header */
+export function Header({ name }) {
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    // 스크롤 시 헤더 스타일 변경
+    useEffect(() => {
+        const handleScroll = () => {
+            // 현재 스크롤을 저장하는 currScroll
+            const currScroll = window.scrollY;
+            if (currScroll === 0) { // 스크롤이 맨 위
+                setIsScrolled(false);
+            } else { // 그 외
+                setIsScrolled(true);
+            }
+        }
+        // 'window' 에서 'scroll' 이 감지? 되면 handleScroll 함수를 호출하는 event listener
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            // 켜둔 event listener 끔
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [])
+
+    const navigate = useNavigate();
+
     return (
-        <Container>
-            <MainLogo/>
+        <Container isScrolled={isScrolled }>
+            <MainLogoButton />
             <Menu>
-                <Welcome/>
+                <WelcomeMessage name={name}/>
                 <Buttons>
                     <BookButton/>
                     <ProfileButton/>
@@ -22,26 +50,33 @@ export function Header() {
 }
 
 const Container = styled.header`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
     display: flex;
-    flex-direction: row;
-    margin-bottom: 12px;
-    background-color: #FFFFFF;
-    border-bottom: 1px solid #DDE1E6;
+    width: auto;
+    height: 80px;
+    background-color: white;
+    border-bottom: ${({isScrolled, theme}) => 
+        isScrolled ? `1px solid ${theme.colors.strokeGray}` : 'none'
+    };
+    box-shadow: ${({isScrolled, theme}) => 
+        isScrolled ? `0px 0px 4px 0px ${theme.colors.strokeGray}` : 'none'
+    };
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 80px;
 `
 const Menu = styled.div`
     display: flex;
-    flex-direction: row;
-    width: 220px;
-    height: 20px;
-    margin-top: 16px;
-    margin-bottom: 16px;
-    margin-left: 900px;
-    gap: 20px;
+    align-items: center;
+    justify-content: space-around;
 `
 const Buttons = styled.div`
     display: flex;
-    flex-direction: row;
-    width: 80px;
-    height: 20px;
-    gap: 10px;
+    align-items: center;
+    width: 120px;
+    justify-content: space-between;
 `
