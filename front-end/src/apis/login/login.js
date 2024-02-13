@@ -10,7 +10,6 @@ export const getKakaoAccessToken = async (code) => {
     const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
     console.log("getkakaotoken 실행")
     try {
-        // TODO
         /** 카카오에서 토큰 받기 */
         console.log("인가코드: "+code);
 
