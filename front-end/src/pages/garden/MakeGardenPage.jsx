@@ -10,6 +10,7 @@ import Input from "../../components/makeGardenContent/Input";
 import { ReactComponent as DogCloud } from "../../assets/images/dogcat_cloud.svg";
 import ModalButton from '../../components/button/ModalButton';
 import ReverseModalButton from '../../components/button/ReverseModalButton';
+import { postGarden } from "../../apis/garden/editGarden";
 
 
 /** 정원 생성 페이지 */
@@ -28,14 +29,16 @@ export default function MakeGardenPage() {
         setDescription(text);
     }
 
-
     const handleSubmit = () => {
-        console.log(selectedCategory)
-        console.log(title)
-        console.log(description)
+        postGarden({
+            "name": title, 
+            "description": description, 
+            "category": selectedCategory
+        });
     }
 
     const handleQuit = () => {
+        // TODO : 취소누르면 이전페이지로 리턴하기
         console.log("취소")
     }
 
