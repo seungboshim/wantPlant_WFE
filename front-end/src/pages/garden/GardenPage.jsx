@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import GardenFirst from "./GardenFirst";
 import GardenSecond from "./GardenSecond";
 import EditGardenModal from "../../components/modal/EditGardenModal";
 import AddTodoModal from "../../components/modal/AddTodoModal";
 import EditTodoModal from "../../components/modal/EditTodoModal";
+import { useParams } from "react-router-dom";
 
 export default function GardenPage() {
+    // params = {gardenId: ***} 저장됨
+    const params = useParams();
+
     const [isEditGardenModalOpen, setIsEditGardenModalOpen] = useState(false);
     const [isAddTodoModalOpen, setIsAddTodoModalOpen] = useState(false);
     const [isEditTodoModalOpen, setIsEditTodoModalOpen] = useState(false);
@@ -35,8 +39,9 @@ export default function GardenPage() {
                 EditGardenModalHandler={EditGardenModalHandler}
                 AddTodoModalHandler={AddTodoModalHandler}
                 EditTodoModalHandler={EditTodoModalHandler}
+                gardenId={params.gardenId}
             />
-            <GardenSecond />
+            <GardenSecond gardenId={params.gardenId} />
             <EditGardenModal isOpen={isEditGardenModalOpen} EditGardenModalHandler={EditGardenModalHandler} />
             <AddTodoModal isOpen={isAddTodoModalOpen} AddTodoModalHandler={AddTodoModalHandler} />
             <EditTodoModal isOpen={isEditTodoModalOpen} EditTodoModalHandler={EditTodoModalHandler} />

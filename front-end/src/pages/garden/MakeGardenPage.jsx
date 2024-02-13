@@ -1,16 +1,14 @@
 import React from "react";
 import {useState, useEffect} from "react";
 import styled from "styled-components";
-// import StudyButton from "../../components/makeGardenContent/StudyButton";
-// import ExerciseButton from "../../components/makeGardenContent/ExerciseButton";
-// import HobbyButton from "../../components/makeGardenContent/HobbyButton";
-//import Buttons from "../../components/makeGardenContent/Buttons";
+
 import ClickHandler from "../../components/makeGardenContent/ClickHandler";
 import Input from "../../components/makeGardenContent/Input";
 import { ReactComponent as DogCloud } from "../../assets/images/dogcat_cloud.svg";
 import ModalButton from '../../components/button/ModalButton';
 import ReverseModalButton from '../../components/button/ReverseModalButton';
 import { postGarden } from "../../apis/garden/editGarden";
+import { useNavigate } from "react-router-dom";
 
 
 /** 정원 생성 페이지 */
@@ -18,6 +16,7 @@ export default function MakeGardenPage() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [selectedCategory, setCategory] = useState("STUDY");
+    const navigate = useNavigate();
 
     const handleTitle = (e) => {
         const text = e.target.value;
@@ -29,12 +28,14 @@ export default function MakeGardenPage() {
         setDescription(text);
     }
 
-    const handleSubmit = () => {
-        postGarden({
+    const handleSubmit = async() => {
+        const gardenId = await postGarden({
             "name": title, 
             "description": description, 
             "category": selectedCategory
         });
+
+        navigate(`/garden/study/${gardenId}`)
     }
 
     const handleQuit = () => {

@@ -6,7 +6,9 @@ import NewGardenBox from "../../components/gardenContent/NewGardenBox";
 import img1 from "../../assets/images/logo_pot.svg";
 
 /** 정원페이지 하단 컴포넌트 */
-export default function GardenSecond() {
+export default function GardenSecond({
+  gardenId
+}) {
   return (
     <Wrapper className="GardenSecondWrapper">
       <WrapperTitleContainer className="WrapperTitleContainer">

@@ -11,12 +11,14 @@ import { gardensFromId } from "../../apis/dummy/gardens";
 import { potsFromGarden } from "../../apis/dummy/pots";
 import { useEffect, useState } from "react";
 import PotPagenation from "../../components/pagenation/PotPagenation";
+import { getGardenById } from "../../apis/garden/getGarden";
 
 /** 정원페이지 상단 컴포넌트 */
 export default function GardenFirst({
   EditGardenModalHandler,
   AddTodoModalHandler,
   EditTodoModalHandler,
+  gardenId,
 }) {
   const location = useLocation();
   // location = "/garden/{카테고리}"
@@ -24,7 +26,15 @@ export default function GardenFirst({
   // pathname = ["", "garden", "{카테고리}"] 저장됨
   const category = pathname[2] ? pathname[2].toUpperCase() : "";
   // category = "STUDY" 저장
-  const gardenId = pathname[3];
+
+  const [gardenData, setGardenData] = useState([]);
+
+  useEffect(()=> {
+    getGardenById(gardenId).then((data) => {
+      setGardenData(data);
+    })
+  }, gardenId)
+
   const [page, setPage] = useState(1);
   // TODO : getGardenWithPagenation(gardenId, page) 로 정원 정보 받아오기
   
@@ -76,8 +86,8 @@ export default function GardenFirst({
       <Content $category={category} className="Content">
         <ContentHeader className="ContentHeader">
           <TextWrapper $category={category} className="TextWrapper">
-            <GardenTitle className="GardenTitle">{gardensFromId[0].name}</GardenTitle>
-            <GardenDescription>{gardensFromId[0].description}</GardenDescription>
+            <GardenTitle className="GardenTitle">{gardenData.name}</GardenTitle>
+            <GardenDescription>{gardenData.description}</GardenDescription>
           </TextWrapper>
           <DeleteBtn>
             <GardenDeleteButton label="정원 삭제하기" />

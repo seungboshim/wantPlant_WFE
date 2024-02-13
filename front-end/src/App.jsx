@@ -36,6 +36,7 @@ function App() {
             <Route path="/join" element={<JoinPage />} />
             <Route path="/auth/kakao/callback" element={<KakaoAuthPage />} />
             <Route path="/garden" element={<GardenPage />}>
+              <Route path=":gardenId" element={<GardenPage />} />
               <Route path="/garden/study" element={<StudyGardenPage />} />  
               <Route path="/garden/hobby" element={<HobbyGardenPage />} />  
               <Route path="/garden/exercise" element={<ExerciseGardenPage />} />
