@@ -4,7 +4,7 @@ import { Server } from "../setting";
 /** 정원 생성, gardenId 리턴함 */
 export const postGarden = async({ name, description, category }) => {
     try {
-        const response = await Server.post(`/apis/gardens`, {
+        const response = await Server.post(`/api/gardens`, {
             "name": name,
             "description": description,
             "category": category
@@ -18,7 +18,7 @@ export const postGarden = async({ name, description, category }) => {
 /** 정원 수정, gardenId 리턴함 */
 export const putGarden = async({ gardenId, name, description }) => {
     try {
-        const response = await Server.put(`/apis/gardens`, {
+        const response = await Server.put(`/api/gardens`, {
             "gardenId": gardenId,
             "name": name,
             "description": description,
@@ -32,7 +32,7 @@ export const putGarden = async({ gardenId, name, description }) => {
 /** 정원 삭제 */
 export const deleteGarden = async({ gardenId }) => {
     try {
-        const response = await Server.delete(`/apis/gardens/${gardenId}`)
+        const response = await Server.delete(`/api/gardens/${gardenId}`)
         return response.data.result;
     } catch (error) {
         console.log(error);
