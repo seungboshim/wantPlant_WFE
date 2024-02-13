@@ -7,12 +7,18 @@ import styled from "styled-components";
 //import Buttons from "../../components/makeGardenContent/Buttons";
 import ClickHandler from "../../components/makeGardenContent/ClickHandler";
 import Input from "../../components/makeGardenContent/Input";
-import { ReactComponent as DogCloud } from "../../assets/images/dog_cloud.svg";
+import { ReactComponent as DogCloud } from "../../assets/images/dogcat_cloud.svg";
+import ModalButton from '../../components/button/ModalButton';
+import ReverseModalButton from '../../components/button/ReverseModalButton';
 
 
 /** 정원 생성 페이지 */
 export default function MakeGardenPage() {
-    //const buttons = [<StudyButton/>, <ExerciseButton/>, <HobbyButton/>];
+    const handleSubmit = () => {
+        console.log("dd")
+    }
+
+
     return (
         <Layout>
             <DogCloud/>
@@ -22,10 +28,14 @@ export default function MakeGardenPage() {
                 </Title>
                 <ClickHandler />
             </Category>
-            <InputWrapper>
-                <Input placeholder={"정원 이름을 적어주세요"} />
-                <Input placeholder={"정원에 대한 설명을 작성해주세요"} />
-            </InputWrapper>
+            <InputContainer>
+                <Input placeholder={"정원 이름을 적어주세요."} />
+                <Input placeholder={"정원에 대한 설명을 작성해주세요."} />
+            </InputContainer>
+            <ButtonContainer>
+                <ModalButton label="확인" onClick={handleSubmit}/>
+                <ReverseModalButton label="취소" onClick={handleSubmit}/>
+            </ButtonContainer>
         </Layout>
     );
 }
@@ -34,8 +44,9 @@ const Layout = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 1280px;
-    height: 832px;
+    justify-content: center;
+    width: 100%;
+    height: 95vh;
     background: ${({ theme }) => theme.colors.green01};
 `
 
@@ -43,17 +54,15 @@ const Category = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 558px;
-    height: 162px;
-    margin-top: 30px;
-    gap: 66px;
+    width: 50%;
+    height: auto;
+    margin: 3%;
 `
 const Title = styled.span`
-    width: 558px;
-    height: 50px;
     font-size: 42px;
     font-weight: 700;
     color: #000000;
+    margin-bottom: 3%;
 `
 
 // const Subject = styled.div`
@@ -63,12 +72,17 @@ const Title = styled.span`
 //     height: 50px;
 //     gap: 40px;
 // `
-const InputWrapper = styled.div`
+const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 700px;
-    height: 170px;
-    margin-top: 120px;
-    gap: 10px;
+    width: auto;
+    height: auto;
+`
+
+const ButtonContainer = styled.div`
+    display: flex;
+    width: 30%;
+    justify-content: space-around;
+    margin-top: 15px;
 `

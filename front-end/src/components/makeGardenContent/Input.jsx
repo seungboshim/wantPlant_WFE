@@ -10,15 +10,15 @@ const Wrapper = styled.input`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 30px;
-    width: 700px;
-    height: 80px;
-    border-radius: 30px;
-    font-size: 30px;
+    padding: 15px 30px;
+    width: 50vw;
+    border-radius: 20px;
+    font-size: 24px;
     background: #FFFFFF;
     border: none;
     &::placeholder {
         color: #757373;
-        font-size: 30px;
+        font-size: 24px;
     }
+    margin-bottom: 15px;
 `
