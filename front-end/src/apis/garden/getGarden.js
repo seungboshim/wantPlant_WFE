@@ -9,7 +9,7 @@ export const getEntireGardens = async() => {
     }
 }
 
-export const getGardensById = async({ gardenId }) => {
+export const getGardenById = async({ gardenId }) => {
     try {
         const response = await Server.get(`/api/gardens/${gardenId}`);
         return response.data.result;
