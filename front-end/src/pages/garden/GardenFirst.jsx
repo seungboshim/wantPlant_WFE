@@ -20,12 +20,12 @@ export default function GardenFirst({
   EditTodoModalHandler,
   gardenId,
 }) {
-  const location = useLocation();
-  // location = "/garden/{카테고리}"
-  const pathname = location.pathname.split("/");
-  // pathname = ["", "garden", "{카테고리}"] 저장됨
-  const category = pathname[2] ? pathname[2].toUpperCase() : "";
-  // category = "STUDY" 저장
+  // const location = useLocation();
+  // // location = "/garden/{카테고리}"
+  // const pathname = location.pathname.split("/");
+  // // pathname = ["", "garden", "{카테고리}"] 저장됨
+  // const category = pathname[2] ? pathname[2].toUpperCase() : "";
+  // // category = "STUDY" 저장
 
   const [gardenData, setGardenData] = useState([]);
 
@@ -81,11 +81,11 @@ export default function GardenFirst({
   // 카테고리에 따라 다른 컴포넌트 및 색상
   return (
     <Wrapper className="GardenFirstPage_Wrapper">
-      <GardernHeader category={category} />
+      <GardernHeader category={gardenData.gardenCategory} />
       {/** $을 붙이는 이유 : transient props (배포시 문제 방지) */}
-      <Content $category={category} className="Content">
+      <Content className="Content">
         <ContentHeader className="ContentHeader">
-          <TextWrapper $category={category} className="TextWrapper">
+          <TextWrapper className="TextWrapper">
             <GardenTitle className="GardenTitle">{gardenData.name}</GardenTitle>
             <GardenDescription>{gardenData.description}</GardenDescription>
           </TextWrapper>
@@ -167,14 +167,7 @@ const Content = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: ${({ theme, $category }) =>
-        $category === "STUDY"
-            ? theme.colors.green01
-            : $category === "HOBBY"
-              ? theme.colors.green04
-              : $category === "EXERCISE"
-                ? theme.colors.green07
-                : theme.colors.green01};
+    background-color: ${({ theme }) => theme.colors.green01};
     border-radius: 2.1vw;
     @media (max-width: 1280px) {
         border-radius: 20px;
@@ -192,7 +185,6 @@ const TextWrapper = styled.div`
     margin: 3.8% 0 0 4%;
     display: flex;
     flex-direction: column;
-    color: ${({ $category }) => ($category === "STUDY" ? "black" : "white")};
 
     @media (max-width: 1280px) {
         margin: 40px 0 0 40px;
