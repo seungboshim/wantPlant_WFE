@@ -1,14 +1,23 @@
+import { React, useState, useEffect } from "react";
 import styled from "styled-components";
 import ProfileButton from "../../components/myPage/ProfileButton";
 import InformButton from "../../components/myPage/InformButton";
 import FAQButton from "../../components/myPage/FAQButton";
+import { getMemberInform } from "../../apis/member/member";
 
 export default function ProfilePage() {
-    const src="";
-    const name="ㅇㅇㅇ";
-    const nickName="현재 닉네임";
-    const tel="현재 휴대폰 번호";
-    const email="현재 이메일";
+    const [src, setSrc] = useState("");
+    const [nickname, setNickname] = useState("");
+    const [email, setEmail] = useState("");
+    
+    useEffect(() => {
+        getMemberInform().then((inform) => {
+            setSrc(inform.profileImage)
+            setNickname(inform.nickname)
+            setEmail(inform.email)
+        })
+    }, [])
+
     return (
         <Wrapper>
             <Question>궁금한 점이 있나요?</Question>
@@ -19,20 +28,14 @@ export default function ProfilePage() {
                     <FAQButton/>
                 </Buttons>
                 <ProfileContent>
-                    <FisrtWrapper>
-                        <Picture>
-                            <img src={src} width={100} height={100} alt="profile"/>
-                        </Picture>
-                        <Name>{name}님의 프로필</Name>
-                    </FisrtWrapper>
+                    <FirstWrapper>
+                        <Picture src={src} alt="profile_img" />
+                        <Name>{nickname}님의 프로필</Name>
+                    </FirstWrapper>
                     <SecondWrapper>
                         <Part>
                             <Label>닉네임</Label>
-                            <Inform>{nickName}</Inform>
-                        </Part>
-                        <Part>
-                            <Label>휴대폰 번호</Label>
-                            <Inform>{tel}</Inform>
+                            <Inform>{nickname}</Inform>
                         </Part>
                         <Part>
                             <Label>현재 이메일</Label>
@@ -75,19 +78,19 @@ const ProfileContent = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
     width: 100%;
     height: 90%;
     background-color: rgba(255, 255, 255, 0.4);
     border-radius: 10px;
 `
-const FisrtWrapper = styled.div`
+const FirstWrapper = styled.div`
     width: 20%;
-    height: 50%;
 `
-const Picture = styled.div`
+const Picture = styled.img`
     width: 100%;
-    height: 85%;
+    height: 100%;
+    border-radius: 50%;
 `
 const Name = styled.div`
     display: flex;
@@ -97,6 +100,7 @@ const Name = styled.div`
     height: 15%;
     font-size: 20px;
     font-weight: 600;
+    margin-top: 30px;
 `
 const SecondWrapper = styled.div`
     display: flex;
@@ -123,7 +127,7 @@ const Inform = styled.p`
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 70%;
+    height: 100%;
     border-radius: 5px;
     background-color: #F6F6F6;
     color: #BDBDBD;

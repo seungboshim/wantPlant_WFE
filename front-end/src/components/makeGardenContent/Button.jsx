@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-export default function ExerciseButton({onClick, id, label,style}){
+export default function Button({onClick, id, label, value, style}){
 
     return(
-        <Wrapper onClick={onClick} id={id} label={label}style={style}>
+        <Wrapper onClick={onClick} id={id} label={label} value={value} style={style}>
             {label}
         </Wrapper>
     )
