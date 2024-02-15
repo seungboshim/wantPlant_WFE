@@ -35,7 +35,7 @@ export default function MakeGardenPage() {
             "category": selectedCategory
         });
 
-        navigate(`/garden/study/${gardenId}`)
+        navigate(`/garden/${gardenId}`)
     }
 
     const handleQuit = () => {
