@@ -22,7 +22,7 @@ export const getKakaoAccessToken = async (code) => {
             },
         );
 
-        console.log(response.data.access_token);
+        console.log(response.data);
         return response.data.access_token;
         
     } catch (error) {
