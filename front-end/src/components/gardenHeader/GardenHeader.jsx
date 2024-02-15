@@ -10,35 +10,35 @@ export default function GardenHeader({ category }) {
             <Wrapper>
                 <GardenHeaderComponent label="공부" bgColor="green01" textColor="black" selected />
                 <GardenHeaderComponent label="취미" bgColor="green04" textColor="white" />
-                <GardenHeaderComponent label="운동" bgColor="green07" textColor="white" />
-                <GardenHeaderComponent label="캘린더" bgColor="pink01" textColor="white" />
+                <GardenHeaderComponent label="운동" bgColor="green04" textColor="white" />
+                <CalendarHeaderComponent />
             </Wrapper>
         );
     } else if (category === "HOBBY") {
         return (
             <Wrapper>
-                <GardenHeaderComponent label="공부" bgColor="green01" textColor="white" />
-                <GardenHeaderComponent label="취미" bgColor="green04" textColor="black" selected />
-                <GardenHeaderComponent label="운동" bgColor="green07" textColor="white" />
-                <GardenHeaderComponent label="캘린더" bgColor="pink01" textColor="white" />
+                <GardenHeaderComponent label="공부" bgColor="green04" textColor="white" />
+                <GardenHeaderComponent label="취미" bgColor="green01" textColor="black" selected />
+                <GardenHeaderComponent label="운동" bgColor="green04" textColor="white" />
+                <CalendarHeaderComponent />
             </Wrapper>
         );
     } else if (category === "EXERCISE") {
         return (
             <Wrapper>
-                <GardenHeaderComponent label="공부" bgColor="green01" textColor="white" />
+                <GardenHeaderComponent label="공부" bgColor="green04" textColor="white" />
                 <GardenHeaderComponent label="취미" bgColor="green04" textColor="white" />
-                <GardenHeaderComponent label="운동" bgColor="green07" textColor="black" selected />
-                <GardenHeaderComponent label="캘린더" bgColor="pink01" textColor="white" />
+                <GardenHeaderComponent label="운동" bgColor="green01" textColor="black" selected />
+                <CalendarHeaderComponent />
             </Wrapper>
         );
     } else
         return (
             <Wrapper>
-                <GardenHeaderComponent label="공부" bgColor="green01" textColor="white" />
+                <GardenHeaderComponent label="공부" bgColor="green04" textColor="white" />
                 <GardenHeaderComponent label="취미" bgColor="green04" textColor="white" />
-                <GardenHeaderComponent label="운동" bgColor="green07" textColor="white" />
-                <GardenHeaderComponent label="캘린더" bgColor="pink01" textColor="black" selected />
+                <GardenHeaderComponent label="운동" bgColor="green04" textColor="white" />
+                <CalendarHeaderComponent selected />
             </Wrapper>
         );
 }

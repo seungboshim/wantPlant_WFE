@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getGardensForCategoryWithPage } from "../../apis/garden/getGarden";
 
 /** 정원 헤더 컴포넌트 (라벨, 배경색, 텍스트색 인자로 받음) */
 export default function GardenHeaderComponent({
@@ -10,20 +12,19 @@ export default function GardenHeaderComponent({
 }) {
   const navigate = useNavigate();
 
+
     /** 각 label에 해당하는 정원으로 navigate */
     const handleClick = () => {
       console.log(label);
-        // TODO : 누르면 각 카테고리의 맨 처음 정원으로
-        // TODO : 카테고리에 정원이 없다면 /garden/add로 ㄱㄱ
-        if (label === "공부") {
-            navigate("/garden/study");
-        } else if (label === "취미") {
-            navigate("/garden/hobby");
-        } else if (label === "운동") {
-            navigate("/garden/exercise");
-        } else if (label === "캘린더") {
-            navigate("/calender");
-        }
+      // TODO : 누르면 각 카테고리의 맨 처음 정원으로
+      // TODO : 카테고리에 정원이 없다면 /garden/add로 ㄱㄱ
+      if (label === "공부") {
+          navigate("/garden/study");
+      } else if (label === "취미") {
+          navigate("/garden/hobby");
+      } else if (label === "운동") {
+          navigate("/garden/exercise");
+      }
     };
     
     // 선택되었을 때엔 커진 버튼
@@ -80,7 +81,14 @@ const SelectedWrapper = styled.div`
 
 const Text = styled.span`
   font-size: 1.2vw;
+  padding: 2px 12px;
+  border-radius: 15px;
   color: ${({ color }) => color};
+  transition: background-color 0.25s;
+
+  ${Wrapper}:hover &{
+    background-color: rgba(236, 243, 232, 0.4);
+  }
 
   @media (max-width: 1280px) {
     font-size: 16px;
