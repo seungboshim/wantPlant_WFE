@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAccessToken, getKakaoAccessToken } from '../../apis/login/login';
 import splitAuthCode from '../../apis/kakao/SplitAuthCode';
+import { useRecoilState } from 'recoil';
+import { StudyGardenCountAtom, ExerciseGardenCountAtom, HobbyGardenCountAtom } from "../../recoil/atom";
+import { getEntireGardens } from '../../apis/garden/getGarden';
 
 /** 카카오 로그인 성공시 리다이렉트될 때 호출 */
 export default function KakaoAuthPage() {
@@ -26,9 +29,20 @@ export default function KakaoAuthPage() {
         }
     }, [kakaoToken])
 
+    const [entireGardens, setEntireGardens] = useState(0);
+
     useEffect(() => {
-        if (localStorage.getItem("access")) {
-            navigate('/garden/study')
+        getEntireGardens().then((garden) => {
+            setEntireGardens(garden);
+        })
+    })
+
+    useEffect(() => {
+        if (entireGardens.totalElements === 0) {
+            navigate("/garden/add");
+        } else {
+            const gardenIndex = entireGardens.gardens[0].gardenId;
+            navigate(`/garden/${gardenIndex}`);
         }
     }, [localStorage.getItem("access")])
 
