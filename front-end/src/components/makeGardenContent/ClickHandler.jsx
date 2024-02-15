@@ -50,9 +50,9 @@ export default function ClickHandler() {
 
     return (
         <Subject>
-            <Button onClick={clickHandler} id="study" label="공부" style={{ color: studyColor, background: studyBack }} />
-            <Button onClick={clickHandler} id="exercise" label="운동" style={{ color: exerciseColor, background: exerciseBack }} />
-            <Button onClick={clickHandler} id="hobby" label="취미" style={{ color: hobbyColor, background: hobbyBack }} />
+            <Button onClick={clickHandler} id="study" label="공부" value="공부" style={{ color: studyColor, background: studyBack }} />
+            <Button onClick={clickHandler} id="exercise" label="운동" value="운동" style={{ color: exerciseColor, background: exerciseBack }} />
+            <Button onClick={clickHandler} id="hobby" label="취미" value="취미" style={{ color: hobbyColor, background: hobbyBack }} />
         </Subject>
     )
 }
