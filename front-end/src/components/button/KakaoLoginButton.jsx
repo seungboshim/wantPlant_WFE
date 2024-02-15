@@ -7,7 +7,7 @@ export default function KakaoLoginButton() {
     const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
     return (
-        <Link to={`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&scope=account_email`}>
+        <Link to={`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`}>
             <Wrapper >
                 <img src={kakaoImage} width={131} height={33} alt="kakao" />
             </Wrapper>
