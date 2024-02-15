@@ -19,7 +19,7 @@ export default function BookPage(){
     // 카테고리에 따라 비어있는 뷰 구현해야 할 시엔 분리
     if (completedPots===undefined) {
         return (
-            <span>없어요</span>
+            <Empty>정원을 생성해주세요</Empty>
         )
     } else {
         return (
@@ -28,9 +28,9 @@ export default function BookPage(){
                     <Layout>
                         <Label>공부</Label>
                         <Category>
-                            {/* {   
+                            {   
                                 completedPots.map((pot) => {
-                                    if(pot.gardenCategory == "STUDY"){
+                                    if(pot.gardenCategory === "STUDY"){
                                         return <PotCard
                                         potName={pot.potName} 
                                         gardenName={pot.gardenName} 
@@ -42,13 +42,13 @@ export default function BookPage(){
                                         />
                                     }
                                 })
-                            } */}
+                            }
                         </Category>
                         <Label>운동</Label>
                         <Category>
-                            {/* {
+                            {
                                 completedPots.map((pot) => {
-                                    if(pot.gardenCategory == "EXERCISE"){
+                                    if(pot.gardenCategory === "EXERCISE"){
                                         return <PotCard
                                         potName={pot.potName} 
                                         gardenName={pot.gardenName} 
@@ -60,13 +60,13 @@ export default function BookPage(){
                                         />
                                     }
                                 })
-                            } */}
+                            }
                         </Category>
                         <Label>취미</Label>
                         <Category>
-                            {/* {
+                            {
                                 completedPots.map((pot) => {
-                                    if(pot.gardenCategory == "HOBBY"){
+                                    if(pot.gardenCategory === "HOBBY"){
                                         return <PotCard
                                         potName={pot.potName} 
                                         gardenName={pot.gardenName} 
@@ -78,7 +78,7 @@ export default function BookPage(){
                                         />
                                     }
                                 })
-                            } */}
+                            }
                         </Category>
                     </Layout>
                 </Container>
@@ -121,4 +121,14 @@ const Category = styled.div`
     margin-top: 4%;
     margin-bottom: 16%;
     gap: 5%;
+`
+const Empty = styled.span`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 1280px;
+    height: 1500px;
+    background-color: ${({ theme }) => theme.colors.green01};
+    font-size: 50px;
+    font-weight: 400;
 `
