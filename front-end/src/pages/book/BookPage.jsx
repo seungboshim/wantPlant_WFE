@@ -47,17 +47,17 @@ export default function BookPage(){
                     <Layout>
                         <Label>공부</Label>
                         <Category>
-                            {   
+                            {    
                                 completedPots.map((pot) => {
-                                    if(pot.gardenCategory === "STUDY"){
+                                    if (pot.gardenCategory === "STUDY"){
                                         return <PotCard
-                                        potName={pot.potName} 
-                                        gardenName={pot.gardenName} 
-                                        startAt={pot.startAt} 
-                                        completedAt={pot.completedAt} 
-                                        potImgUrl={pot.potImgUrl} 
-                                        todoTitle1={pot.todoTitle1} 
-                                        todoTitle2={pot.todoTitle2}
+                                            potName={pot.potName} 
+                                            gardenName={pot.gardenName} 
+                                            startAt={pot.startAt} 
+                                            completedAt={pot.completedAt} 
+                                            potImgUrl={pot.potImgUrl} 
+                                            todoTitle1={pot.todoTitle1} 
+                                            todoTitle2={pot.todoTitle2}
                                         />
                                     }
                                 })
@@ -65,17 +65,17 @@ export default function BookPage(){
                         </Category>
                         <Label>운동</Label>
                         <Category>
-                            {
+                            {    
                                 completedPots.map((pot) => {
-                                    if(pot.gardenCategory === "EXERCISE"){
+                                    if (pot.gardenCategory === "EXERCISE"){
                                         return <PotCard
-                                        potName={pot.potName} 
-                                        gardenName={pot.gardenName} 
-                                        startAt={pot.startAt} 
-                                        completedAt={pot.completedAt} 
-                                        potImgUrl={pot.potImgUrl} 
-                                        todoTitle1={pot.todoTitle1} 
-                                        todoTitle2={pot.todoTitle2}
+                                            potName={pot.potName} 
+                                            gardenName={pot.gardenName} 
+                                            startAt={pot.startAt} 
+                                            completedAt={pot.completedAt} 
+                                            potImgUrl={pot.potImgUrl} 
+                                            todoTitle1={pot.todoTitle1} 
+                                            todoTitle2={pot.todoTitle2}
                                         />
                                     }
                                 })
@@ -83,17 +83,17 @@ export default function BookPage(){
                         </Category>
                         <Label>취미</Label>
                         <Category>
-                            {
+                            {    
                                 completedPots.map((pot) => {
-                                    if(pot.gardenCategory === "HOBBY"){
+                                    if (pot.gardenCategory === "HOBBY"){
                                         return <PotCard
-                                        potName={pot.potName} 
-                                        gardenName={pot.gardenName} 
-                                        startAt={pot.startAt} 
-                                        completedAt={pot.completedAt} 
-                                        potImgUrl={pot.potImgUrl} 
-                                        todoTitle1={pot.todoTitle1} 
-                                        todoTitle2={pot.todoTitle2}
+                                            potName={pot.potName} 
+                                            gardenName={pot.gardenName} 
+                                            startAt={pot.startAt} 
+                                            completedAt={pot.completedAt} 
+                                            potImgUrl={pot.potImgUrl} 
+                                            todoTitle1={pot.todoTitle1} 
+                                            todoTitle2={pot.todoTitle2}
                                         />
                                     }
                                 })
@@ -110,13 +110,13 @@ const Page = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 1280px;
+    width: 100%;
     height: 1500px;
     background-color: ${({ theme }) => theme.colors.green01};
 `
 
 const Container = styled.div`
-display: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -162,7 +162,7 @@ const EmptyContainer = styled.div`
     height: 55%;
     background-color: #FFFFFF;
     border-radius: 150px;
-    margin-top: 15%;
+    margin-top: 10%;
 `
 const EmptyImageWrapper = styled.div`
     display: flex;
