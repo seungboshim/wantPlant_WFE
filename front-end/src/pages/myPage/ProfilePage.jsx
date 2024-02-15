@@ -3,27 +3,20 @@ import styled from "styled-components";
 import ProfileButton from "../../components/myPage/ProfileButton";
 import InformButton from "../../components/myPage/InformButton";
 import FAQButton from "../../components/myPage/FAQButton";
-import { getMemberInform } from "../../apis/memberInform/memberInform";
+import { getMemberInform } from "../../apis/member/member";
 
 export default function ProfilePage() {
     const [src, setSrc] = useState("");
-    const [name, setName] = useState("");
     const [nickname, setNickname] = useState("");
     const [email, setEmail] = useState("");
     
     useEffect(() => {
-        getMemberInform(37).then((inform) => {
+        getMemberInform().then((inform) => {
             setSrc(inform.profileImage)
-            setName(inform.nickname)
             setNickname(inform.nickname)
             setEmail(inform.email)
         })
     }, [])
-
-    console.log(src)
-    console.log(name)
-    console.log(nickname)
-    console.log(email)
 
     return (
         <Wrapper>
@@ -35,12 +28,10 @@ export default function ProfilePage() {
                     <FAQButton/>
                 </Buttons>
                 <ProfileContent>
-                    <FisrtWrapper>
-                        <Picture>
-                            <img src={src} width={100} height={100} alt="profile"/>
-                        </Picture>
-                        <Name>{name}님의 프로필</Name>
-                    </FisrtWrapper>
+                    <FirstWrapper>
+                        <Picture src={src} alt="profile_img" />
+                        <Name>{nickname}님의 프로필</Name>
+                    </FirstWrapper>
                     <SecondWrapper>
                         <Part>
                             <Label>닉네임</Label>
@@ -87,19 +78,19 @@ const ProfileContent = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
     width: 100%;
     height: 90%;
     background-color: rgba(255, 255, 255, 0.4);
     border-radius: 10px;
 `
-const FisrtWrapper = styled.div`
+const FirstWrapper = styled.div`
     width: 20%;
-    height: 50%;
 `
-const Picture = styled.div`
+const Picture = styled.img`
     width: 100%;
-    height: 85%;
+    height: 100%;
+    border-radius: 50%;
 `
 const Name = styled.div`
     display: flex;
@@ -109,6 +100,7 @@ const Name = styled.div`
     height: 15%;
     font-size: 20px;
     font-weight: 600;
+    margin-top: 30px;
 `
 const SecondWrapper = styled.div`
     display: flex;
@@ -135,7 +127,7 @@ const Inform = styled.p`
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 70%;
+    height: 100%;
     border-radius: 5px;
     background-color: #F6F6F6;
     color: #BDBDBD;
