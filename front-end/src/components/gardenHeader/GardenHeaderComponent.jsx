@@ -11,6 +11,7 @@ export default function GardenHeaderComponent({
   selected,
 }) {
   const navigate = useNavigate();
+  const [gardenCount, setGardenCount] = useState();
 
 
     /** 각 label에 해당하는 정원으로 navigate */

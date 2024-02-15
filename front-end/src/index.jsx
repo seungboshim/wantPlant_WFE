@@ -6,13 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/Theme';
+import { RecoilRoot } from 'recoil';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <RecoilRoot>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <App />
     </ThemeProvider>
+  </RecoilRoot>
 );
 
 // If you want to start measuring performance in your app, pass a function
