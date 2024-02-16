@@ -37,20 +37,19 @@ function App() {
             <Route path="/auth/kakao/callback" element={<KakaoAuthPage />} />
             <Route path="/garden" element={<GardenPage />}>
               <Route path=":gardenId" element={<GardenPage />} />
-              <Route path="/garden/study" element={<StudyGardenPage />} />  
+              {/* <Route path="/garden/study" element={<StudyGardenPage />} />  
               <Route path="/garden/hobby" element={<HobbyGardenPage />} />  
-              <Route path="/garden/exercise" element={<ExerciseGardenPage />} />
+              <Route path="/garden/exercise" element={<ExerciseGardenPage />} /> */}
             </Route>
-            <Route path="/calender" element={<CalenderPage />} />
+            <Route path="/garden/calender" element={<CalenderPage />} />
             <Route path="/garden/add" element={<MakeGardenPage />} />
             <Route path="/garden/book" element={<BookPage/>}/>
-            <Route path="/test" element={<TestPage />} />
+            {/* <Route path="/test" element={<TestPage />} /> */}
             <Route path="/profile" element={<ProfilePage/>}/>
             <Route path="/inform" element={<InformPage/>}/>
             <Route path="/faq" element={<FAQPage/>}/>
           </Routes>
         </Layout>
-        <Footer />
       </BrowserRouter>
     </>
   );

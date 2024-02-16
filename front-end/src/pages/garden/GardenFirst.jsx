@@ -33,7 +33,7 @@ export default function GardenFirst({
     getGardenById(gardenId).then((data) => {
       setGardenData(data);
     })
-  }, gardenId)
+  }, [gardenId])
 
   const [page, setPage] = useState(1);
   // TODO : getGardenWithPagenation(gardenId, page) 로 정원 정보 받아오기
@@ -81,7 +81,11 @@ export default function GardenFirst({
   // 카테고리에 따라 다른 컴포넌트 및 색상
   return (
     <Wrapper className="GardenFirstPage_Wrapper">
-      <GardernHeader category={gardenData.gardenCategory} />
+      {gardenData.gardenCategory !== undefined ? (
+        <GardernHeader category={gardenData.gardenCategory} />
+      ) : (
+        <GardernHeader category="" />
+      )}
       {/** $을 붙이는 이유 : transient props (배포시 문제 방지) */}
       <Content className="Content">
         <ContentHeader className="ContentHeader">

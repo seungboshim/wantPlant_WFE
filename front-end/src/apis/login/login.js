@@ -56,6 +56,8 @@ export const getAccessToken = async (accessToken) => {
 
         axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem('access')}`
         console.log(axios.defaults.headers.common);
+
+        return result.accessToken;
     } catch (error) {
         
     }
