@@ -34,15 +34,32 @@ export function Header({ name }) {
 
     const navigate = useNavigate();
 
+    const handleClickMain = () => {
+        const gardenIndex = 1;
+        navigate(`/garden/${gardenIndex}`)
+    }
+
+    const handleClickBook = () => {
+        navigate("/garden/book")
+    }
+
+    const handleClickProfile = () => {
+        navigate("/profile");
+    }
+
+    const handleClickLogout = () => {
+        navigate("/login");
+    }
+
     return (
         <Container isScrolled={isScrolled }>
-            <MainLogoButton />
+            <MainLogoButton onClick={handleClickMain} />
             <Menu>
                 <WelcomeMessage name={name}/>
                 <Buttons>
-                    <BookButton/>
-                    <ProfileButton/>
-                    <LogoutButton/>
+                    <BookButton onClick={handleClickBook} />
+                    <ProfileButton onClick={handleClickProfile} />
+                    <LogoutButton onClick={handleClickLogout} />
                 </Buttons>
             </Menu>
         </Container>
