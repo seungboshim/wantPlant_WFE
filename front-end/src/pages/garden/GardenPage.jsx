@@ -10,6 +10,10 @@ import { useParams } from "react-router-dom";
 export default function GardenPage() {
     // params = {gardenId: ***} 저장됨
     const params = useParams();
+    useEffect(()=>{
+        console.log(params)
+        console.log(params.gardenId)
+    }, [params])
 
     const [isEditGardenModalOpen, setIsEditGardenModalOpen] = useState(false);
     const [isAddTodoModalOpen, setIsAddTodoModalOpen] = useState(false);

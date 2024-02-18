@@ -4,14 +4,14 @@ import GardenDeleteButton from "../../components/button/GardenDeleteButton";
 import PotItem from "../../components/gardenContent/PotItem";
 import EmptyPotItem from "../../components/gardenContent/EmptyPotItem";
 import Information from "../../components/gardenContent/Information";
-import { useLocation } from "react-router-dom";
 import PotCreate from "../../components/gardenContent/PotCreate";
 import TodoView from "../../components/gardenContent/TodoView";
-import { gardensFromId } from "../../apis/dummy/gardens";
-import { potsFromGarden } from "../../apis/dummy/pots";
+
 import { useEffect, useState } from "react";
 import PotPagenation from "../../components/pagenation/PotPagenation";
+
 import { getGardenById } from "../../apis/garden/getGarden";
+import { getPotsWithPage } from "../../apis/pot/getPot";
 
 /** 정원페이지 상단 컴포넌트 */
 export default function GardenFirst({
@@ -29,24 +29,33 @@ export default function GardenFirst({
 
   const [gardenData, setGardenData] = useState([]);
 
-  useEffect(()=> {
+  useEffect(() => {
     getGardenById(gardenId).then((data) => {
       setGardenData(data);
     })
   }, [gardenId])
 
   const [page, setPage] = useState(1);
+  const [potsData, setPotsData] = useState([]);
   // TODO : getGardenWithPagenation(gardenId, page) 로 정원 정보 받아오기
   
+  useEffect(() => {
+    console.log("왜호출을안해")
+    getPotsWithPage(gardenId, 1).then((data) => {
+      setPotsData(data);
+      console.log(data);
+    })
+  }, [gardenId])
+
   // 해당 정원의 모든 화분 배열
   // TODO : potsFromGarden(gardenId)
-  const gardenPots = potsFromGarden.pots
+  const gardenPots = potsData.pots;
 
   // TODO : 페이지네이션 용 데이터도 가져오기 (이떈 useState로 저장)
-  const listSize = potsFromGarden.listSize;
-  const totalPage = potsFromGarden.totalPage;
-  const totalElements = potsFromGarden.totalElements;
-  const isFirst = potsFromGarden.isFirst;
+  const listSize = potsData.listSize;
+  const totalPage = potsData.totalPage;
+  const totalElements = potsData.totalElements;
+  const isFirst = potsData.isFirst;
 
   const remain = totalElements % listSize;
   const emptyPotSize = listSize - remain;
@@ -65,7 +74,7 @@ export default function GardenFirst({
 
   useEffect(() => {
     // TODO : page 바뀔때마다 getGarden.. 이놈 가져와서 데이터 다시 갱신
-  }, page)
+  }, [page])
 
   useEffect(() => {
     console.log(selectedPotId)
@@ -107,7 +116,7 @@ export default function GardenFirst({
                 )
               })
             :
-              gardenPots.map((pot, idx) => {
+              gardenPots && gardenPots.map((pot, idx) => {
                 const potIndex = idx + 1;
                 return (
                   <PotItem 
