@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useTheme } from "styled-components";
 import axios from "axios";
@@ -9,6 +10,7 @@ import moment from "moment";
 import { dummy } from "./dummy";
 
 export default function MyTodoListContentContainer(props) {
+    const navigate = useNavigate();
     const theme = useTheme();
 
     const [categories, setCategories] = useState([]);
@@ -32,16 +34,12 @@ export default function MyTodoListContentContainer(props) {
         }
     };
 
-    const getCategories = () => {
-        // const garden_res = await axios
-        //     .get(`${process.env.REACT_APP_SERVER_URL}/gardens/?memberId=2`)
-        //     .then((res) => {
-        //         console.log(res.data);
-        //         return res.data;
-        //     })
-        //     .catch((err) => console.log(err, "!!!!!!!!!!!!!"));
-
-        const garden_res = dummy;
+    const getCategories = async () => {
+        const garden_res = await Server.get(`${process.env.REACT_APP_SERVER_URL}/gardens`)
+            .then((res) => {
+                return res.data;
+            })
+            .catch((err) => console.log(err));
 
         // category 별로 garden들 배열로 묶음
         const categorizedData = [];
@@ -88,6 +86,10 @@ export default function MyTodoListContentContainer(props) {
         } else {
             return null;
         }
+    };
+
+    const onClickTagHandler = (garden) => {
+        navigate(`/garden/${garden.gardenId}`);
     };
 
     useEffect(() => {
@@ -137,7 +139,10 @@ export default function MyTodoListContentContainer(props) {
                                                 )}
                                                 <TodoTitleWrapper>{todo.todoTitle}</TodoTitleWrapper>
 
-                                                <GardenNameTagWrapper pottagcolor={getPotTagColor(todo.potTagColor)}>
+                                                <GardenNameTagWrapper
+                                                    pottagcolor={getPotTagColor(todo.potTagColor)}
+                                                    onClick={() => onClickTagHandler(garden)}
+                                                >
                                                     {garden.name}
                                                 </GardenNameTagWrapper>
                                             </PotWrapper>
@@ -266,6 +271,7 @@ const GardenNameTagWrapper = styled.div`
     margin-top: 3px;
     background-color: ${(props) => (props.pttagcolor !== null ? props.pottagcolor[1].bg : "")};
     color: ${(props) => (props.pttagcolor !== null ? props.pottagcolor[1].text : "")};
+    cursor: pointer;
     @media (max-width: 1280px) {
         font-size: 11.5px;
         border-radius: 7.5px;
