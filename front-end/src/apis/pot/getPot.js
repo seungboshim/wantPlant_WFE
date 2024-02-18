@@ -1,10 +1,10 @@
 import { Server } from "../setting";
 
 /** gardenId, page번호를 받아 화분 정보 GET */
-export const getPotsWithPage = async ( gardenId, page ) => {
+export const getPotsWithPage = async ({ gardenId, page }) => {
     try {
         const response = await Server.get(`/api/pots?gardenId=${gardenId}&page=${page}`) // 쿼리 스트링은 이렇게 쓰면 됩니다
-        return response.data.result;
+        return response.data.result.pots;
     } catch (error) {
         console.log(error);
     }
