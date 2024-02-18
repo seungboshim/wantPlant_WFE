@@ -7,10 +7,13 @@ import WelcomeMessage from "../webHeader/WelcomMessage";
 import BookButton from "../webHeader/BookButton";
 import ProfileButton from "../webHeader/ProfileButton";
 import LogoutButton from "../webHeader/LogoutButton";
+import { useRecoilValue } from 'recoil';
+import { InitGardenAtom } from '../../recoil/atom';
 
 /** 사용자 닉네임을 받는 Header */
 export function Header({ name }) {
     const [isScrolled, setIsScrolled] = useState(false);
+    const initGarden = useRecoilValue(InitGardenAtom);
 
     // 스크롤 시 헤더 스타일 변경
     useEffect(() => {
@@ -35,8 +38,7 @@ export function Header({ name }) {
     const navigate = useNavigate();
 
     const handleClickMain = () => {
-        const gardenIndex = 1;
-        navigate(`/garden/${gardenIndex}`)
+        navigate(`/garden/${initGarden}`)
     }
 
     const handleClickBook = () => {

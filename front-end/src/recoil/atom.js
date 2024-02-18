@@ -14,3 +14,13 @@ export const HobbyGardenCountAtom = atom({
     key: 'HobbyGardenCountAtom',
     default: 0,
 })
+
+export const InitGardenAtom = atom({
+    key: 'InitGardenAtom',
+    default: 1,
+})
+
+export const IsLoggedInAtom = atom({
+    key: 'IsLoggedInAtom',
+    default: false,
+})

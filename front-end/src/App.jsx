@@ -21,12 +21,17 @@ import ProfilePage from "./pages/myPage/ProfilePage";
 import InformPage from "./pages/myPage/InformPage";
 import FAQPage from "./pages/myPage/FAQPage";
 
+import { useRecoilValue } from "recoil";
+import { IsLoggedInAtom } from "./recoil/atom";
+
 function App() {
+  const isLoggedIn = useRecoilValue(IsLoggedInAtom);
+
   return (
     <>
       <BrowserRouter>
       {/** localStorage에 access 토큰 유무로 로그인 여부 확인하여 헤더 렌더링 */}
-        {localStorage.getItem("access") ? 
+        {isLoggedIn ? 
           <Header name={"ㅇㅇㅇ"}/> : <></>
         }
         <Layout>
