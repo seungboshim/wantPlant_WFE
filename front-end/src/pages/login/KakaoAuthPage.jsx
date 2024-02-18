@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAccessToken, getKakaoAccessToken } from '../../apis/login/login';
 import splitAuthCode from '../../apis/kakao/SplitAuthCode';
-import { getEntireGardens } from '../../apis/garden/getGarden';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { InitGardenAtom, IsLoggedInAtom } from '../../recoil/atom';
+import { useSetRecoilState } from 'recoil';
+import { IsLoggedInAtom } from '../../recoil/atom';
 
 /** 카카오 로그인 성공시 리다이렉트될 때 호출 */
 export default function KakaoAuthPage() {
@@ -12,7 +11,6 @@ export default function KakaoAuthPage() {
     const [authCode, setAuthCode] = useState("");
     const [kakaoToken, setKakaoToken] = useState("");
     const [serverToken, setServerToken] = useState("");
-    const [initGarden, setInitGarden] = useRecoilState(InitGardenAtom);
     const setIsLoggedIn = useSetRecoilState(IsLoggedInAtom);
 
     useEffect(() => {
@@ -54,23 +52,6 @@ export default function KakaoAuthPage() {
         fetchAccessToken();
     }, [kakaoToken])
 
-    const [entireGardens, setEntireGardens] = useState(0);
-
-    useEffect(() => {
-        console.log("정원데이터 받아오기 실행")
-        if (serverToken) {
-            const fetchEntireGardens = async() => {
-                try {
-                    const garden = await getEntireGardens();
-                    setEntireGardens(garden);
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-            fetchEntireGardens();
-        }
-    }, [serverToken])
-
     useEffect(() => {
         console.log("정원데이터로 라우팅 실행")
         if (localStorage.getItem("access")) {
@@ -78,7 +59,7 @@ export default function KakaoAuthPage() {
         } else {
             console.log("loading...")
         }
-    }, [kakaoToken, entireGardens])
+    }, [kakaoToken, serverToken])
 
     return (
         <div>loading...</div>

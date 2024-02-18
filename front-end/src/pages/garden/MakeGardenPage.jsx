@@ -10,6 +10,9 @@ import ReverseModalButton from '../../components/button/ReverseModalButton';
 import { postGarden } from "../../apis/garden/editGarden";
 import { useNavigate } from "react-router-dom";
 
+import { useSetRecoilState } from 'recoil';
+import { InitGardenAtom } from "../../recoil/atom";
+import { getEntireGardens } from "../../apis/garden/getGarden";
 
 /** 정원 생성 페이지 */
 export default function MakeGardenPage() {
@@ -17,6 +20,21 @@ export default function MakeGardenPage() {
     const [description, setDescription] = useState("");
     const [selectedCategory, setCategory] = useState("STUDY");
     const navigate = useNavigate();
+
+    const setInitGarden = useSetRecoilState(InitGardenAtom);
+    const [entireGardens, setEntireGardens] = useState(0);
+
+    useEffect(() => {
+        const fetchEntireGardens = async() => {
+            try {
+                const garden = await getEntireGardens();
+                setEntireGardens(garden);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchEntireGardens();
+    }, [])
 
     const handleTitle = (e) => {
         const text = e.target.value;
@@ -28,6 +46,7 @@ export default function MakeGardenPage() {
         setDescription(text);
     }
 
+    /** 정원 생성 후, 생성한 정원으로 라우팅 */
     const handleSubmit = async() => {
         const gardenId = await postGarden({
             "name": title, 
@@ -38,9 +57,16 @@ export default function MakeGardenPage() {
         navigate(`/garden/${gardenId}`)
     }
 
+    /** 취소 누를때 */
     const handleQuit = () => {
-        // TODO : 취소누르면 이전페이지로 리턴하기
-        console.log("취소")
+        if (entireGardens.totalElements === 0) {
+            alert("정원을 생성해주세요.");
+            navigate("/garden/add");
+        } else {
+            const gardenIndex = entireGardens.gardens[0].gardenId;
+            setInitGarden(gardenIndex);
+            navigate(`/garden/${gardenIndex}`);
+        }
     }
 
     return (
