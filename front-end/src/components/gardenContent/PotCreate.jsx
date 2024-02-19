@@ -8,7 +8,7 @@ import ReverseModalButton from "../button/ReverseModalButton";
 /** 새 화분 생성 컴포넌트 */
 export default function PotCreate() {
     const [selectedColor, setSelectedColor] = useState("");
-    const potColors = ["potPurple", "potGreen", "potRed", "potOrange", "potBlue", "potPink"];
+    const potColors = ["PURPLE", "GREEN", "RED", "ORANGE", "BLUE", "PINK"];
     console.log(selectedColor);
 
     return (

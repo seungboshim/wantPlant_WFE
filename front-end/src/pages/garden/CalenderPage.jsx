@@ -174,7 +174,7 @@ export default function CalenderPage() {
                 updateCalender={setIsUpdateCalender}
             />
             <Wrapper className="Wrapper">
-                <GardenHeader category={category} />
+                <GardenHeader category="" />
                 <Content className="Content">
                     <CalenderTitleContainer className="CalenderTitleWrapper">
                         <CalenderTitleInput placeholder="캘린더 제목을 입력해주세요!" />

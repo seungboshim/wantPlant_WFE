@@ -9,7 +9,7 @@ export const getEntireGardens = async() => {
     }
 }
 
-export const getGardenById = async({ gardenId }) => {
+export const getGardenById = async(gardenId) => {
     try {
         const response = await Server.get(`/api/gardens/${gardenId}`);
         return response.data.result;
@@ -22,7 +22,7 @@ export const getGardenById = async({ gardenId }) => {
 /** 정원+페이지네이션 조회, 카테고리 없이 */
 export const getGardensWithPage = async({ page }) => {
     try {
-        const response = await Server.get(`/api/gardens?page=${page}`);
+        const response = await Server.get(`/api/gardens/page?page=${page}`);
         return response.data.result;
     } catch (error) {
         console.log(error);
@@ -31,7 +31,7 @@ export const getGardensWithPage = async({ page }) => {
 /** 정원+페이지네이션 조회, 카테고리 필터링 */
 export const getGardensForCategoryWithPage = async({ page, category }) => {
     try {
-        const response = await Server.get(`/api/gardens?page=${page}&gardenCategory=${category}`);
+        const response = await Server.get(`/api/gardens/page/category?page=${page}&gardenCategory=${category}`);
         return response.data.result;
     } catch (error) {
         console.log(error);

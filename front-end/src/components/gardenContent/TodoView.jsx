@@ -6,12 +6,21 @@ import GoalContainer from "./GoalContainer";
 import TodoContainer from "./TodoContainer";
 import { potsFromGarden } from "../../apis/dummy/pots";
 import { goalsFromPotId } from "../../apis/dummy/goals";
+import { getPotById } from "../../apis/pot/getPot";
 import GoalCreateButton from "./GoalCreateButton";
 import GoalCreateInput from "./GoalCreateInput";
 
 /** potId 의 목표, 투두 조회 및 생성 컴포넌트 */
 export default function TodoView({ potId, AddTodoModalHandler }) {
-    const potColors = ["potPurple", "potGreen", "potRed", "potOrange", "potBlue", "potPink"];
+    const [potData, setPotData] = useState();
+
+    useEffect(() => {
+        getPotById(potId).then((data) => {
+            setPotData(data);
+            console.log(data);
+        })
+    })
+
     // TODO : potId에 해당하는 화분, 목표 객체 받아오기
     const currentPot = potsFromGarden.pots.find(pot => pot.potId === potId);
     const currentGoals = goalsFromPotId;

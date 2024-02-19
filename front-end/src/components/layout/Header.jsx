@@ -7,10 +7,13 @@ import WelcomeMessage from "../webHeader/WelcomMessage";
 import BookButton from "../webHeader/BookButton";
 import ProfileButton from "../webHeader/ProfileButton";
 import LogoutButton from "../webHeader/LogoutButton";
+import { useRecoilValue } from "recoil";
+import { InitGardenAtom } from "../../recoil/atom";
 
 /** 사용자 닉네임을 받는 Header */
 export function Header({ name }) {
     const [isScrolled, setIsScrolled] = useState(false);
+    const initGarden = useRecoilValue(InitGardenAtom);
 
     // 스크롤 시 헤더 스타일 변경
     useEffect(() => {
@@ -36,15 +39,31 @@ export function Header({ name }) {
 
     const navigate = useNavigate();
 
+    const handleClickMain = () => {
+        navigate(`/garden/${initGarden}`);
+    };
+
+    const handleClickBook = () => {
+        navigate("/garden/book");
+    };
+
+    const handleClickProfile = () => {
+        navigate("/profile");
+    };
+
+    const handleClickLogout = () => {
+        navigate("/login");
+    };
+
     return (
-        <Container isscrolled={isScrolled ? "true" : ""}>
-            <MainLogoButton />
+        <Container isScrolled={isScrolled}>
+            <MainLogoButton onClick={handleClickMain} />
             <Menu>
                 <WelcomeMessage name={name} />
                 <Buttons>
-                    <BookButton />
-                    <ProfileButton />
-                    <LogoutButton />
+                    <BookButton onClick={handleClickBook} />
+                    <ProfileButton onClick={handleClickProfile} />
+                    <LogoutButton onClick={handleClickLogout} />
                 </Buttons>
             </Menu>
         </Container>

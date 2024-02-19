@@ -3,9 +3,9 @@ import axios from "axios";
 import {useState} from "react";
 //import {useState, useEffect} from "react";
 import styled from "styled-components";
-import Button from "../../components/makeGardenContent/Button";
+import Button from "../../components/makeGardenContent/CategoryButton";
 import Input from "../../components/makeGardenContent/Input";
-import { ReactComponent as DogCloud } from "../../assets/images/dog_cloud.svg";
+import dogCatCloud from "../../assets/images/dogcat_cloud.svg";
 
 
 /** 정원 생성 페이지 */
@@ -77,7 +77,7 @@ export default function MakeGarden() {
       }
     return (
         <Layout>
-            <DogCloud/>
+            <DogCatCloud src={dogCatCloud} alt="dog_cat_cloud"/>
             <Category>
                 <Title>
                     키워갈 정원을 선택해주세요!
@@ -103,6 +103,10 @@ const Layout = styled.div`
     width: 1280px;
     height: 832px;
     background: ${({ theme }) => theme.colors.green01};
+`
+
+const DogCatCloud = styled.img`
+    
 `
 
 const Category = styled.div`
