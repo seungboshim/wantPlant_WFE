@@ -71,7 +71,6 @@ export default function CalenderPage() {
     const deleteTagModalHandler = (isOpen, e) => {
         setIsDeleteTagModalOn(isOpen);
         document.body.style.overflow = isOpen ? "hidden" : "unset";
-        console.log(isOpen, e);
         setSelectedTag(e);
     };
 
@@ -117,7 +116,7 @@ export default function CalenderPage() {
 
         /* 태그 추가 axios */
         const body = {
-            tagColor: `COLOR_${selectedTagColorNum}`,
+            tagColor: `COLOR_${selectedTagColorNum + 1}`,
             tagName: tagName,
             tagTime: formattedTime,
             date: formattedDate,
@@ -165,10 +164,6 @@ export default function CalenderPage() {
         // getGardens();
         setIsUpdateCalender(false);
     }, [isUpdateCalender]);
-
-    useEffect(() => {
-        console.log(selectedTag);
-    }, [selectedTag]);
 
     return (
         <div>
