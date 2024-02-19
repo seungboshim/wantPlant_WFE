@@ -54,6 +54,8 @@ export default function GardenPage() {
         const listSize = potsData.listSize;
         const totalPage = potsData.totalPage;
         const totalElements = potsData.totalElements;
+
+        console.log(totalElements)
         
         setGardenPots(pots);
         setListSize(listSize);
@@ -72,6 +74,14 @@ export default function GardenPage() {
     }, [gardenData])
 
     const [selectedPotId, setSelectedPotId] = useState(1);
+
+    useEffect(() => {
+        if (totalElements && totalElements !== 0) {
+            const initPotId = gardenPots[0].potId;
+            setSelectedPotId(initPotId)
+            console.log(selectedPotId)
+        }
+    }, [gardenData])
 
     /** isChanged=false, selectedPotId=potId */
     const handleSelectPot = (potId) => {
@@ -109,76 +119,84 @@ export default function GardenPage() {
         document.body.style.overflow = isOpen ? "hidden" : "unset";
     };
 
-    return (
-        <Wrapper>
-            {/** 정원 헤더 */}
-            <GardenHeader category={gardenData.gardenCategory} />
+    if (gardenData) {
+        return (
+            <Wrapper>
+                {/** 정원 헤더 */}
+                <GardenHeader category={gardenData.gardenCategory} />
+    
+                {/** $을 붙이는 이유 : transient props (배포시 문제 방지) */}
+                <Content className="Content">
+                    <ContentHeader className="ContentHeader">
+                    <TextWrapper className="TextWrapper">
+                        <GardenTitle className="GardenTitle">{gardenData.name}</GardenTitle>
+                        <GardenDescription>{gardenData.description}</GardenDescription>
+                    </TextWrapper>
+                    <DeleteBtn>
+                        <GardenDeleteButton label="정원 삭제하기" />
+                    </DeleteBtn>
+                    </ContentHeader>
+                    <ContentInner className="ContentInner">
+                    <LeftContent className="LeftContent">
+                        {page > totalPage || totalElements === 0 ?
+                        // TODO : gardenPot 배치함
+                        emptyPots.map((idx) => {
+                            return (
+                            <EmptyPotItem key={idx} onClick={handleOpenPotCreate} />
+                            )
+                        })
+                        : (gardenPots && gardenPots.map((pot, idx) => {
+                            console.log(gardenPots)
+                            const potIndex = idx + 1;
+                            return (
+                                <PotItem 
+                                    key={potIndex}
+                                    potName={pot.potName}
+                                    startAt={pot.startAt}
+                                    potColor={pot.potColor}
+                                    proceed={pot.proceed}
+                                    potImageUrl={pot.potImageUrl}
+                                    selected={selectedPotId === pot.potId}
+                                    onClick={() => handleSelectPot(pot.potId)}
+                                />
+                            )
+                        }))
+                        }
+                        <PotPagenation page={page} setPage={setPage} totalPage={totalPage} />
+                    </LeftContent>
+                    <RightContent className="RightContent">
+                        {/* gardenPots 비어있으면 설명 컴포넌트 */}
+                        {totalElements === 0 ? 
+                            (isChanged ? (
+                                <PotCreate />
+                            ) : (
+                                <Information />
+                            )
+                        ) : (isChanged ? (
+                                <PotCreate />
+                            ) : (
+                                <TodoView potId={selectedPotId} AddTodoModalHandler={AddTodoModalHandler}/>
+                            )
+                        )}
+                        {/* 투두 추가 모달, 수정 모달 여는 함수 전달 */}
+                    </RightContent>
+                    </ContentInner>
+                </Content>
+                {/** 선택된 정원 외 다른 정원으로 */}
+                <GardenSecond gardenId={params.gardenId} />
+    
+                {/** 모달 */}
+                <EditGardenModal isOpen={isEditGardenModalOpen} EditGardenModalHandler={EditGardenModalHandler} />
+                <AddTodoModal isOpen={isAddTodoModalOpen} AddTodoModalHandler={AddTodoModalHandler} />
+                <EditTodoModal isOpen={isEditTodoModalOpen} EditTodoModalHandler={EditTodoModalHandler} />
+            </Wrapper>
+        );
+    } else {
+        return (
+            <span>loading...</span>
+        )
+    }
 
-            {/** $을 붙이는 이유 : transient props (배포시 문제 방지) */}
-            <Content className="Content">
-                <ContentHeader className="ContentHeader">
-                <TextWrapper className="TextWrapper">
-                    <GardenTitle className="GardenTitle">{gardenData.name}</GardenTitle>
-                    <GardenDescription>{gardenData.description}</GardenDescription>
-                </TextWrapper>
-                <DeleteBtn>
-                    <GardenDeleteButton label="정원 삭제하기" />
-                </DeleteBtn>
-                </ContentHeader>
-                <ContentInner className="ContentInner">
-                <LeftContent className="LeftContent">
-                    {page > totalPage || gardenPots === undefined ?
-                    // TODO : gardenPot 배치함
-                    emptyPots.map((idx) => {
-                        return (
-                        <EmptyPotItem key={idx} onClick={handleOpenPotCreate} />
-                        )
-                    })
-                    : (gardenPots && gardenPots.map((pot, idx) => {
-                        const potIndex = idx + 1;
-                        return (
-                            <PotItem 
-                                key={potIndex}
-                                potName={pot.potName}
-                                startAt={pot.startAt}
-                                potColor={pot.potColor}
-                                proceed={pot.proceed}
-                                potImageUrl={pot.potImageUrl}
-                                selected={selectedPotId === pot.potId}
-                                onClick={() => handleSelectPot(pot.potId)}
-                            />
-                        )
-                    }))
-                    }
-                    <PotPagenation page={page} setPage={setPage} totalPage={totalPage} />
-                </LeftContent>
-                <RightContent className="RightContent">
-                    {/* gardenPots 비어있으면 설명 컴포넌트 */}
-                    {gardenPots === undefined ? (
-                        isChanged ? (
-                            <PotCreate />
-                        ) : (
-                            <Information />
-                        )
-                    ) : (isChanged ? (
-                            <PotCreate />
-                        ) : (
-                            <TodoView potId={selectedPotId} AddTodoModalHandler={AddTodoModalHandler}/>
-                        )
-                    )}
-                    {/* 투두 추가 모달, 수정 모달 여는 함수 전달 */}
-                </RightContent>
-                </ContentInner>
-            </Content>
-            {/** 선택된 정원 외 다른 정원으로 */}
-            <GardenSecond gardenId={params.gardenId} />
-
-            {/** 모달 */}
-            <EditGardenModal isOpen={isEditGardenModalOpen} EditGardenModalHandler={EditGardenModalHandler} />
-            <AddTodoModal isOpen={isAddTodoModalOpen} AddTodoModalHandler={AddTodoModalHandler} />
-            <EditTodoModal isOpen={isEditTodoModalOpen} EditTodoModalHandler={EditTodoModalHandler} />
-        </Wrapper>
-    );
 }
 
 const Wrapper = styled.div`

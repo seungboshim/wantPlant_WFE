@@ -11,7 +11,7 @@ export const getPotsWithPage = async ( gardenId, page ) => {
 }
 
 /** potId 받아 특정 화분 조회 */
-export const getPotById = async({ potId }) => {
+export const getPotById = async( potId ) => {
     try {
         const response = await Server.get(`/api/pots/${potId}`);
         return response.data.result;

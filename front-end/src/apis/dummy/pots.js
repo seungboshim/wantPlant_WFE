@@ -8,7 +8,7 @@ export const potsFromGarden = {
             "proceed": 0,
             "potImageUrl": "https://via.placeholder.com/316x447/",
             "startAt": "2024-01-25",
-            "potColor": "potRed"
+            "potColor": "RED"
         },
         {
             "potId": 2,
@@ -16,7 +16,7 @@ export const potsFromGarden = {
             "proceed": 0,
             "potImageUrl": "https://via.placeholder.com/316x447/",
             "startAt": "2024-01-25",
-            "potColor": "potBlue"
+            "potColor": "BLUE"
         },
         {
             "potId": 3,
@@ -24,7 +24,7 @@ export const potsFromGarden = {
             "proceed": 0,
             "potImageUrl": "https://via.placeholder.com/316x447/",
             "startAt": "2024-01-25",
-            "potColor": "potOrange"
+            "potColor": "ORANGE"
         },
         {
             "potId": 4,
@@ -32,7 +32,7 @@ export const potsFromGarden = {
             "proceed": 0,
             "potImageUrl": "https://via.placeholder.com/316x447/",
             "startAt": "2024-01-25",
-            "potColor": "potPink"
+            "potColor": "PINK"
         }
     ],
     "listSize": 4,
