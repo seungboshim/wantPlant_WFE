@@ -14,7 +14,12 @@ export default function MyFixPlanContentContainer(props) {
             <FixPlanContentTitleWrapper />
             <FixPlanContentDateWrapper selectedSlot={props.selectedSlot} />
             <FixPlanContentTagNameInput setTagName={props.setTagName} />
-            <FixPlanContentTimeWrapper timeStartDate={props.timeStartDate} timeEndDate={props.timeEndDate} />
+            <FixPlanContentTimeWrapper
+                timeStartDate={props.timeStartDate}
+                timeEndDate={props.timeEndDate}
+                setTimeStartDate={props.setTimeStartDate}
+                setTimeEndDate={props.setTimeEndDate}
+            />
             <FixPlanContentTagColorWrapper
                 tagColors={props.tagColors}
                 setSelectedTagColor={props.setSelectedTagColor}
