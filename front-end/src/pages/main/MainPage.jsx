@@ -14,7 +14,7 @@ export default function MainPage() {
     return (
         <Wrapper>
             <LandingHeader>
-                <img src={logoContainer} height={100} alt="logo Container"/>
+                <img src={logoContainer} height={28} alt="logo Container"/>
                 <LoginWrapper>
                     <JoinButton label={'로그인'} onClick={() => navigate('/login')}/>
                     <JoinButton label={'회원가입'} onClick={() => navigate('/login')}/>
@@ -22,16 +22,16 @@ export default function MainPage() {
             </LandingHeader>
             <LandingImage>
                 <First>
-                    <img src={LandingFirst} width={5000}/>
+                    <ImgFirst src={LandingFirst}/>
                 </First>
                 <Second>
-                    <img src={LandingSecond} width={5000}/>
+                    <ImgSecond src={LandingSecond}/>
                 </Second>
                 <Third>
-                    <img src={LandingPhone} width={"3400px"} style={{position: "absolute", top: "770px", left: "400px"}}/>
-                    <img src={LandingInform} width={"3000px"} style={{position: "absolute", top: "350px", left: "2000px"}}/>
-                    <img src={LandingStar} width={"200px"} style={{position: "absolute", top: "400px", left: "4250px"}}/>
-                    <StartButton style={{position: "absolute", top: "4200px", left: "2000px"}}/>
+                    <ImgPhone src={LandingPhone}/>
+                    <ImgInform src={LandingInform}/>
+                    <ImgStar src={LandingStar}/>
+                    <StartButton/>
                 </Third>
             </LandingImage>
         </Wrapper>
@@ -42,8 +42,8 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     background-color: ${({theme}) => theme.colors.green01};
-    padding: 40px 0px;
-    width: 100%;
+    padding: 20px 0px;
+    width: 100vw;
 `
 
 const LandingHeader = styled.div`
@@ -55,7 +55,7 @@ const LandingHeader = styled.div`
 
 const LoginWrapper = styled.div`
     display: flex;
-    width: 450px;
+    width: 160px;
     justify-content: space-between;
 `
 
@@ -68,18 +68,52 @@ const First = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 2100px;
     background: #ECF3E8;
 `
 const Second = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 8500px;
     background-color: white;
 `
 const Third = styled.div`
     position: relative;
-    height: 5000px;
+    width: 100vw;
+    height: 150vh;
     background: linear-gradient(180deg, white 0%,#87A78A 80%);
+`
+const ImgFirst = styled.img`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90vw;
+    height: auto;
+`
+const ImgSecond = styled.img`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90vw;
+    height: auto;
+`
+const ImgPhone = styled.img`
+    position: absolute;
+    margin-top: 15vw;
+    margin-left: 10vw;
+    width: 60vw;
+    height: auto;
+`
+const ImgInform = styled.img`
+    position: absolute;
+    margin-top: 8vw;
+    margin-left: 30vw;
+    width: 52vw;
+    height: auto;
+`
+const ImgStar = styled.img`
+    position: absolute;
+    margin-top: 9vw;
+    margin-left: 69vw;
+    width: 3vw;
+    height: auto;
 `
