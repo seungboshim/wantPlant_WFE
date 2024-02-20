@@ -34,7 +34,7 @@ export default function EditGardenModal({ isOpen, EditGardenModalHandler }) {
       width: "634px",
       height: "650px",
       padding: "20px",
-      border: "1px solid black",
+      boxShadow: "0px 0px 10px 0px gray",
     },
   };
 

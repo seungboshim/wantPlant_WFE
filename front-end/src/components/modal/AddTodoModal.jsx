@@ -5,6 +5,7 @@ import logo_pot from "../../assets/images/logo_pot.svg";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AiFillCalendar } from "react-icons/ai";
+import { postTodo } from "../../apis/todo/editTodo";
 
 export default function AddTodoModal({ isOpen, AddTodoModalHandler }) {
     Modal.setAppElement("#root");
@@ -31,7 +32,7 @@ export default function AddTodoModal({ isOpen, AddTodoModalHandler }) {
             width: "534px",
             height: "550px",
             padding: "20px",
-            border: "1px solid black",
+            boxShadow: "0px 0px 10px 0px gray",
         },
     };
 

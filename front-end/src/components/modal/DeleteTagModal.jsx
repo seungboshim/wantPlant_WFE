@@ -22,6 +22,7 @@ export default function DeleteTagModal(props) {
                     right: "auto",
                     bottom: "auto",
                     transform: "translate(-50%, -50%)",
+                    boxShadow: "0px 0px 10px 0px gray",
                 },
             }}
         >

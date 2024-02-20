@@ -77,6 +77,7 @@ export default function TodoView({ potId, AddTodoModalHandler }) {
                                 return (
                                     <GoalContainer 
                                         key={idx}
+                                        goalId={goals.goalId}
                                         goalTitle={goals.goalTitle}
                                         todoList={goals.todoList}
                                         onClick={AddTodoModalHandler}

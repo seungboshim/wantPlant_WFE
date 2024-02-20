@@ -5,7 +5,7 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useState } from "react";
 
 /** 화분 정보 -> 목표 */
-export default function GoalContainer({ goalTitle, todoList, onClick }) {
+export default function GoalContainer({ goalId, goalTitle, todoList, onClick }) {
     console.log(todoList)
 
     const [isComplete, setIsComplete] = useState(false);

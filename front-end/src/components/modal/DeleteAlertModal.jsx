@@ -29,7 +29,7 @@ export default function DeleteAlertModal({
       width: "434px",
       height: "250px",
       padding: "20px",
-      border: "1px solid black",
+      boxShadow: "0px 0px 10px 0px gray",
     },
   };
 

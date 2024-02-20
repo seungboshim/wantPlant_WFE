@@ -38,7 +38,7 @@ export default function EditTodoModal({ isOpen, EditTodoModalHandler }) {
       width: "534px",
       height: "550px",
       padding: "20px",
-      border: "1px solid black",
+      boxShadow: "0px 0px 10px 0px gray",
     },
   };
 
