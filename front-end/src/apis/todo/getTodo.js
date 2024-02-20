@@ -9,7 +9,7 @@ export const getEntireTodos = async() => {
     }
 }
 
-export const getTodoById = async({ todoId }) => {
+export const getTodoById = async( todoId ) => {
     try {
         const response = await Server.get(`/api/todos/${todoId}`);
         return response.data.result;

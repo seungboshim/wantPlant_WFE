@@ -27,10 +27,10 @@ export const deleteTodo = async({ todoId }) => {
 }
 
 /** 투두 완료여부 */
-export const patchTodoComplete = async({ todoId, isCompleted }) => {
+export const patchTodoComplete = async( todoId, isComplete ) => {
     try {
         const response = await Server.patch(`/api/todos/${todoId}`, {
-            "isCompleted": isCompleted,
+            "isComplete": isComplete,
         })
         return response.data.result;
     } catch (error) {
