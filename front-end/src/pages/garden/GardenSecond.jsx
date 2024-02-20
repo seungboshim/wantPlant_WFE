@@ -1,18 +1,85 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import GardenBox from "../../components/gardenContent/GardenBox";
 import NewGardenBox from "../../components/gardenContent/NewGardenBox";
 import img1 from "../../assets/images/logo_pot.svg";
+import { Server } from "../../apis/setting";
 
 /** 정원페이지 하단 컴포넌트 */
 export default function GardenSecond({ gardenId }) {
     const navigate = useNavigate();
 
+    const [gardens, setGardens] = useState([]);
+    const [gardenComponents, setGardenComponents] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalElementCnt = 3;
+
     const addGardenBtnHandler = () => {
         navigate("/garden/add");
     };
+
+    const getGardens = async () => {
+        try {
+            const tempGardens = await Server.get(`/api/gardens`);
+            return tempGardens;
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const getGardenComponents = () => {
+        let newGardenComponents = [];
+        getGardens()
+            .then((res) => {
+                let newGardens = res.data.result.gardens;
+                let startIdx = (currentPage - 1) * totalElementCnt;
+                let endIdx =
+                    startIdx + totalElementCnt > newGardens.length ? newGardens.length : startIdx + totalElementCnt;
+                for (let i = startIdx; i < endIdx; i++) {
+                    let garden = newGardens[i];
+                    newGardenComponents.push(
+                        <GardenBox
+                            garden_title={garden.name}
+                            garden_category={garden.gardenCategory}
+                            garden_description={garden.description}
+                            potList={garden.potList}
+                        />,
+                    );
+                }
+                if (newGardenComponents.length < totalElementCnt) {
+                    for (let i = newGardenComponents.length; i < totalElementCnt; i++) {
+                        newGardenComponents.push(
+                            <NewGardenBox addGardenBtnHandler={addGardenBtnHandler}></NewGardenBox>,
+                        );
+                    }
+                }
+
+                setGardenComponents(newGardenComponents);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        return newGardenComponents;
+    };
+
+    const goToPrevPage = () => {
+        const newPage = currentPage <= 1 ? 1 : currentPage - 1;
+        setCurrentPage(newPage);
+    };
+
+    const goToNextPage = () => {
+        const newPage = currentPage + 1;
+        setCurrentPage(newPage);
+    };
+
+    useEffect(() => {}, [currentPage]);
+
+    useEffect(() => {
+        const newGardenComponents = getGardenComponents();
+        console.log(newGardenComponents);
+    }, [gardenComponents]);
 
     return (
         <Wrapper className="GardenSecondWrapper">
@@ -23,25 +90,16 @@ export default function GardenSecond({ gardenId }) {
 
             {/** TODO : 정원 배열 받고 반복 및 페이지네이션 처리 */}
             <WrapperGardenContainer className="WrapperGardenContainer">
-                <GardenBox
-                    garden_title="정원 이름을 입력해주세요."
-                    garden_category="공부"
-                    garden_description="정원 1에 대한 설명이에요"
-                    garden_images={[img1, img1, img1]}
-                />
-                <GardenBox
-                    garden_title="정원 이름을 입력해주세요."
-                    garden_category="공부"
-                    garden_description="정원 1에 대한 설명이에요"
-                    garden_images={[img1, img1]}
-                />
-                <NewGardenBox addGardenBtnHandler={addGardenBtnHandler}></NewGardenBox>
+                {gardenComponents.length > 0 &&
+                    gardenComponents.map((gardenComponent) => {
+                        return gardenComponent;
+                    })}
             </WrapperGardenContainer>
 
             <PaginationContainer>
-                <PaginationLeftArrow />
-                <PageNumber>1</PageNumber>
-                <PaginationRightArrow />
+                <PaginationLeftArrow onClick={() => goToPrevPage()} />
+                <PageNumber>{currentPage}</PageNumber>
+                <PaginationRightArrow onClick={() => goToNextPage()} />
             </PaginationContainer>
         </Wrapper>
     );
