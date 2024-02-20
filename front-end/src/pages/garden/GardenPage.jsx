@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import GardenHeader from "../../components/gardenHeader/GardenHeader";
 import EmptyPotItem from "../../components/gardenContent/EmptyPotItem";
@@ -20,12 +21,19 @@ import { getGardenById } from "../../apis/garden/getGarden";
 import { getPotsWithPage } from "../../apis/pot/getPot";
 import { getPotById } from "../../apis/pot/getPot";
 import { getGoalsByPotId } from '../../apis/goal/getGoal';
+import { deleteGarden } from "../../apis/garden/editGarden";
+import { getEntireGardens } from "../../apis/garden/getGarden";
+
+import { useRecoilState } from "recoil";
+import { InitGardenAtom } from "../../recoil/atom";
 
 export default function GardenPage() {
     // params = {gardenId: ***} 저장됨
     const params = useParams();
     const gardenId = params.gardenId;
     console.log(gardenId)
+
+    const navigate = useNavigate();
 
     const [gardenData, setGardenData] = useState({});
     const [potsData, setPotsData] = useState({});
@@ -114,6 +122,50 @@ export default function GardenPage() {
         setIsChanged(true);
     }
 
+    const [initGarden, setInitGarden] = useRecoilState(InitGardenAtom);
+    const [entireGardens, setEntireGardens] = useState(0);
+
+    const fetchEntireGardens = async() => {
+        try {
+            const garden = await getEntireGardens();
+            setEntireGardens(garden);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        if (entireGardens) {
+            const gardenIndex = entireGardens.gardens[0].gardenId;
+            setInitGarden(gardenIndex);
+            console.log(gardenIndex)
+        }
+    }, [entireGardens])
+
+    /** 정원 삭제 */
+    const handleDeleteGarden = () => {
+        let makeSure = window.confirm(`정말 "${gardenData.name}" 정원을 삭제하시겠어요?`);
+        if (makeSure) {
+            deleteGarden(gardenId).then((result) => {
+                console.log(result);
+                alert(result);
+                // // 새로 전체 정원 데이터 불러오고
+                // fetchEntireGardens();
+                // // initGarden 존재시 그곳으로 라우팅
+                // if (initGarden) {
+                //     navigate(`/garden/${initGarden}`);
+                // } else {
+                //     navigate(`/garden/add`);
+                // }
+                navigate(`garden/add`);
+            }).catch((error) => {
+                console.log(error)
+            })
+        }
+    }
+
+
+
     // 모달 관련
     const [isEditGardenModalOpen, setIsEditGardenModalOpen] = useState(false);
     const [isAddTodoModalOpen, setIsAddTodoModalOpen] = useState(false);
@@ -147,7 +199,7 @@ export default function GardenPage() {
                         <GardenDescription>{gardenData.description}</GardenDescription>
                     </TextWrapper>
                     <DeleteBtn>
-                        <GardenDeleteButton label="정원 삭제하기" />
+                        <GardenDeleteButton label="정원 삭제하기" onClick={handleDeleteGarden}/>
                     </DeleteBtn>
                     </ContentHeader>
                     <ContentInner className="ContentInner">
