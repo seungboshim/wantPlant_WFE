@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import Modal from "react-modal";
 import logo_pot from "../../assets/images/logo_pot.svg";
+import cat_thumbs from "../../assets/images/cat_thumbs.svg"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AiFillCalendar } from "react-icons/ai";
@@ -124,12 +125,12 @@ const ModalContent = styled.div`
 /* ModalTitleImage */
 const ModalImageWrapper = styled.div`
     width: 100%;
-    height: 18%;
-    margin-bottom: 10px;
+    height: 15%;
+    margin: 10px 0;
 `;
 
 const PotIcon = styled.img.attrs({
-    src: logo_pot,
+    src: cat_thumbs,
 })`
     width: 100%;
     height: 100%;

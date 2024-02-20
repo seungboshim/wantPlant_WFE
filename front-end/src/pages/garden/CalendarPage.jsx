@@ -45,7 +45,7 @@ export default function CalendarPage() {
 
     // 백에서 gardens 갖고옴
     const getGardens = () => {
-        Server.get(`/api/gardens/?memberId=2`)
+        Server.get(`/api/gardens`)
             .then((res) => {
                 console.log(res);
             })

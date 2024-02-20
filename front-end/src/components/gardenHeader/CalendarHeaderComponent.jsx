@@ -50,7 +50,7 @@ const SelectedWrapper = styled.div`
   border-radius: 1vw 1vw 0 0;
   width: 5vw;
   height: 3.1vw;
-  background-color: ${({ theme }) => theme.colors.pink01};
+  background-color: #FFE7DD;
   margin: 0 2px;
   cursor: pointer;
 

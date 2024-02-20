@@ -268,8 +268,8 @@ const GardenNameTagWrapper = styled.div`
     border-radius: 0.6vw;
     margin: 0 7px;
     margin-top: 3px;
-    background-color: ${(props) => (props.pttagcolor !== null ? props.pottagcolor[1].bg : "")};
-    color: ${(props) => (props.pttagcolor !== null ? props.pottagcolor[1].text : "")};
+    background-color: ${(props) => (props.pottagcolor !== null ? props.pottagcolor[1].bg : "")};
+    color: ${(props) => (props.pottagcolor !== null ? props.pottagcolor[1].text : "")};
     cursor: pointer;
     @media (max-width: 1280px) {
         font-size: 11.5px;
