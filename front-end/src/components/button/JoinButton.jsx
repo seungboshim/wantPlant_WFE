@@ -10,14 +10,15 @@ export default function JoinButton({ label, onClick }) {
 }
 
 const Wrapper = styled.div`
-    font-size: 16px;
+    font-size: 12px;
     color: white;
     background-color: ${({theme}) => theme.colors.green07};
-    border-radius: 15px;
+    border-radius: 60px;
     padding: 4px;
-    width: 100px;
+    width: 70px;
     height: 20px;
     display: flex;
     justify-content: center;
+    align-items: center;
     cursor: pointer;
 `
