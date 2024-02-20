@@ -50,18 +50,23 @@ export default function AddTodoModal({ isOpen, AddTodoModalHandler, onSubmit }) 
     };
 
     const handleSubmit = () => {
-        const dateString = formatDate(calenderDate);
-        const timeString = formatTime(timeStartDate);
+        if (todoText) {
+            const dateString = formatDate(calenderDate);
+            const timeString = formatTime(timeStartDate);
+    
+            const formData = {
+                goalId: currGoalId,
+                title: todoText,
+                date: dateString,
+                time: timeString,
+            };
+            console.log(formData)
+            AddTodoModalHandler(false);
+            onSubmit(formData);
+        } else {
+            alert("모든 항목을 입력해주세요.")
+        }
 
-        const formData = {
-            goalId: currGoalId,
-            title: todoText,
-            date: dateString,
-            time: timeString,
-        };
-        console.log(formData)
-        AddTodoModalHandler(false);
-        onSubmit(formData);
     }
 
     const handleChange = (e) => {

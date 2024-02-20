@@ -44,18 +44,23 @@ export default function TodoView({ potId, AddTodoModalHandler, EditTodoModalHand
     /** 목표 생성 성공시 다시 goalData 불러옴 */
     const handleCloseGoalCreateInput = () => {
         console.log(goalTitle)
-        postGoal(potId, goalTitle)
-            .then((result) => {
-                console.log(result);
-                getGoalsByPotId(potId).then((data) => {
-                    console.log(data);
-                    setGoalData(data);
+        if (goalTitle) {
+            postGoal(potId, goalTitle)
+                .then((result) => {
+                    console.log(result);
+                    getGoalsByPotId(potId).then((data) => {
+                        console.log(data);
+                        setGoalData(data);
+                    })
                 })
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-        setIsChanged(false);
+                .catch((error) => {
+                    console.log(error);
+                })
+            setIsChanged(false);
+        } else {
+            alert("목표를 입력해주세요.")
+        }
+
     };
 
     const handleChange = (e) => {

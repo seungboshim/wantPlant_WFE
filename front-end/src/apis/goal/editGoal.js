@@ -33,7 +33,7 @@ export const postGoalAndTodo = async({ potId, goalTitle, todoTitle, date, time }
 }
 
 /** 목표 삭제 */
-export const deleteGoal = async({ goalId }) => {
+export const deleteGoal = async( goalId ) => {
     try {
         const response = await Server.delete(`/api/goals/${goalId}`)
         return response.data.result;
