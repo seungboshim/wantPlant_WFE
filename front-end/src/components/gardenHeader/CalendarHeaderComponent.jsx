@@ -6,7 +6,7 @@ export default function CalendarHeaderComponent({ selected }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/garden/calendar");
+    navigate("/calendar");
   }
 
   // 선택되었을 때엔 커진 버튼

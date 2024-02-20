@@ -79,7 +79,7 @@ export default function GardenSecond({ gardenId }) {
     useEffect(() => {
         const newGardenComponents = getGardenComponents();
         //console.log(newGardenComponents);
-    }, [gardenComponents]);
+    }, [gardenId, currentPage]);
 
     return (
         <Wrapper className="GardenSecondWrapper">
