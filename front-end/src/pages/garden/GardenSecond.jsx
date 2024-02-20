@@ -78,7 +78,7 @@ export default function GardenSecond({ gardenId }) {
 
     useEffect(() => {
         const newGardenComponents = getGardenComponents();
-        console.log(newGardenComponents);
+        //console.log(newGardenComponents);
     }, [gardenComponents]);
 
     return (

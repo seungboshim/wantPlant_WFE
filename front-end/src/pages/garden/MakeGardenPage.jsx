@@ -10,7 +10,7 @@ import ReverseModalButton from '../../components/button/ReverseModalButton';
 import { postGarden } from "../../apis/garden/editGarden";
 import { useNavigate } from "react-router-dom";
 
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { InitGardenAtom, IsLoggedInAtom } from "../../recoil/atom";
 import { getEntireGardens } from "../../apis/garden/getGarden";
 
@@ -21,7 +21,7 @@ export default function MakeGardenPage() {
     const [selectedCategory, setCategory] = useState("STUDY");
     const navigate = useNavigate();
 
-    const setInitGarden = useSetRecoilState(InitGardenAtom);
+    const [initGarden, setInitGarden] = useRecoilState(InitGardenAtom);
     const [entireGardens, setEntireGardens] = useState(0);
 
     const setIsLoggedInAtom = useSetRecoilState(IsLoggedInAtom);
@@ -38,6 +38,14 @@ export default function MakeGardenPage() {
         }
         fetchEntireGardens();
     }, [])
+
+    useEffect(() => {
+        if (entireGardens) {
+            const gardenIndex = entireGardens.gardens[0].gardenId;
+            setInitGarden(gardenIndex);
+            console.log(gardenIndex)
+        }
+    }, [entireGardens])
 
     const handleTitle = (e) => {
         const text = e.target.value;
@@ -66,9 +74,7 @@ export default function MakeGardenPage() {
             alert("정원을 생성해주세요.");
             navigate("/garden/add");
         } else {
-            const gardenIndex = entireGardens.gardens[0].gardenId;
-            setInitGarden(gardenIndex);
-            navigate(`/garden/${gardenIndex}`);
+            navigate(`/garden/${initGarden}`);
         }
     }
 

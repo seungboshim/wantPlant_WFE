@@ -24,3 +24,8 @@ export const IsLoggedInAtom = atom({
     key: 'IsLoggedInAtom',
     default: false,
 })
+
+export const NicknameAtom = atom({
+    key: 'NicknameAtom',
+    default: "",
+})
