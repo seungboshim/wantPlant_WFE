@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
+
 const GlobalStyle = createGlobalStyle`
     body {
         font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
@@ -20,6 +21,15 @@ const GlobalStyle = createGlobalStyle`
         }
         --display: flex;
         --justify-content: center;
+    }
+
+    &::-webkit-scrollbar {
+        width: 1px;
+        height: 1px;
+        background: ${({theme}) => theme.colors.green02};
+    }
+    &::-webkit-scrollbar-thumb {
+        background: ${({theme}) => theme.colors.green04};
     }
 `;
 
