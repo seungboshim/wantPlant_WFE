@@ -38,19 +38,18 @@ export default function MyFixPlanContentTimeWrapper(props) {
 }
 
 const FixPlanContentTimeWrapper = styled.div`
-    width: 75%;
+    width: 80%;
     height: 2.2vw;
-    border: 1px solid black;
-    margin-left: 1vw;
-    border-radius: 1vw;
-    padding-left: 10px;
+    border-width: 0 0 1px;
+    //border-radius: 1vw;
+    //padding-left: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     @media (max-width: 1280px) {
         height: 28px;
-        margin-left: 12.8px;
-        border-radius: 12.8px;
+        //margin-left: 12.8px;
+        //border-radius: 12.8px;
     }
 `;
 

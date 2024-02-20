@@ -25,7 +25,7 @@ export default function MyFixPlanContentDateWrapper(props) {
 const FixPlanContentDateWrapper = styled.div`
     width: 5.8vw;
     height: 2vw;
-    border: 1px solid black;
+    box-shadow: 0px 0px 4px 0px gray;
     margin-left: 1vw;
     background-color: ${({ theme }) => theme.colors.pink02};
     border-radius: 0.7vw;

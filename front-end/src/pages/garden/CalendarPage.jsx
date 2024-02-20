@@ -115,7 +115,7 @@ export default function CalendarPage() {
             date: formattedDate,
         };
 
-        Server.post(`/tag/add`, body)
+        Server.post(`/api/tag/add`, body)
             .then((res) => {
                 const newTag = body;
                 newTag.id = res.data.result.id;
@@ -214,7 +214,6 @@ const Content = styled.div`
     flex-direction: column;
     /* align-items: center; */
     justify-content: center;
-    border: 1px solid black;
     border-radius: 2.1vw;
     background-color: #ffe7dd;
     @media (max-width: 1280px) {

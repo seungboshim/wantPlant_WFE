@@ -46,15 +46,18 @@ const FixPlanContentTagColorWrapper = styled.div`
 `;
 
 const FixPlanContentTagColorCircleBtn = styled.button`
-    width: ${(props) => (props.selected ? "1.7vw" : "1.3vw")};
-    height: ${(props) => (props.selected ? "1.7vw" : "1.3vw")};
+    width: 1.3vw;
+    height: 1.3vw;
     border-radius: 50%; // 항상 원형을 유지하기 위해 50%로 설정
-    border: 1px solid black;
+    border: ${(props) => (props.selected ? "0.5px solid gray" : "0px")};
+    box-shadow: ${(props) => (props.selected ? "0px 0px 3px 0px gray" : "0px")};;
     background-color: ${(props) => props.tagcolor};
     margin: 0.7vw;
     @media (max-width: 1280px) {
-        width: ${(props) => (props.selected ? "20px" : "16px")};
-        height: ${(props) => (props.selected ? "20px" : "16px")};
+        width: 16px;
+        height: 16px;
         margin: 9px;
     }
+
+
 `;

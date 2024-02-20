@@ -35,7 +35,7 @@ export default function MyTodoListContentContainer(props) {
     };
 
     const getCategories = async () => {
-        const garden_res = await Server.get(`${process.env.REACT_APP_SERVER_URL}/gardens`)
+        const garden_res = await Server.get(`${process.env.REACT_APP_SERVER_URL}/api/gardens`)
             .then((res) => {
                 return res.data;
             })
@@ -55,7 +55,7 @@ export default function MyTodoListContentContainer(props) {
     };
 
     const getTodos = () => {
-        Server.get(`/pots/todos/date?date=${moment(props.selectedSlot.start).format("YYYY-MM-DD")}`)
+        Server.get(`/api/pots/todos/date?date=${moment(props.selectedSlot.start).format("YYYY-MM-DD")}`)
             .then((res) => {
                 setTodos(res.data.result.todos);
             })
@@ -163,15 +163,14 @@ export default function MyTodoListContentContainer(props) {
 const TodoListContentContainer = styled.div`
     width: 90%;
     height: 36vw;
-    border: 1px solid black;
     background-color: white;
-    border-radius: 1vw;
+    border-radius: 1vw 0 1vw 1vw;
     margin-bottom: 2vw;
     display: flex;
     flex-direction: column;
     @media (max-width: 1280px) {
         height: 460px;
-        border-radius: 12.8px;
+        border-radius: 12.8px 0 12.8px 12.8px;
         margin-bottom: 25.6px;
     }
 `;
@@ -179,7 +178,7 @@ const TodoListContentContainer = styled.div`
 const DateWrapper = styled.div`
     width: 5.8vw;
     height: 2vw;
-    border: 1px solid black;
+    box-shadow: 0px 0px 4px 0px gray;
     margin: 1vw;
     background-color: ${({ theme }) => theme.colors.pink02};
     border-radius: 0.7vw;
