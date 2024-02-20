@@ -77,10 +77,13 @@ export default function MyTodoListContentContainer(props) {
     };
 
     const getPotTagColor = (tagcolor) => {
-        const potTagColors = Object.entries(theme.colors).filter(([key, value]) => key.startsWith("pot"));
-        const foundColor = potTagColors.find(
-            ([potTagName, { bgColor, textColor }]) => potTagName.substring(3).toLowerCase() === tagcolor.toLowerCase(),
-        );
+        const potTagColors = Object.entries(theme.colors).filter(([key, value]) => key.toUpperCase() === tagcolor.toUpperCase());
+        console.log(potTagColors)
+        const foundColor = potTagColors[0];
+        // const foundColor = potTagColors.find(
+        //     ([potTagName, { bgColor, textColor }]) => potTagName.substring(3).toLowerCase() === tagcolor.toLowerCase(),
+        // );
+        console.log(foundColor)
         if (foundColor) {
             return foundColor;
         } else {

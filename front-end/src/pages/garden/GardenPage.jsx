@@ -32,7 +32,7 @@ export default function GardenPage() {
     // params = {gardenId: ***} 저장됨
     const params = useParams();
     const gardenId = params.gardenId;
-    console.log(gardenId)
+    // console.log(gardenId)
 
     const navigate = useNavigate();
 
@@ -54,11 +54,11 @@ export default function GardenPage() {
     useEffect(() => {
         getGardenById(gardenId).then((data) => {
             setGardenData(data);
-            console.log(data);
+            //console.log(data);
         })
         getPotsWithPage(gardenId, page).then((data) => {
             setPotsData(data);
-            console.log(data);
+            //console.log(data);
 
             const pots = data.pots;
             const listSize = data.listSize;
@@ -90,13 +90,13 @@ export default function GardenPage() {
     }, [gardenId, page])
 
 
-    useEffect(() => {
-        console.log(gardenData);
-    }, [gardenData])
+    // useEffect(() => {
+    //     console.log(gardenData);
+    // }, [gardenData])
 
-    useEffect(() => {
-        console.log(potsData);
-    }, [potsData])
+    // useEffect(() => {
+    //     console.log(potsData);
+    // }, [potsData])
 
     useEffect(() => {
         console.log(selectedPotId)
@@ -253,8 +253,6 @@ export default function GardenPage() {
                             const emptyPots = Array.from({ length: emptyPotSize }, (_, index) => {
                                 return <EmptyPotItem key={index} onClick={handleOpenPotCreate}/>
                             });
-                            console.log(currPots)
-                            console.log(emptyPots)
 
                             if (currPots === 0) {
                                 return emptyPots;

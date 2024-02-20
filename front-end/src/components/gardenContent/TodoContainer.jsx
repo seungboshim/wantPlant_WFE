@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 import todoEmpty from "../../assets/images/todoEmpty.svg";
 import todoFill from "../../assets/images/todoFill.svg";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
@@ -6,16 +7,17 @@ import { patchTodoComplete } from "../../apis/todo/editTodo";
 import { getTodoById } from "../../apis/todo/getTodo";
 
 /** 화분 정보 -> 투두 */
-export default function TodoContainer({ todoId, todoTitle, isComplete, setIsComplete }) {
+export default function TodoContainer({ todoId, todoTitle, isComplete }) {
     // TODO : 누르면 complete 변경되는거 PATCH
-
+    const [localIsComplete, setLocalIsComplete] = useState(isComplete);
 
     const handleComplete = () => {
         patchTodoComplete(todoId, true)
             .then((result) => {
                 console.log(result);
                 getTodoById(todoId).then((result) => {
-                    setIsComplete(result.isComplete)
+                    setLocalIsComplete(result.isComplete)
+
                 })
             })
             .catch((error) => {
@@ -28,7 +30,8 @@ export default function TodoContainer({ todoId, todoTitle, isComplete, setIsComp
             .then((result) => {
                 console.log(result);
                 getTodoById(todoId).then((result) => {
-                    setIsComplete(result.isComplete)
+                    setLocalIsComplete(result.isComplete)
+
                 })
             })
             .catch((error) => {
@@ -36,7 +39,11 @@ export default function TodoContainer({ todoId, todoTitle, isComplete, setIsComp
             })
     }
 
-    if (isComplete) {
+    useEffect(() => {
+        setLocalIsComplete(isComplete)
+    },[isComplete])
+
+    if (localIsComplete) {
         return (
             <Container>
                 <TodoTitleContainer onClick={handleUncomplete}>
