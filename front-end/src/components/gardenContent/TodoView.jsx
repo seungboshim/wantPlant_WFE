@@ -62,7 +62,7 @@ export default function TodoView({ potId, AddTodoModalHandler }) {
         setGoalTitle(e.target.value);
     };
 
-    if (potData) {
+    if (potData && goalData) {
         return (   
             <Wrapper>
                 <Container>

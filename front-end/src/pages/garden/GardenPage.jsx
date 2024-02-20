@@ -35,13 +35,12 @@ export default function GardenPage() {
     const [listSize, setListSize] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
     const [totalElements, setTotalElements] = useState(0);
-    const [remain, setRemain] = useState(0);
-    const [emptyPotSize, setEmptyPotSize] = useState(0);
-    const [emptyPots, setEmptyPots] = useState([]);
+    // const [remain, setRemain] = useState(0);
+    // const [emptyPotSize, setEmptyPotSize] = useState(0);
+    // const [emptyPots, setEmptyPots] = useState([]);
 
     const [selectedPotId, setSelectedPotId] = useState(0);
     const [selectedPotData, setSelectedPotData] = useState();
-    const [goalData, setGoalData] = useState();
 
     useEffect(() => {
         getGardenById(gardenId).then((data) => {
@@ -62,15 +61,16 @@ export default function GardenPage() {
             setTotalPage(totalPage);
             setTotalElements(totalElements);
 
-            const remain = totalElements % listSize;
-            const emptyPotSize = listSize - remain;
-            const emptyPots = Array.from({ length: emptyPotSize }, (_, index) => {
-                <EmptyPotItem key={index}/>
-            });
+            // const remain = totalElements % listSize;
+            // console.log(remain)
+            // const emptyPotSize = listSize - remain;
+            // const emptyPots = Array.from({ length: emptyPotSize }, (_, index) => {
+            //     <EmptyPotItem key={index}/>
+            // });
     
-            setRemain(remain);
-            setEmptyPotSize(emptyPotSize);
-            setEmptyPots(emptyPots);
+            // setRemain(remain);
+            // setEmptyPotSize(emptyPotSize);
+            // setEmptyPots(emptyPots);
 
             if (data.pots.length !== 0) {
                 const initPotId = data.pots[0].potId;
@@ -152,10 +152,10 @@ export default function GardenPage() {
                     </ContentHeader>
                     <ContentInner className="ContentInner">
                     <LeftContent className="LeftContent">
-                        {page > totalPage || totalElements === 0 ?
+                        {/* {page > totalPage || totalElements === 0 ?
                             emptyPots.map((idx) => {
                                 return (
-                                <EmptyPotItem key={idx} onClick={handleOpenPotCreate} />
+                                    <EmptyPotItem key={idx} onClick={handleOpenPotCreate} />
                                 )
                             })
                         : (gardenPots && gardenPots.map((pot, idx) => {
@@ -174,7 +174,42 @@ export default function GardenPage() {
                                 />
                             )
                         }))
-                        }
+                        } */}
+                        {(() => {
+                            const currPots = gardenPots.length;
+                            const emptyPotSize = listSize - currPots;
+                            const emptyPots = Array.from({ length: emptyPotSize }, (_, index) => {
+                                return <EmptyPotItem key={index} onClick={handleOpenPotCreate}/>
+                            });
+                            console.log(currPots)
+                            console.log(emptyPots)
+
+                            if (currPots === 0) {
+                                return emptyPots;
+                            } else {
+                                return (
+                                    <>
+                                        {gardenPots && gardenPots.map((pot, idx) => {
+                                            //console.log(pot)
+                                            const potIndex = idx + 1;
+                                            return (
+                                                <PotItem 
+                                                    key={potIndex}
+                                                    potName={pot.potName}
+                                                    startAt={pot.startAt}
+                                                    potTagColor={pot.potTagColor}
+                                                    proceed={pot.proceed}
+                                                    potImageUrl={pot.potImageUrl}
+                                                    selected={selectedPotId === pot.potId}
+                                                    onClick={() => handleSelectPot(pot.potId)}
+                                                />
+                                            )
+                                        })}
+                                        {emptyPots}
+                                    </>
+                                );
+                            }
+                        })()}
                         <PotPagenation page={page} setPage={setPage} totalPage={totalPage} />
                     </LeftContent>
                     <RightContent className="RightContent">
@@ -285,6 +320,7 @@ const DeleteBtn = styled.div`
 
 const ContentInner = styled.div`
     display: flex;
+    justify-content: space-between;
     height: 46vw;
     margin: 3% 6% 6% 5.5%;
 
@@ -310,7 +346,7 @@ const LeftContent = styled.div`
 `;
 
 const RightContent = styled.div`
-    width: 47%;
+    flex-grow: 1;
     background-color: white;
     border-radius: 32px;
     height: 100%;

@@ -32,9 +32,11 @@ function App() {
 
   const [nickname, setNickname] = useState("");
   useEffect(() => {
-    getMemberInform().then((inform) => {
-      setNickname(inform.nickname)
-    })
+    if (isLoggedIn || localStorage.getItem("access")) {
+      getMemberInform().then((inform) => {
+        setNickname(inform.nickname)
+      })
+    }
   }, [])
 
   return (
