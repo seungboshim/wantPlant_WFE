@@ -55,19 +55,37 @@ export function Header({ name }) {
         navigate("/login");
     };
 
-    return (
-        <Container isScrolled={isScrolled}>
-            <MainLogoButton onClick={handleClickMain} />
-            <Menu>
-                <WelcomeMessage name={name} />
-                <Buttons>
-                    <BookButton onClick={handleClickBook} />
-                    <ProfileButton onClick={handleClickProfile} />
-                    <LogoutButton onClick={handleClickLogout} />
-                </Buttons>
-            </Menu>
-        </Container>
-    );
+    if (isScrolled) {
+        return (
+            <ScrolledContainer>
+                <MainLogoButton onClick={handleClickMain} />
+                <Menu>
+                    <WelcomeMessage name={name} />
+                    <Buttons>
+                        <BookButton onClick={handleClickBook} />
+                        <ProfileButton onClick={handleClickProfile} />
+                        <LogoutButton onClick={handleClickLogout} />
+                    </Buttons>
+                </Menu>
+            </ScrolledContainer>
+        );
+    } else {
+        return (
+            <Container>
+                <MainLogoButton onClick={handleClickMain} />
+                <Menu>
+                    <WelcomeMessage name={name} />
+                    <Buttons>
+                        <BookButton onClick={handleClickBook} />
+                        <ProfileButton onClick={handleClickProfile} />
+                        <LogoutButton onClick={handleClickLogout} />
+                    </Buttons>
+                </Menu>
+            </Container>
+        );
+    }
+
+
 }
 
 const Container = styled.header`
@@ -80,12 +98,28 @@ const Container = styled.header`
     width: auto;
     height: 80px;
     background-color: white;
-    border-bottom: ${({ isscrolled, theme }) => (isscrolled ? `1px solid ${theme.colors.strokeGray}` : "none")};
-    box-shadow: ${({ isscrolled, theme }) => (isscrolled ? `0px 0px 4px 0px ${theme.colors.strokeGray}` : "none")};
     align-items: center;
     justify-content: space-between;
     padding: 0 80px;
 `;
+
+const ScrolledContainer = styled.header`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    width: auto;
+    height: 80px;
+    background-color: white;
+    border-bottom: ${({ theme }) => (`1px solid ${theme.colors.strokeGray}`)};
+    box-shadow: ${({ theme }) => (`0px 0px 4px 0px ${theme.colors.strokeGray}`)};
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 80px;
+`
+
 const Menu = styled.div`
     display: flex;
     align-items: center;
