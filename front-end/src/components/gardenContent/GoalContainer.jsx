@@ -2,25 +2,43 @@ import styled from "styled-components";
 import TodoContainer from "./TodoContainer";
 import TodoCreateButton from "./TodoCreateButton";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { useState } from "react";
+import { deleteGoal } from "../../apis/goal/editGoal";
 
 /** 화분 정보 -> 목표 */
-export default function GoalContainer({ goalTitle, todoList, onClick }) {
+export default function GoalContainer({ goalId, goalTitle, todoList, AddTodoModalHandler, EditTodoModalHandler }) {
+    // console.log(todoList)
+    const handleDelete = () => {
+        let makeSure = window.confirm(`정말 "${goalTitle}" 목표를 삭제하시겠어요? 투두도 함께 삭제됩니다.`);
+        if (makeSure) {
+            deleteGoal(goalId).then((result) => {
+                console.log(result);
+                alert(result);
+                
+            }).catch((error) => {
+                console.log(error)
+            })
+        }
+    }
+
     return (
         <Container>
             <GoalTitleWrapper>
                 <GoalTextWrapper>{goalTitle}</GoalTextWrapper>
-                <EditButton />
+                <EditButton onClick={handleDelete}/>
             </GoalTitleWrapper>
             {todoList.length > 0 && todoList.map((todo, idx) => {
                 return (
                     <TodoContainer 
                         key={idx}
+                        todoId={todo.todoId}
                         todoTitle={todo.todoTitle}
-                        complete={todo.complete}
+                        isComplete={todo.isComplete}
+                        EditTodoModalHandler={EditTodoModalHandler}
                     />
                 )
             })}
-            <TodoCreateButton onClick={onClick} />
+            <TodoCreateButton AddTodoModalHandler={AddTodoModalHandler} goalId={goalId}/>
         </Container>
     )
 }

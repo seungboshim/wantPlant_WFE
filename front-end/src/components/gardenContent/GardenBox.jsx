@@ -1,27 +1,41 @@
 import React from "react";
 // import { AiFillEdit } from "react-icons/ai";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import gardenBackground from "../../assets/images/gardenBackground.svg"
 
 /** 다른 정원 가기 Box */
-export default function GardenBox({ garden_title, garden_category, garden_description, garden_images }) {
-    // TODO : garden_id 받기
+export default function GardenBox({ garden_id, garden_title, garden_category, garden_description, potList }) {
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate(`/garden/${garden_id}`)
+    }
+
     return (
-        <StyledGardenBox className="GardenBox">
+        <StyledGardenBox className="GardenBox" onClick={handleClick}>
             <GardenBoxContentContainer>
                 <GardenBoxImageContaier>
-                    {garden_images.map((img_url, idx) => {
-                        return <GardenBoxImage key={idx} img_url={img_url}></GardenBoxImage>;
+                    {potList.map((pot, idx) => {
+                        return <GardenBoxImage key={idx} img_url={pot.potImageUrl}></GardenBoxImage>;
                     })}
                 </GardenBoxImageContaier>
-                <GardenBoxContentTitle>
-                    {garden_title}
-                    {/* <GardenBoxContentTitleIcon /> */}
-                    {/** TODO : 정원 수정은 각 정원 들어가서만 가능할 수도 있어서 일단 기달 */}
-                </GardenBoxContentTitle>
-                <GardenBoxContentCategoryText>{garden_category}</GardenBoxContentCategoryText>
-                <GardenBoxContentDesContainer>{garden_description}</GardenBoxContentDesContainer>
+                <GardenBoxTextContainer>
+                    <GardenBoxContentTitleContainer>
+                        <GardenBoxContentTitle>
+                            {garden_title}
+                            {/* <GardenBoxContentTitleIcon /> */}
+                        </GardenBoxContentTitle>
+                        <GardenBoxContentCategoryWrapper>
+                            <GardenBoxContentCategoryText>
+                                {garden_category}
+                            </GardenBoxContentCategoryText>
+                        </GardenBoxContentCategoryWrapper>
+                    </GardenBoxContentTitleContainer>
+                    <GardenBoxContentDesContainer>
+                        {garden_description}
+                    </GardenBoxContentDesContainer>
+                </GardenBoxTextContainer>
             </GardenBoxContentContainer>
-            {/** TODO : 정원의 화분 id 받아 각 id에 맞는 화분 이미지 출력 */}
         </StyledGardenBox>
     );
 }
@@ -30,18 +44,23 @@ const StyledGardenBox = styled.div`
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    border: 1px solid rgba(${({ theme }) => theme.colors.strokeGray}, 0.5);
+    border: 1px solid ${({ theme }) => theme.colors.strokeGray};
     margin: 0 1.5%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0px 0px 10px 0px #00000040;
+    transition: box-shadow 0.3s;
+    cursor: pointer;
 
     @media (max-width: 1280px) {
         width: 360px;
         height: 360px;
         border-radius: 10px;
         margin: 0 10px;
+    }
+
+    &:hover {
+        box-shadow: 0px 0px 10px 0px ${({theme}) => theme.colors.strokeGray}
     }
 `;
 
@@ -56,8 +75,13 @@ const GardenBoxImageContaier = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 10px 10px 0 0;
     border-bottom: 1px solid ${({ theme }) => theme.colors.pink02};
     background-color: ${({ theme }) => theme.colors.pink02};
+    background-image: url(${gardenBackground}); // 변경된 부분
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 `;
 
 const GardenBoxImage = styled.div`
@@ -68,13 +92,20 @@ const GardenBoxImage = styled.div`
     background-size: contain;
 `;
 
+const GardenBoxTextContainer = styled.div`
+    padding: 15px;
+`
+
+const GardenBoxContentTitleContainer = styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+`
+
 const GardenBoxContentTitle = styled.div`
-    width: 100%;
-    height: 10%;
-    margin: 15px;
-    margin-bottom: 0px;
+    width: fit-content;
+    height: fit-content;
     font-size: 1vw;
-    color: ${({ theme }) => theme.colors.strokeGray};
     @media (max-width: 1280px) {
         font-size: 14px;
     }
@@ -92,13 +123,17 @@ const GardenBoxContentTitle = styled.div`
 //   }
 // `;
 
-const GardenBoxContentCategoryText = styled.div`
-    width: 100%;
-    height: 10%;
+const GardenBoxContentCategoryWrapper = styled.div`
+    width: fit-content;
+    height: fit-content;
     margin: 0 15px;
-    font-size: 1vw;
-    color: ${({ theme }) => theme.colors.strokeGray};
+    border-radius: 15px;
+    background-color: ${({theme}) => theme.colors.green02};
+`
 
+const GardenBoxContentCategoryText = styled.div`
+    font-size: 1vw;
+    padding: 6px 8px;
     @media (max-width: 1280px) {
         font-size: 14px;
     }
@@ -108,8 +143,6 @@ const GardenBoxContentDesContainer = styled.div`
     width: 100%;
     height: 10%;
     font-size: 1vw;
-    margin: 0 15px;
-    color: ${({ theme }) => theme.colors.strokeGray};
 
     @media (max-width: 1280px) {
         font-size: 14px;

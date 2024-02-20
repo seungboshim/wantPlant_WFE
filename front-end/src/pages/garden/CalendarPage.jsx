@@ -2,9 +2,8 @@ import styled from "styled-components";
 import { useTheme } from "styled-components";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { useLocation } from "react-router-dom";
 
-import GardenHeader from "../../components/gardenHeader/GardenHeader";
+import CalendarHeader from "../../components/gardenHeader/CalendarHeader";
 import GardenSecond from "./GardenSecond";
 import LeftContainer from "../../components/calenderPage/leftContainer/LeftContainer";
 import RightContainer from "../../components/calenderPage/rightContainer/RightContainer";
@@ -16,13 +15,7 @@ import axios from "axios";
 
 import DeleteTagModal from "../../components/modal/DeleteTagModal";
 
-export default function CalenderPage() {
-    const location = useLocation();
-    // location = "/garden/{카테고리}"
-    const pathname = location.pathname.split("/");
-    // pathname = ["", "garden", "{카테고리}"] 저장됨
-    const category = pathname[2] ? pathname[2].toUpperCase() : "";
-
+export default function CalendarPage() {
     // 태그 추가 옵션들
     const [selectedSlot, setSelectedSlot] = useState({ start: new Date() });
     const [tagName, setTagName] = useState("");
@@ -52,7 +45,7 @@ export default function CalenderPage() {
 
     // 백에서 gardens 갖고옴
     const getGardens = () => {
-        Server.get(`/gardens/?memberId=2`)
+        Server.get(`/api/gardens`)
             .then((res) => {
                 console.log(res);
             })
@@ -61,7 +54,7 @@ export default function CalenderPage() {
 
     // 백에서 todos 갖고옴
     const getTodos = () => {
-        Server.get(`/todos`)
+        Server.get(`/api/todos`)
             .then((res) => {
                 // console.log(res);
             })
@@ -75,7 +68,7 @@ export default function CalenderPage() {
     };
 
     const deleteTagHandler = () => {
-        Server.delete(`/tag/${selectedTag.id}`)
+        Server.delete(`/api/tag/${selectedTag.id}`)
             .then((res) => {
                 console.log(res);
             })
@@ -84,7 +77,7 @@ export default function CalenderPage() {
 
     /* 백에서 태그들 갖고옴 */
     const getTags = () => {
-        Server.get(`/tag/month?year=2024&month=2`)
+        Server.get(`/api/tag/month?year=2024&month=2`)
             .then((res) => {
                 const tempTags = res.data.result.tagResponseDtos;
 
@@ -122,7 +115,7 @@ export default function CalenderPage() {
             date: formattedDate,
         };
 
-        Server.post(`/tag/add`, body)
+        Server.post(`/api/tag/add`, body)
             .then((res) => {
                 const newTag = body;
                 newTag.id = res.data.result.id;
@@ -174,7 +167,7 @@ export default function CalenderPage() {
                 updateCalender={setIsUpdateCalender}
             />
             <Wrapper className="Wrapper">
-                <GardenHeader category={category} />
+                <CalendarHeader />
                 <Content className="Content">
                     <CalenderTitleContainer className="CalenderTitleWrapper">
                         <CalenderTitleInput placeholder="캘린더 제목을 입력해주세요!" />
@@ -221,7 +214,6 @@ const Content = styled.div`
     flex-direction: column;
     /* align-items: center; */
     justify-content: center;
-    border: 1px solid black;
     border-radius: 2.1vw;
     background-color: #ffe7dd;
     @media (max-width: 1280px) {

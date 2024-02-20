@@ -1,5 +1,9 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getGardensForCategoryWithPage} from "../../apis/garden/getGarden";
+import { useRecoilState } from "recoil";
+import { StudyGardenCountAtom, ExerciseGardenCountAtom, HobbyGardenCountAtom } from "../../recoil/atom";
 
 /** 정원 헤더 컴포넌트 (라벨, 배경색, 텍스트색 인자로 받음) */
 export default function GardenHeaderComponent({
@@ -9,21 +13,53 @@ export default function GardenHeaderComponent({
   selected,
 }) {
   const navigate = useNavigate();
+  const [studyGardens, setStudyGardens] = useRecoilState(StudyGardenCountAtom);
+  const [hobbyGardens, setHobbyGardens] = useRecoilState(HobbyGardenCountAtom);
+  const [exerciseGardens, setExerciseGardens] = useRecoilState(ExerciseGardenCountAtom);
 
+  useEffect(() => {
+    if (label === "공부"){
+      getGardensForCategoryWithPage({ page:1, category:'STUDY' }).then((garden)=> {
+        setStudyGardens(garden);
+      })
+    } else if (label === "취미") {
+      getGardensForCategoryWithPage({ page:1, category:'HOBBY' }).then((garden)=> {
+        setHobbyGardens(garden);
+      })
+    } else if (label === "운동") {
+      getGardensForCategoryWithPage({ page:1, category:'EXERCISE' }).then((garden)=> {
+        setExerciseGardens(garden);
+      })
+    }
+  }, [studyGardens.totalElements])
+
+  
     /** 각 label에 해당하는 정원으로 navigate */
     const handleClick = () => {
-      console.log(label);
-        // TODO : 누르면 각 카테고리의 맨 처음 정원으로
-        // TODO : 카테고리에 정원이 없다면 /garden/add로 ㄱㄱ
-        if (label === "공부") {
-            navigate("/garden/study");
-        } else if (label === "취미") {
-            navigate("/garden/hobby");
-        } else if (label === "운동") {
-            navigate("/garden/exercise");
-        } else if (label === "캘린더") {
-            navigate("/calender");
+      // 누르면 각 카테고리의 맨 처음 정원으로
+      // 카테고리에 정원이 없다면 /garden/add로 ㄱㄱ
+      if (label === "공부") {
+        if (studyGardens.totalElements === 0) {
+          navigate("/garden/add");
+        } else {
+          const initStudyGarden = studyGardens.gardenList[0].gardenId;
+          navigate(`/garden/${initStudyGarden}`);
         }
+      } else if (label === "취미") {
+        if (hobbyGardens.totalElements === 0) {
+          navigate("/garden/add");
+        } else {
+          const initHobbyGarden = hobbyGardens.gardenList[0].gardenId;
+          navigate(`/garden/${initHobbyGarden}`);
+        }
+      } else if (label === "운동") {
+        if (exerciseGardens.totalElements === 0) {
+          navigate("/garden/add");
+        } else {
+          const initExerciseGarden = exerciseGardens.gardenList[0].gardenId;
+          navigate(`/garden/${initExerciseGarden}`);
+        }
+      }
     };
     
     // 선택되었을 때엔 커진 버튼
@@ -80,7 +116,14 @@ const SelectedWrapper = styled.div`
 
 const Text = styled.span`
   font-size: 1.2vw;
+  padding: 2px 12px;
+  border-radius: 15px;
   color: ${({ color }) => color};
+  transition: background-color 0.25s;
+
+  ${Wrapper}:hover &{
+    background-color: rgba(236, 243, 232, 0.4);
+  }
 
   @media (max-width: 1280px) {
     font-size: 16px;

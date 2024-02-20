@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { useState } from "react";
-import Button from "./Button";
+import { useState, useEffect } from "react";
+import CategoryButton from "./CategoryButton";
 
-
-export default function ClickHandler() {
+export default function ClickHandler({ setCategory }) {
     const [studyColor, setStudyColor] = useState("#FFFFFF");
     const [studyBack, setStudyBack] = useState("#4F6F53");
 
@@ -12,11 +11,12 @@ export default function ClickHandler() {
 
     const [hobbyColor, setHobbyColor] = useState("#4F6F53");
     const [hobbyBack, setHobbyBack] = useState("#FFFFFF");
-
-    let selectedCategory = "study";
+    
     const clickHandler = (e) => {
-        selectedCategory = e.target.id;
-        if (selectedCategory === "study") {
+        const category = e.target.id;
+        setCategory(category);
+        
+        if (category === "STUDY") {
             setStudyColor("#FFFFFF");
             setStudyBack("#4F6F53");
 
@@ -26,7 +26,7 @@ export default function ClickHandler() {
             setHobbyColor("#4F6F53");
             setHobbyBack("#FFFFFF");
         }
-        else if (selectedCategory === "exercise") {
+        else if (category === "EXERCISE") {
             setStudyColor("#4F6F53");
             setStudyBack("#FFFFFF");
 
@@ -50,17 +50,17 @@ export default function ClickHandler() {
 
     return (
         <Subject>
-            <Button onClick={clickHandler} id="study" label="공부" value="공부" style={{ color: studyColor, background: studyBack }} />
-            <Button onClick={clickHandler} id="exercise" label="운동" value="운동" style={{ color: exerciseColor, background: exerciseBack }} />
-            <Button onClick={clickHandler} id="hobby" label="취미" value="취미" style={{ color: hobbyColor, background: hobbyBack }} />
+            <CategoryButton onClick={clickHandler} id="STUDY" label="공부" value="STUDY" style={{ color: studyColor, background: studyBack }} />
+            <CategoryButton onClick={clickHandler} id="EXERCISE" label="운동" value="EXERCISE" style={{ color: exerciseColor, background: exerciseBack }} />
+            <CategoryButton onClick={clickHandler} id="HOBBY" label="취미" value="HOBBY" style={{ color: hobbyColor, background: hobbyBack }} />
         </Subject>
     )
 }
 
 const Subject = styled.div`
-     display: flex;
-     flex-direction: row;
-     width: 428px;
-     height: 50px;
-     gap: 40px;
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    justify-content: space-evenly;
+    height: auto;
 `

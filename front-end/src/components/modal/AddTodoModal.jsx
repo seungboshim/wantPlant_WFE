@@ -1,16 +1,79 @@
 import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import Modal from "react-modal";
 import logo_pot from "../../assets/images/logo_pot.svg";
+import cat_thumbs from "../../assets/images/cat_thumbs.svg"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AiFillCalendar } from "react-icons/ai";
+import { postTodo } from "../../apis/todo/editTodo";
+import { useRecoilValue } from "recoil";
+import { CurrGoalIdAtom } from "../../recoil/atom";
 
-export default function AddTodoModal({ isOpen, AddTodoModalHandler }) {
+const fadeInAnimation = keyframes`
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+`;
+
+const fadeOutAnimation = keyframes`
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+`;
+
+export default function AddTodoModal({ isOpen, AddTodoModalHandler, onSubmit }) {
     Modal.setAppElement("#root");
-    const [calenderDate, setCalenderDate] = useState("");
+    const [calenderDate, setCalenderDate] = useState(new Date());
     const [timeStartDate, setTimeStartDate] = useState(new Date());
     const [timeEndDate, setTimeEndDate] = useState(new Date());
+    const [todoText, setTodoText] = useState("");
+    const currGoalId = useRecoilValue(CurrGoalIdAtom);
+
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+      
+    const formatTime = (date) => {
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${hours}:${minutes}`;
+    };
+
+    const handleSubmit = () => {
+        if (todoText) {
+            const dateString = formatDate(calenderDate);
+            const timeString = formatTime(timeStartDate);
+    
+            const formData = {
+                goalId: currGoalId,
+                title: todoText,
+                date: dateString,
+                time: timeString,
+            };
+            console.log(formData)
+            AddTodoModalHandler(false);
+            onSubmit(formData);
+        } else {
+            alert("모든 항목을 입력해주세요.")
+        }
+
+    }
+
+    const handleChange = (e) => {
+        setTodoText(e.target.value);
+        console.log(todoText)
+        console.log(currGoalId)
+    }
 
     /* react-modal style props 속성 */
     const customStyles = {
@@ -31,7 +94,7 @@ export default function AddTodoModal({ isOpen, AddTodoModalHandler }) {
             width: "534px",
             height: "550px",
             padding: "20px",
-            border: "1px solid black",
+            boxShadow: "0px 0px 10px 0px gray",
         },
     };
 
@@ -58,7 +121,7 @@ export default function AddTodoModal({ isOpen, AddTodoModalHandler }) {
                 </ModalImageWrapper>
                 <ModalTitleWrapper>할 일을 추가해주세요.</ModalTitleWrapper>
                 <ModalTodoTextWrapper>
-                    <ModalGardenTodoTextInput placeholder="할 일을 적어주세요." />
+                    <ModalGardenTodoTextInput value={todoText} onChange={handleChange} placeholder="할 일을 적어주세요." />
                 </ModalTodoTextWrapper>
                 <ModalTodoDateWrapper>
                     <DatePicker
@@ -99,7 +162,7 @@ export default function AddTodoModal({ isOpen, AddTodoModalHandler }) {
                     </ModalTodoTimeRightWrapper>
                 </ModalTodoTimeContainer>
                 <ModalButtonWrapper>
-                    <ModalButton iscomplete="true" onClick={() => AddTodoModalHandler(false)}>
+                    <ModalButton iscomplete="true" onClick={handleSubmit}>
                         완료
                     </ModalButton>
                     <ModalButton onClick={() => AddTodoModalHandler(false)}>취소</ModalButton>
@@ -110,7 +173,10 @@ export default function AddTodoModal({ isOpen, AddTodoModalHandler }) {
 }
 
 /* Modal */
-const ModalContainer = styled(Modal)``;
+const ModalContainer = styled(Modal)`
+    opacity: ${(props) => (props.isOpen ? 1 : 0)};
+    animation: ${(props) => (props.isOpen ? fadeInAnimation : fadeOutAnimation)} 0.25s ease-in-out;
+`;
 
 const ModalContent = styled.div`
     width: 100%;
@@ -123,12 +189,12 @@ const ModalContent = styled.div`
 /* ModalTitleImage */
 const ModalImageWrapper = styled.div`
     width: 100%;
-    height: 18%;
-    margin-bottom: 10px;
+    height: 15%;
+    margin: 10px 0;
 `;
 
 const PotIcon = styled.img.attrs({
-    src: logo_pot,
+    src: cat_thumbs,
 })`
     width: 100%;
     height: 100%;

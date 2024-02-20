@@ -1,8 +1,27 @@
 import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import Modal from "react-modal";
 import logo_pot from "../../assets/images/logo_pot.svg";
 import CategorySelectionButton from "../button/CategorySelectionButton";
+import dogThumbs from "../../assets/images/dog_thumbs.svg";
+
+const fadeInAnimation = keyframes`
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+`;
+
+const fadeOutAnimation = keyframes`
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+`;
 
 export default function EditGardenModal({ isOpen, EditGardenModalHandler }) {
   Modal.setAppElement("#root");
@@ -34,7 +53,7 @@ export default function EditGardenModal({ isOpen, EditGardenModalHandler }) {
       width: "634px",
       height: "650px",
       padding: "20px",
-      border: "1px solid black",
+      boxShadow: "0px 0px 10px 0px gray",
     },
   };
 
@@ -86,7 +105,10 @@ export default function EditGardenModal({ isOpen, EditGardenModalHandler }) {
 }
 
 /* Modal */
-const ModalContainer = styled(Modal)``;
+const ModalContainer = styled(Modal)`
+    opacity: ${(props) => (props.isOpen ? 1 : 0)};
+    animation: ${(props) => (props.isOpen ? fadeInAnimation : fadeOutAnimation)} 0.25s ease-in-out;
+`;
 
 const ModalContent = styled.div`
   width: 100%;
@@ -98,13 +120,13 @@ const ModalContent = styled.div`
 
 /* ModalTitleImage */
 const ModalImageWrapper = styled.div`
-  width: 100%;
-  height: 18%;
-  margin-bottom: 20px;
+  width: fit-content;
+  height: 15%;
+  margin: 20px 0;
 `;
 
 const PotIcon = styled.img.attrs({
-  src: logo_pot,
+  src: dogThumbs,
 })`
   width: 100%;
   height: 100%;

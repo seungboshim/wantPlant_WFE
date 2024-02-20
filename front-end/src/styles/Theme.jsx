@@ -23,27 +23,27 @@ const theme = {
         pink01: "#FFD3C0",
         pink02: "#FFF5EE",
 
-        potPurple: {
+        PURPLE: {
             bg: "#EFDFFF",
             text: "#7932C0",
         },
-        potGreen: {
+        GREEN: {
             bg: "#E4FFDF",
             text: "#22A337",
         },
-        potRed: {
+        RED: {
             bg: "#FFEBEB",
             text: "#E92C2C",
         },
-        potOrange: {
+        ORANGE: {
             bg: "#FFF4E8",
             text: "#FF9F2D",
         },
-        potBlue: {
+        BLUE: {
             bg: "#E5F3FF",
             text: "#0085FF",
         },
-        potPink: {
+        PINK: {
             bg: "#FCDFFF",
             text: "#E03AC5",
         },

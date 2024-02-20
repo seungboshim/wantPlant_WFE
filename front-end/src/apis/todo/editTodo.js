@@ -5,7 +5,7 @@ import { Server } from "../setting";
 export const postTodo = async({ goalId, title, date, time }) => {
     try {
         const response = await Server.post(`/api/todos`, {
-            "goalId": goalId,
+            "goalID": goalId,
             "title": title,
             "date": date,
             "time": time,
@@ -27,10 +27,10 @@ export const deleteTodo = async({ todoId }) => {
 }
 
 /** 투두 완료여부 */
-export const patchTodoComplete = async({ todoId, isCompleted }) => {
+export const patchTodoComplete = async( todoId, isComplete ) => {
     try {
-        const response = await Server.patch(`/api/todos/${todoId}`, {
-            "isCompleted": isCompleted,
+        const response = await Server.patch(`/api/todos/${todoId}/complete`, {
+            "isComplete": isComplete,
         })
         return response.data.result;
     } catch (error) {

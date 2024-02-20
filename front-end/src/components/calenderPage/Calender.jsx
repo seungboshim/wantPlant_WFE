@@ -1,10 +1,8 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import tagComponent from "../../components/tag/ScheduleTagItem";
-import axios from "axios";
 
 const localizer = momentLocalizer(moment);
 

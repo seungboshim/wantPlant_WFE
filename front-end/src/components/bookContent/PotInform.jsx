@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import axios from "axios";
 
 export default function PotInform({gardenCategoty, potName, gardenName, startAt, completedAt, potImgUrl, todoTitle1, todoTitle2}){
     
@@ -18,7 +17,7 @@ export default function PotInform({gardenCategoty, potName, gardenName, startAt,
                 </Info>
                 <Image>
                     <Img>
-                        <img src={potImgUrl} width={"100%"} height={"100%"}></img>
+                        <img src={potImgUrl} width={"100%"} height={"100%"} alt="화분 이미지"></img>
                     </Img>
                     <Name>화분 이름/꽃말</Name>
                 </Image>

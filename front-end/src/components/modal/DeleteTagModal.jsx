@@ -11,7 +11,7 @@ export default function DeleteTagModal(props) {
             isOpen={props.isDeleteTagModalOn}
             contentLabel="Delete Confirmation"
             style={{
-                overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
+                overlay: { backgroundColor: "rgba(255, 255, 255, 0.3)" },
                 content: {
                     color: "lightsteelblue",
                     position: "relative",
@@ -22,6 +22,7 @@ export default function DeleteTagModal(props) {
                     right: "auto",
                     bottom: "auto",
                     transform: "translate(-50%, -50%)",
+                    boxShadow: "0px 0px 10px 0px gray",
                 },
             }}
         >

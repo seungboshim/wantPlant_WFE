@@ -1,28 +1,65 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 import todoEmpty from "../../assets/images/todoEmpty.svg";
 import todoFill from "../../assets/images/todoFill.svg";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { patchTodoComplete } from "../../apis/todo/editTodo";
+import { getTodoById } from "../../apis/todo/getTodo";
 
 /** 화분 정보 -> 투두 */
-export default function TodoContainer({ todoTitle, complete }) {
+export default function TodoContainer({ todoId, todoTitle, isComplete, EditTodoModalHandler }) {
     // TODO : 누르면 complete 변경되는거 PATCH
-    if (complete) {
+    const [localIsComplete, setLocalIsComplete] = useState(isComplete);
+
+    const handleComplete = () => {
+        patchTodoComplete(todoId, true)
+            .then((result) => {
+                console.log(result);
+                getTodoById(todoId).then((result) => {
+                    setLocalIsComplete(result.isComplete)
+
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    const handleUncomplete = () => {
+        patchTodoComplete(todoId, false)
+            .then((result) => {
+                console.log(result);
+                getTodoById(todoId).then((result) => {
+                    setLocalIsComplete(result.isComplete)
+
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    useEffect(() => {
+        setLocalIsComplete(isComplete)
+    },[isComplete])
+
+    if (localIsComplete) {
         return (
             <Container>
-                <TodoTitleContainer>
+                <TodoTitleContainer onClick={handleUncomplete}>
                     <WateringWrapper src={todoFill} />
                     <TodoTextWrapper>{todoTitle}</TodoTextWrapper>
                 </TodoTitleContainer>
-                <EditButton />
+                <EditButton onClick={EditTodoModalHandler} />
             </Container>
         )
     } else return (
         <Container>
-            <TodoTitleContainer>
+            <TodoTitleContainer onClick={handleComplete}>
                 <WateringWrapper src={todoEmpty} />
                 <TodoTextWrapper>{todoTitle}</TodoTextWrapper>
             </TodoTitleContainer>
-            <EditButton />
+            <EditButton onClick={EditTodoModalHandler}/>
         </Container>
     )
 }

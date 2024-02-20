@@ -1,8 +1,6 @@
-import splitAuthCode from "../kakao/SplitAuthCode";
 import { Server } from "../setting";
 import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 
 /** 카카오 인가코드를 받아 토큰 생성 */
 export const getKakaoAccessToken = async (code) => {
@@ -56,6 +54,9 @@ export const getAccessToken = async (accessToken) => {
 
         axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem('access')}`
         console.log(axios.defaults.headers.common);
+
+        
+        return result.accessToken;
     } catch (error) {
         
     }

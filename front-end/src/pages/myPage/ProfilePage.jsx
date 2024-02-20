@@ -71,7 +71,7 @@ const Buttons = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    width:70%;
+    width: 70%;
     height: 10%;
 `
 const ProfileContent = styled.div`
@@ -89,7 +89,7 @@ const FirstWrapper = styled.div`
 `
 const Picture = styled.img`
     width: 100%;
-    height: 100%;
+    
     border-radius: 50%;
 `
 const Name = styled.div`

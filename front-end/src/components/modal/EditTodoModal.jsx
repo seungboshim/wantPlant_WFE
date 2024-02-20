@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import Modal from "react-modal";
 import logo_pot from "../../assets/images/logo_pot.svg";
 import DatePicker from "react-datepicker";
@@ -7,6 +7,25 @@ import "react-datepicker/dist/react-datepicker.css";
 import { AiFillCalendar } from "react-icons/ai";
 import { FaRegTrashAlt } from "react-icons/fa";
 import DeleteAlertModal from "./DeleteAlertModal";
+import dogCatSwag from "../../assets/images/dogcat_swag.svg";
+
+const fadeInAnimation = keyframes`
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+`;
+
+const fadeOutAnimation = keyframes`
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+`;
 
 export default function EditTodoModal({ isOpen, EditTodoModalHandler }) {
   Modal.setAppElement("#root");
@@ -38,7 +57,7 @@ export default function EditTodoModal({ isOpen, EditTodoModalHandler }) {
       width: "534px",
       height: "550px",
       padding: "20px",
-      border: "1px solid black",
+      boxShadow: "0px 0px 10px 0px gray",
     },
   };
 
@@ -61,9 +80,9 @@ export default function EditTodoModal({ isOpen, EditTodoModalHandler }) {
     <ModalContainer isOpen={isOpen} style={customStyles}>
       <ModalContent>
         <ModalImageWrapper>
-          <PotIcon alt="Pot Icon" />
+          <PotIcon alt="Dog Icon" />
         </ModalImageWrapper>
-        <ModalTitleWrapper>할 일을 추가해주세요.</ModalTitleWrapper>
+        <ModalTitleWrapper>할 일을 수정해주세요.</ModalTitleWrapper>
         <ModalTodoTextWrapper>
           <ModalGardenTodoTextInput placeholder="(원래 투두 내용)" />
         </ModalTodoTextWrapper>
@@ -133,7 +152,10 @@ export default function EditTodoModal({ isOpen, EditTodoModalHandler }) {
 }
 
 /* Modal */
-const ModalContainer = styled(Modal)``;
+const ModalContainer = styled(Modal)`
+    opacity: ${(props) => (props.isOpen ? 1 : 0)};
+    animation: ${(props) => (props.isOpen ? fadeInAnimation : fadeOutAnimation)} 0.25s ease-in-out;
+`;
 
 const ModalContent = styled.div`
   width: 100%;
@@ -146,15 +168,16 @@ const ModalContent = styled.div`
 
 /* ModalTitleImage */
 const ModalImageWrapper = styled.div`
-  width: 100%;
-  height: 18%;
-  margin-bottom: 10px;
+  display: flex;
+  width: fit-content;
+  height: 15%;
+  margin: 10px 0;
 `;
 
 const PotIcon = styled.img.attrs({
-  src: logo_pot,
+  src: dogCatSwag,
 })`
-  width: 100%;
+  width: fit-content;
   height: 100%;
 `;
 

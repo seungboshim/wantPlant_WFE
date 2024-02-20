@@ -4,12 +4,49 @@ import PotColorSelection from "./PotColorSelection";
 import { useState } from "react";
 import ModalButton from '../button/ModalButton';
 import ReverseModalButton from "../button/ReverseModalButton";
+import { postPot } from '../../apis/pot/editPot';
 
 /** 새 화분 생성 컴포넌트 */
-export default function PotCreate() {
+export default function PotCreate({ gardenId, handleClose }) {
+    const [potName, setPotName] = useState("");
+
     const [selectedColor, setSelectedColor] = useState("");
-    const potColors = ["potPurple", "potGreen", "potRed", "potOrange", "potBlue", "potPink"];
-    console.log(selectedColor);
+    const potColors = ["PURPLE", "GREEN", "RED", "ORANGE", "BLUE", "PINK"];
+
+
+    const today = new Date();
+    let year = today.getFullYear();
+    let month = today.getMonth()+1;
+    let day = today.getDate();
+
+    if (month < 10) {
+        month = "0" + month;
+    }
+
+    if (day < 10) {
+        day = "0" + day;
+    }
+    
+    const todayString = year + "-" + month + "-" + day;
+
+    const handleSubmit = () => {
+        postPot({
+            "gardenId": gardenId,
+            "potName": potName,
+            "potTageColor": potColors[selectedColor],
+            "startAt": todayString
+        })
+            .then((result) => {
+                console.log(result);
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    const handleChange = (e) => {
+        setPotName(e.target.value);
+    }
 
     return (
         <Wrapper>
@@ -17,7 +54,7 @@ export default function PotCreate() {
                 <img src={logo} width={40} height={48}/>
                 <Title>새로운 화분을 추가해주세요.</Title>
                 <PotInputContainer>
-                    <PotTitleInput placeholder="화분 이름을 입력해주세요."></PotTitleInput>
+                    <PotTitleInput value={potName} type="text" placeholder="화분 이름을 입력해주세요." onChange={handleChange}></PotTitleInput>
                     <PotColorSelectionWrapper>
                         <PotColorSelectionTitle>원하는 색상을 선택해주세요.</PotColorSelectionTitle>
                         <PotColorSelectionContainer>
@@ -35,8 +72,8 @@ export default function PotCreate() {
                     </PotColorSelectionWrapper>
                 </PotInputContainer>
                 <PotCreateButton>
-                    <ModalButton label="확인" />
-                    <ReverseModalButton label="취소" />
+                    <ModalButton label="확인" onClick={handleSubmit} />
+                    <ReverseModalButton label="취소" onClick={handleClose}/>
                 </PotCreateButton>
             </Container>
         </Wrapper>

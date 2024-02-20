@@ -30,7 +30,7 @@ export const putGarden = async({ gardenId, name, description }) => {
 }
 
 /** 정원 삭제 */
-export const deleteGarden = async({ gardenId }) => {
+export const deleteGarden = async( gardenId ) => {
     try {
         const response = await Server.delete(`/api/gardens/${gardenId}`)
         return response.data.result;

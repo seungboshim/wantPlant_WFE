@@ -11,15 +11,17 @@ export default function MyFixPlanContentTagNameInput(props) {
 }
 
 const FixPlanContentTagNameInput = styled.input`
-    width: 65%;
+    width: 80%;
     height: 2.2vw;
-    border: 1px solid black;
+    border-width: 0 0 1px;
+    outline: none;
     margin: 1vw;
-    border-radius: 1vw;
+    //border-radius: 1vw;
     padding-left: 10px;
+    text-align: center;
     @media (max-width: 1280px) {
         height: 28px;
         margin: 12.8px;
-        border-radius: 12.8px;
+        //border-radius: 12.8px;
     }
 `;

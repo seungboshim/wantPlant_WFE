@@ -3,7 +3,7 @@ import logo from "../../assets/images/logo.svg";
 
 /** 화분 데이터를 인자로 받는 화분 컴포넌트 */
 export default function PotItem({ 
-  potName, startAt, proceed, potImageUrl, potColor, selected, onClick
+  potName, startAt, proceed, potImageUrl, potTagColor, selected, onClick
 }) {
     return (
         <Container selected={selected} className="PotItemContainer" onClick={onClick}>
@@ -14,9 +14,9 @@ export default function PotItem({
                     <PotTitle className="PotTitle">{potName}</PotTitle>
                     <PotProgressWrapper className="PotProgressWrapper">
                         <PotProgressBar className="PotProgressBar">
-                            <PotProgressDealt width={proceed} color={potColor}/>
+                            <PotProgressDealt width={proceed} color={potTagColor}/>
                         </PotProgressBar>
-                        <PotProgressText color={potColor}>{proceed}/10</PotProgressText>
+                        <PotProgressText color={potTagColor}>{proceed}/10</PotProgressText>
                     </PotProgressWrapper>
                 </PotInfoWrapper>
             </Wrapper>
@@ -54,10 +54,10 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  margin: 2%;
+  padding: 2%;
   width: 100%;
   @media (max-width: 1280px) {
-    margin: 10px;
+    padding: 10px;
   }
 `;
 
