@@ -1,12 +1,11 @@
 import { Server } from "../setting";
 
 export const getCompletedPots = async () => {
-    try{
+    try {
         const response = await Server.get("/api/completed-pots/web");
-        console.log(response.data)
+        console.log(response.data);
         return response.result.pots;
-    }
-    catch(error){
+    } catch (error) {
         console.log(error);
     }
-}
+};

@@ -1,26 +1,65 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useTheme } from "styled-components";
-import { garden_res, goal_res_1, goal_res_2 } from "./data";
 import axios from "axios";
+import { Server } from "../../../../apis/setting";
 import todoEmpty from "../../../../assets/images/todoEmpty.svg";
 import todoFill from "../../../../assets/images/todoFill.svg";
+import moment from "moment";
+import { dummy } from "./dummy";
 
 export default function MyTodoListContentContainer(props) {
+    const navigate = useNavigate();
     const theme = useTheme();
 
     const [categories, setCategories] = useState([]);
+    const [gardens, setGardens] = useState([]);
+    const [todos, setTodos] = useState([]);
 
-    const getCategories = () => {
-        // axios.get(`${process.env.REACT_APP_SERVER_URL}/gardens`)
-        let temp_categories = ["STUDY", "HOBBY", "EXERCISE"];
+    const body = {
+        memberID: 1,
+    };
 
-        let categoryGardens = temp_categories.map((category) =>
-            garden_res.result.gardens.filter((garden) => garden.gardenCategory === category),
-        );
+    const convertCategoryToIndex = (category) => {
+        switch (category) {
+            case "STUDY":
+                return 0;
+            case "EXERCISE":
+                return 1;
+            case "HOBBY":
+                return 2;
+            default:
+                return -1;
+        }
+    };
 
-        // console.log(categoryGardens);
-        setCategories(categoryGardens); // 0: study, 1: hobby, 2: exercise
+    const getCategories = async () => {
+        const garden_res = await Server.get(`${process.env.REACT_APP_SERVER_URL}/gardens`)
+            .then((res) => {
+                return res.data;
+            })
+            .catch((err) => console.log(err));
+
+        // category 별로 garden들 배열로 묶음
+        const categorizedData = [];
+        garden_res.result.gardens.map((garden) => {
+            let categoryIdx = convertCategoryToIndex(garden.gardenCategory);
+            if (!categorizedData[categoryIdx]) {
+                categorizedData[categoryIdx] = [];
+            }
+
+            categorizedData[categoryIdx].push(garden);
+        });
+        setCategories(categorizedData);
+    };
+
+    const getTodos = () => {
+        Server.get(`/pots/todos/date?date=${moment(props.selectedSlot.start).format("YYYY-MM-DD")}`)
+            .then((res) => {
+                setTodos(res.data.result.todos);
+            })
+            .catch((err) => console.log(err));
     };
 
     const getCategoryKoreanName = (category) => {
@@ -29,11 +68,12 @@ export default function MyTodoListContentContainer(props) {
         if (category === "EXERCISE") return "운동";
     };
 
-    const getGoalsByPotId = (potId) => {
-        //http://ec2-3-34-198-148.ap-northeast-2.compute.amazonaws.com:8080/api/goals/todos?potId=2
-
-        if (potId === 2) return goal_res_2;
-        else return "";
+    const getGoalsByPotId = async (potId) => {
+        return await Server.get(`/goals/todos?potId=${potId}`)
+            .then((res) => {
+                return res.data;
+            })
+            .catch((err) => console.log(err));
     };
 
     const getPotTagColor = (tagcolor) => {
@@ -48,9 +88,14 @@ export default function MyTodoListContentContainer(props) {
         }
     };
 
+    const onClickTagHandler = (garden) => {
+        navigate(`/garden/${garden.gardenId}`);
+    };
+
     useEffect(() => {
-        getCategories();
-    }, []);
+        getCategories(categories);
+        getTodos();
+    }, [props.selectedSlot]);
 
     return (
         <TodoListContentContainer className="TodoListContentWrapper">
@@ -72,53 +117,41 @@ export default function MyTodoListContentContainer(props) {
             </DateWrapper>
 
             <ContentWrapper>
-                {/* 모든 garden 탐색 */}
                 {categories.map((category, idx) => {
                     return (
                         <div key={idx}>
                             <CategoryTitleWrapper>
                                 {getCategoryKoreanName(category[0].gardenCategory)}
                             </CategoryTitleWrapper>
-                            {category.map((garden, idx1) => {
-                                return (
-                                    <div key={idx1}>
-                                        {garden.potList.map((pot, idx2) => {
-                                            return (
-                                                <div key={idx2}>
-                                                    {getGoalsByPotId(pot.potId) &&
-                                                        getGoalsByPotId(pot.potId).result.goalList.map((goal, idx3) => {
-                                                            return (
-                                                                <div key={idx3}>
-                                                                    {goal.todoList.map((todo, idx4) => {
-                                                                        return (
-                                                                            <PotWrapper key={idx4}>
-                                                                                {todo.isComplete ? (
-                                                                                    <CompletedCheckIcon isfilled />
-                                                                                ) : (
-                                                                                    <CompletedCheckIcon />
-                                                                                )}
-                                                                                <TodoTitleWrapper>
-                                                                                    {todo.todoTitle}
-                                                                                </TodoTitleWrapper>
-                                                                                <GardenNameTagWrapper
-                                                                                    pottagcolor={getPotTagColor(
-                                                                                        pot.potTagColor,
-                                                                                    )}
-                                                                                >
-                                                                                    {pot.garden.name}
-                                                                                </GardenNameTagWrapper>
-                                                                            </PotWrapper>
-                                                                        );
-                                                                    })}
-                                                                </div>
-                                                            );
-                                                        })}
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                );
-                            })}
+
+                            {todos ? (
+                                category.map((garden) => {
+                                    const filtered_todos = todos.filter(
+                                        (todo) => todo.category === garden.gardenCategory,
+                                    );
+                                    return filtered_todos.map((todo, idx1) => {
+                                        return (
+                                            <PotWrapper key={idx1}>
+                                                {todo.complete ? (
+                                                    <CompletedCheckIcon isfilled />
+                                                ) : (
+                                                    <CompletedCheckIcon />
+                                                )}
+                                                <TodoTitleWrapper>{todo.todoTitle}</TodoTitleWrapper>
+
+                                                <GardenNameTagWrapper
+                                                    pottagcolor={getPotTagColor(todo.potTagColor)}
+                                                    onClick={() => onClickTagHandler(garden)}
+                                                >
+                                                    {garden.name}
+                                                </GardenNameTagWrapper>
+                                            </PotWrapper>
+                                        );
+                                    });
+                                })
+                            ) : (
+                                <div>none</div>
+                            )}
                         </div>
                     );
                 })}
@@ -236,8 +269,9 @@ const GardenNameTagWrapper = styled.div`
     border-radius: 0.6vw;
     margin: 0 7px;
     margin-top: 3px;
-    background-color: ${(props) => props.pottagcolor[1].bg};
-    color: ${(props) => props.pottagcolor[1].text};
+    background-color: ${(props) => (props.pttagcolor !== null ? props.pottagcolor[1].bg : "")};
+    color: ${(props) => (props.pttagcolor !== null ? props.pottagcolor[1].text : "")};
+    cursor: pointer;
     @media (max-width: 1280px) {
         font-size: 11.5px;
         border-radius: 7.5px;

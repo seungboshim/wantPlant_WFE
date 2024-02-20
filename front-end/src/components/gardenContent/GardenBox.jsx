@@ -3,14 +3,14 @@ import React from "react";
 import styled from "styled-components";
 
 /** 다른 정원 가기 Box */
-export default function GardenBox({ garden_title, garden_category, garden_description, garden_images }) {
+export default function GardenBox({ garden_title, garden_category, garden_description, potList }) {
     // TODO : garden_id 받기
     return (
         <StyledGardenBox className="GardenBox">
             <GardenBoxContentContainer>
                 <GardenBoxImageContaier>
-                    {garden_images.map((img_url, idx) => {
-                        return <GardenBoxImage key={idx} img_url={img_url}></GardenBoxImage>;
+                    {potList.map((pot, idx) => {
+                        return <GardenBoxImage key={idx} img_url={pot.potImageUrl}></GardenBoxImage>;
                     })}
                 </GardenBoxImageContaier>
                 <GardenBoxContentTitle>

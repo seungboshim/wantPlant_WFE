@@ -11,6 +11,7 @@ import RightContainer from "../../components/calenderPage/rightContainer/RightCo
 
 import moment from "moment";
 
+import { Server } from "../../apis/setting";
 import axios from "axios";
 
 import DeleteTagModal from "../../components/modal/DeleteTagModal";
@@ -43,15 +44,6 @@ export default function CalenderPage() {
     // accessToken
     const accessToken = localStorage.getItem("access");
 
-    // api Config
-    const config = {
-        headers: {
-            Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MzgsImlhdCI6MTcwNzEzODU4MywiZXhwIjoxNzA3MjI0OTgzfQ.AREo1RvbzrBtp0n2Nm1xyeViosGlXUF_wt65LwnrdJo", // 'token'은 실제 토큰 값입니다.
-            "Access-Control-Allow-Credentials": true,
-        },
-    };
-
     // todo
     const [todos, setTodos] = useState([]);
 
@@ -60,7 +52,7 @@ export default function CalenderPage() {
 
     // 백에서 gardens 갖고옴
     const getGardens = () => {
-        axios(`${process.env.REACT_APP_SERVER_URL}/gardens?page=${1}&pageSize=${1000}`)
+        Server.get(`/gardens/?memberId=2`)
             .then((res) => {
                 console.log(res);
             })
@@ -69,9 +61,9 @@ export default function CalenderPage() {
 
     // 백에서 todos 갖고옴
     const getTodos = () => {
-        axios(`${process.env.REACT_APP_SERVER_URL}/todos`)
+        Server.get(`/todos`)
             .then((res) => {
-                console.log(res);
+                // console.log(res);
             })
             .catch((err) => console.log(err));
     };
@@ -79,13 +71,11 @@ export default function CalenderPage() {
     const deleteTagModalHandler = (isOpen, e) => {
         setIsDeleteTagModalOn(isOpen);
         document.body.style.overflow = isOpen ? "hidden" : "unset";
-        console.log(isOpen, e);
         setSelectedTag(e);
     };
 
     const deleteTagHandler = () => {
-        axios
-            .delete(`${process.env.REACT_APP_SERVER_URL}/tag/${selectedTag.id}`)
+        Server.delete(`/tag/${selectedTag.id}`)
             .then((res) => {
                 console.log(res);
             })
@@ -94,18 +84,18 @@ export default function CalenderPage() {
 
     /* 백에서 태그들 갖고옴 */
     const getTags = () => {
-        axios(`${process.env.REACT_APP_SERVER_URL}/tag/month?year=2024&month=2`, config)
+        Server.get(`/tag/month?year=2024&month=2`)
             .then((res) => {
-                console.log(res);
                 const tempTags = res.data.result.tagResponseDtos;
 
                 // 아직 갖고온 tag들에는 start와 end 데이터가 없어서 임시로 넣어줌
-                tempTags.map((tag) => {
+                for (let tag of tempTags) {
                     tag.start = tag.date;
                     tag.end = tag.date;
                     tag.title = tag.tagName;
                     tag.selectedTagColor = theme.colors[tag.tagColor];
-                });
+                }
+
                 setTags(tempTags);
             })
             .catch((err) => console.log(err));
@@ -126,14 +116,13 @@ export default function CalenderPage() {
 
         /* 태그 추가 axios */
         const body = {
-            tagColor: `COLOR_${selectedTagColorNum}`,
+            tagColor: `COLOR_${selectedTagColorNum + 1}`,
             tagName: tagName,
             tagTime: formattedTime,
             date: formattedDate,
         };
 
-        axios
-            .post(`${process.env.REACT_APP_SERVER_URL}/tag/add`, body)
+        Server.post(`/tag/add`, body)
             .then((res) => {
                 const newTag = body;
                 newTag.id = res.data.result.id;
@@ -170,13 +159,10 @@ export default function CalenderPage() {
 
     // 백에서 tag, todo, garden 갖고옴
     useEffect(() => {
-        // axios("http://ec2-3-34-198-148.ap-northeast-2.compute.amazonaws.com:8080/api/token/test")
-        //     .then((res) => console.log(res))
-        //     .catch((err) => console.log(err));
         getTags();
-        // getTodos();
+        getTodos();
         // getGardens();
-        // setIsUpdateCalender(false);
+        setIsUpdateCalender(false);
     }, [isUpdateCalender]);
 
     return (
@@ -198,7 +184,7 @@ export default function CalenderPage() {
                             setSelectedSlot={setSelectedSlot}
                             tags={tags}
                             eventPropGetter={eventPropGetter}
-                            onClickTag={deleteTagModalHandler}
+                            deleteTagModalHandler={deleteTagModalHandler}
                             isDeleteTagModalOn={isDeleteTagModalOn}
                         />
                         <RightContainer

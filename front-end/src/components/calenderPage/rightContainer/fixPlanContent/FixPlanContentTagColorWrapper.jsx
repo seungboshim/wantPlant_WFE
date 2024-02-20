@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 export default function MyFixPlanContentTagColorWrapper(props) {
+    console.log(props.tagColors);
     return (
         <FixPlanContentTagColorWrapper>
             {props.tagColors &&
