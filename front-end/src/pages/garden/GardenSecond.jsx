@@ -41,6 +41,7 @@ export default function GardenSecond({ gardenId }) {
                     let garden = newGardens[i];
                     newGardenComponents.push(
                         <GardenBox
+                            garden_id={garden.gardenId}
                             garden_title={garden.name}
                             garden_category={garden.gardenCategory}
                             garden_description={garden.description}

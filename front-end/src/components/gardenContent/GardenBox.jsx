@@ -1,12 +1,17 @@
 import React from "react";
 // import { AiFillEdit } from "react-icons/ai";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 /** 다른 정원 가기 Box */
-export default function GardenBox({ garden_title, garden_category, garden_description, potList }) {
-    // TODO : garden_id 받기
+export default function GardenBox({ garden_id, garden_title, garden_category, garden_description, potList }) {
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate(`/garden/${garden_id}`)
+    }
+
     return (
-        <StyledGardenBox className="GardenBox">
+        <StyledGardenBox className="GardenBox" onClick={handleClick}>
             <GardenBoxContentContainer>
                 <GardenBoxImageContaier>
                     {potList.map((pot, idx) => {
@@ -36,6 +41,7 @@ const StyledGardenBox = styled.div`
     flex-direction: column;
     align-items: center;
     box-shadow: 0px 0px 10px 0px #00000040;
+    cursor: pointer;
 
     @media (max-width: 1280px) {
         width: 360px;

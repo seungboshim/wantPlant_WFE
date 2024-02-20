@@ -28,6 +28,7 @@ const StyledNewGardenBox = styled.div`
     justify-content: center;
     align-items: center;
     color: ${({ theme }) => theme.colors.green05};
+    cursor: pointer;
 
     @media (max-width: 1280px) {
         width: 350px;
