@@ -7,68 +7,108 @@ import TodoContainer from "./TodoContainer";
 import { potsFromGarden } from "../../apis/dummy/pots";
 import { goalsFromPotId } from "../../apis/dummy/goals";
 import { getPotById } from "../../apis/pot/getPot";
+import { getGoalsByPotId } from '../../apis/goal/getGoal';
+import { postGoal } from "../../apis/goal/editGoal";
 import GoalCreateButton from "./GoalCreateButton";
-import GoalCreateInput from "./GoalCreateInput";
+import green07Plus from "../../assets/images/green07Plus.svg"
 
 /** potId 의 목표, 투두 조회 및 생성 컴포넌트 */
 export default function TodoView({ potId, AddTodoModalHandler }) {
     const [potData, setPotData] = useState();
+    const [goalData, setGoalData] = useState();
 
     useEffect(() => {
-        getPotById(potId).then((data) => {
-            setPotData(data);
+        console.log(potId)
+        getPotById(potId).then((data)=> {
             console.log(data);
+            setPotData(data);
         })
-    })
+    }, [potId])
 
-    // TODO : potId에 해당하는 화분, 목표 객체 받아오기
-    const currentPot = potsFromGarden.pots.find(pot => pot.potId === potId);
-    const currentGoals = goalsFromPotId;
-    
+    useEffect(() => {
+        if (potId) {
+            getGoalsByPotId(potId).then((data) => {
+                console.log(data);
+                setGoalData(data);
+            })
+        }
+    }, [potId])
+
+    const [goalTitle, setGoalTitle] = useState("");
     const [isChanged, setIsChanged] = useState(false);
 
     const handleOpenGoalCreateInput = () => {
         setIsChanged(true);
     };
 
+    /** 목표 생성 성공시 다시 goalData 불러옴 */
     const handleCloseGoalCreateInput = () => {
+        console.log(goalTitle)
+        postGoal(potId, goalTitle)
+            .then((result) => {
+                console.log(result);
+                getGoalsByPotId(potId).then((data) => {
+                    console.log(data);
+                    setGoalData(data);
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
         setIsChanged(false);
     };
 
-    return (   
-        <Wrapper>
-            <Container>
-                <TitleWrapper>
-                    <PaddingDiv />
-                    <GardenTitle color={currentPot.potColor}>{currentPot.potName}</GardenTitle>
-                    <EditButton />
-                </TitleWrapper>
-                <ScrollWrapper>
-                    <TodoWrapper>
-                        {currentGoals.map((goals, idx) => {
-                            return (
-                                <GoalContainer 
-                                    key={idx}
-                                    goalTitle={goals.goalTitle}
-                                    todoList={goals.todoList}
-                                    onClick={AddTodoModalHandler}
-                                />
-                            )
-                        })}
-                        {/** GoalCreateButton 누르면 Input으로 변경 */}
-                        {isChanged ? 
-                            <GoalCreateInput onClick={handleCloseGoalCreateInput}/>
-                            :
-                            <GoalCreateButton onClick={handleOpenGoalCreateInput}/>
-                        }
-                    </TodoWrapper>
-                </ScrollWrapper>
-                {/* <AddTodoWrapper>
-                    <TodoCreateButton AddTodoModalHandler={AddTodoModalHandler}/>
-                </AddTodoWrapper> */}
-            </Container>
-        </Wrapper>
-    )
+    const handleChange = (e) => {
+        setGoalTitle(e.target.value);
+    };
+
+    if (potData && goalData) {
+        return (   
+            <Wrapper>
+                <Container>
+                    <TitleWrapper>
+                        <PaddingDiv />
+                        <GardenTitle color={potData.potTagColor}>{potData.potName}</GardenTitle>
+                        <EditButton />
+                    </TitleWrapper>
+                    <ScrollWrapper>
+                        <TodoWrapper>
+                            {goalData.map((goals, idx) => {
+                                return (
+                                    <GoalContainer 
+                                        key={idx}
+                                        goalTitle={goals.goalTitle}
+                                        todoList={goals.todoList}
+                                        onClick={AddTodoModalHandler}
+                                    />
+                                )
+                            })}
+                            {/** GoalCreateButton 누르면 Input으로 변경 */}
+                            {isChanged ? 
+                                <GoalCreateContainer>
+                                    <GoalTitleWrapper>
+                                        <PlusWrapper src={green07Plus} width={20} alt="plus" />
+                                        <GoalInput type="text" value={goalTitle} onChange={handleChange}/>
+                                        <SubmitButton onClick={handleCloseGoalCreateInput}>확인</SubmitButton>
+                                    </GoalTitleWrapper>
+                                </GoalCreateContainer>
+                                :
+                                <GoalCreateButton onClick={handleOpenGoalCreateInput}/>
+                            }
+                        </TodoWrapper>
+                    </ScrollWrapper>
+                    {/* <AddTodoWrapper>
+                        <TodoCreateButton AddTodoModalHandler={AddTodoModalHandler}/>
+                    </AddTodoWrapper> */}
+                </Container>
+            </Wrapper>
+        )
+    } else {
+        return (
+            <span>loading...</span>
+        )
+    }
+
 }
 
 const Wrapper = styled.div`
@@ -139,4 +179,40 @@ const TodoWrapper = styled.div`
 const AddTodoWrapper = styled.div`
     display: flex;
     width: 100%;
+`
+
+const GoalCreateContainer = styled.div`
+    display: flex;
+    width: auto;
+    height: 50%;
+    margin-bottom: 10px;
+    cursor: pointer;
+`
+
+const PlusWrapper = styled.img`
+    margin-right: 10px;
+`
+
+const GoalTitleWrapper = styled.form`
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    height: auto;
+    border-left: 1px solid black;
+    padding: 0px 15px;
+    font-size: 18px;
+`
+
+const GoalInput = styled.input`
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    border-bottom: 1px solid black;
+    padding: 10px;
+`
+
+const SubmitButton = styled.div`
+    font-size: 16px;
+    padding-left: 10px;
 `

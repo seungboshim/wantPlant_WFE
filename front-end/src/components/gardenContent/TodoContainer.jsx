@@ -2,14 +2,44 @@ import styled from "styled-components";
 import todoEmpty from "../../assets/images/todoEmpty.svg";
 import todoFill from "../../assets/images/todoFill.svg";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { patchTodoComplete } from "../../apis/todo/editTodo";
+import { getTodoById } from "../../apis/todo/getTodo";
 
 /** 화분 정보 -> 투두 */
-export default function TodoContainer({ todoTitle, complete }) {
+export default function TodoContainer({ todoId, todoTitle, isComplete, setIsComplete }) {
     // TODO : 누르면 complete 변경되는거 PATCH
-    if (complete) {
+
+
+    const handleComplete = () => {
+        patchTodoComplete(todoId, true)
+            .then((result) => {
+                console.log(result);
+                getTodoById(todoId).then((result) => {
+                    setIsComplete(result.isComplete)
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    const handleUncomplete = () => {
+        patchTodoComplete(todoId, false)
+            .then((result) => {
+                console.log(result);
+                getTodoById(todoId).then((result) => {
+                    setIsComplete(result.isComplete)
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    if (isComplete) {
         return (
             <Container>
-                <TodoTitleContainer>
+                <TodoTitleContainer onClick={handleUncomplete}>
                     <WateringWrapper src={todoFill} />
                     <TodoTextWrapper>{todoTitle}</TodoTextWrapper>
                 </TodoTitleContainer>
@@ -18,7 +48,7 @@ export default function TodoContainer({ todoTitle, complete }) {
         )
     } else return (
         <Container>
-            <TodoTitleContainer>
+            <TodoTitleContainer onClick={handleComplete}>
                 <WateringWrapper src={todoEmpty} />
                 <TodoTextWrapper>{todoTitle}</TodoTextWrapper>
             </TodoTitleContainer>

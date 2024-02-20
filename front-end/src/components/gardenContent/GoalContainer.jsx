@@ -2,9 +2,14 @@ import styled from "styled-components";
 import TodoContainer from "./TodoContainer";
 import TodoCreateButton from "./TodoCreateButton";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { useState } from "react";
 
 /** 화분 정보 -> 목표 */
 export default function GoalContainer({ goalTitle, todoList, onClick }) {
+    console.log(todoList)
+
+    const [isComplete, setIsComplete] = useState(false);
+
     return (
         <Container>
             <GoalTitleWrapper>
@@ -15,8 +20,10 @@ export default function GoalContainer({ goalTitle, todoList, onClick }) {
                 return (
                     <TodoContainer 
                         key={idx}
+                        todoId={todo.todoId}
                         todoTitle={todo.todoTitle}
-                        complete={todo.complete}
+                        isComplete={todo.isComplete}
+                        setIsComplete={setIsComplete}
                     />
                 )
             })}

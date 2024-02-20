@@ -11,7 +11,7 @@ import { postGarden } from "../../apis/garden/editGarden";
 import { useNavigate } from "react-router-dom";
 
 import { useSetRecoilState } from 'recoil';
-import { InitGardenAtom } from "../../recoil/atom";
+import { InitGardenAtom, IsLoggedInAtom } from "../../recoil/atom";
 import { getEntireGardens } from "../../apis/garden/getGarden";
 
 /** 정원 생성 페이지 */
@@ -24,11 +24,14 @@ export default function MakeGardenPage() {
     const setInitGarden = useSetRecoilState(InitGardenAtom);
     const [entireGardens, setEntireGardens] = useState(0);
 
+    const setIsLoggedInAtom = useSetRecoilState(IsLoggedInAtom);
+
     useEffect(() => {
         const fetchEntireGardens = async() => {
             try {
                 const garden = await getEntireGardens();
                 setEntireGardens(garden);
+                setIsLoggedInAtom(true);
             } catch (error) {
                 console.log(error);
             }
