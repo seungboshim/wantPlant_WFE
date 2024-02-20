@@ -2,7 +2,7 @@ import { Server } from "../setting";
 
 
 /** 목표 생성 */
-export const postGoal = async({ potId, goalTitle }) => {
+export const postGoal = async( potId, goalTitle ) => {
     try {
         const response = await Server.post(`/api/goals`, {
             "potId": potId,
