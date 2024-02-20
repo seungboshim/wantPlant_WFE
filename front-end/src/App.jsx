@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Header } from "./components/layout/Header";
 import { Layout } from "./components/layout/Layout";
@@ -24,15 +25,24 @@ import FAQPage from "./pages/myPage/FAQPage";
 import { useRecoilValue } from "recoil";
 import { IsLoggedInAtom } from "./recoil/atom";
 
+import { getMemberInform } from "./apis/member/member";
+
 function App() {
   const isLoggedIn = useRecoilValue(IsLoggedInAtom);
+
+  const [nickname, setNickname] = useState("");
+  useEffect(() => {
+    getMemberInform().then((inform) => {
+      setNickname(inform.nickname)
+    })
+  }, [])
 
   return (
     <>
       <BrowserRouter>
       {/** localStorage에 access 토큰 유무로 로그인 여부 확인하여 헤더 렌더링 */}
-        {isLoggedIn ? 
-          <Header name={"ㅇㅇㅇ"}/> : <></>
+        {(isLoggedIn || localStorage.getItem("access")) ? 
+          <Header name={nickname}/> : <></>
         }
         <Layout>
           <Routes>
