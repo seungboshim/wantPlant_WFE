@@ -7,23 +7,32 @@ import TodoContainer from "./TodoContainer";
 import { potsFromGarden } from "../../apis/dummy/pots";
 import { goalsFromPotId } from "../../apis/dummy/goals";
 import { getPotById } from "../../apis/pot/getPot";
+import { getGoalsByPotId } from '../../apis/goal/getGoal';
 import GoalCreateButton from "./GoalCreateButton";
 import GoalCreateInput from "./GoalCreateInput";
 
 /** potId 의 목표, 투두 조회 및 생성 컴포넌트 */
 export default function TodoView({ potId, AddTodoModalHandler }) {
     const [potData, setPotData] = useState();
+    const [goalData, setGoalData] = useState();
 
     useEffect(() => {
-        getPotById(potId).then((data) => {
-            setPotData(data);
+        console.log(potId)
+        getPotById(potId).then((data)=> {
             console.log(data);
+            setPotData(data);
         })
-    })
+    }, [potId])
 
-    // TODO : potId에 해당하는 화분, 목표 객체 받아오기
-    const currentPot = potsFromGarden.pots.find(pot => pot.potId === potId);
-    const currentGoals = goalsFromPotId;
+    useEffect(() => {
+        if (potId) {
+            getGoalsByPotId(potId).then((data) => {
+                console.log(data);
+                setGoalData(data);
+            })
+        }
+    }, [potId])
+
     
     const [isChanged, setIsChanged] = useState(false);
 
@@ -35,40 +44,47 @@ export default function TodoView({ potId, AddTodoModalHandler }) {
         setIsChanged(false);
     };
 
-    return (   
-        <Wrapper>
-            <Container>
-                <TitleWrapper>
-                    <PaddingDiv />
-                    <GardenTitle color={currentPot.potColor}>{currentPot.potName}</GardenTitle>
-                    <EditButton />
-                </TitleWrapper>
-                <ScrollWrapper>
-                    <TodoWrapper>
-                        {currentGoals.map((goals, idx) => {
-                            return (
-                                <GoalContainer 
-                                    key={idx}
-                                    goalTitle={goals.goalTitle}
-                                    todoList={goals.todoList}
-                                    onClick={AddTodoModalHandler}
-                                />
-                            )
-                        })}
-                        {/** GoalCreateButton 누르면 Input으로 변경 */}
-                        {isChanged ? 
-                            <GoalCreateInput onClick={handleCloseGoalCreateInput}/>
-                            :
-                            <GoalCreateButton onClick={handleOpenGoalCreateInput}/>
-                        }
-                    </TodoWrapper>
-                </ScrollWrapper>
-                {/* <AddTodoWrapper>
-                    <TodoCreateButton AddTodoModalHandler={AddTodoModalHandler}/>
-                </AddTodoWrapper> */}
-            </Container>
-        </Wrapper>
-    )
+    if (potData) {
+        return (   
+            <Wrapper>
+                <Container>
+                    <TitleWrapper>
+                        <PaddingDiv />
+                        <GardenTitle color={potData.potTagColor}>{potData.potName}</GardenTitle>
+                        <EditButton />
+                    </TitleWrapper>
+                    <ScrollWrapper>
+                        <TodoWrapper>
+                            {goalData.map((goals, idx) => {
+                                return (
+                                    <GoalContainer 
+                                        key={idx}
+                                        goalTitle={goals.goalTitle}
+                                        todoList={goals.todoList}
+                                        onClick={AddTodoModalHandler}
+                                    />
+                                )
+                            })}
+                            {/** GoalCreateButton 누르면 Input으로 변경 */}
+                            {isChanged ? 
+                                <GoalCreateInput onClick={handleCloseGoalCreateInput}/>
+                                :
+                                <GoalCreateButton onClick={handleOpenGoalCreateInput}/>
+                            }
+                        </TodoWrapper>
+                    </ScrollWrapper>
+                    {/* <AddTodoWrapper>
+                        <TodoCreateButton AddTodoModalHandler={AddTodoModalHandler}/>
+                    </AddTodoWrapper> */}
+                </Container>
+            </Wrapper>
+        )
+    } else {
+        return (
+            <span>loading...</span>
+        )
+    }
+
 }
 
 const Wrapper = styled.div`

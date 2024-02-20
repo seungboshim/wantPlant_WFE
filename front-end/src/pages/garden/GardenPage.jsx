@@ -12,14 +12,14 @@ import PotItem from "../../components/gardenContent/PotItem";
 import TodoView from "../../components/gardenContent/TodoView";
 import GardenSecond from "./GardenSecond";
 
-
 import EditGardenModal from "../../components/modal/EditGardenModal";
 import AddTodoModal from "../../components/modal/AddTodoModal";
 import EditTodoModal from "../../components/modal/EditTodoModal";
 
 import { getGardenById } from "../../apis/garden/getGarden";
 import { getPotsWithPage } from "../../apis/pot/getPot";
-
+import { getPotById } from "../../apis/pot/getPot";
+import { getGoalsByPotId } from '../../apis/goal/getGoal';
 
 export default function GardenPage() {
     // params = {gardenId: ***} 저장됨
@@ -30,17 +30,6 @@ export default function GardenPage() {
     const [potsData, setPotsData] = useState({});
     const [page, setPage] = useState(1);
 
-    useEffect(() => {
-        getGardenById(gardenId).then((data) => {
-            setGardenData(data);
-            console.log(data);
-        })
-        getPotsWithPage(gardenId, page).then((data) => {
-            setPotsData(data);
-            console.log(data);
-        })
-    }, [gardenId, page])
-
     const [gardenPots, setGardenPots] = useState([]);
     const [listSize, setListSize] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
@@ -49,49 +38,73 @@ export default function GardenPage() {
     const [emptyPotSize, setEmptyPotSize] = useState(0);
     const [emptyPots, setEmptyPots] = useState([]);
 
+    const [selectedPotId, setSelectedPotId] = useState(0);
+    const [selectedPotData, setSelectedPotData] = useState();
+    const [goalData, setGoalData] = useState();
+
     useEffect(() => {
-        const pots = potsData.pots;
-        const listSize = potsData.listSize;
-        const totalPage = potsData.totalPage;
-        const totalElements = potsData.totalElements;
+        getGardenById(gardenId).then((data) => {
+            setGardenData(data);
+            console.log(data);
+        })
+        getPotsWithPage(gardenId, page).then((data) => {
+            setPotsData(data);
+            console.log(data);
 
-        console.log(totalElements)
-        
-        setGardenPots(pots);
-        setListSize(listSize);
-        setTotalPage(totalPage);
-        setTotalElements(totalElements);
+            const pots = data.pots;
+            const listSize = data.listSize;
+            const totalPage = data.totalPage;
+            const totalElements = data.totalElements;
 
-        const remain = totalElements % listSize;
-        const emptyPotSize = listSize - remain;
-        const emptyPots = Array.from({ length: emptyPotSize }, (_, index) => {
-            <EmptyPotItem key={index}/>
-        });
+            setGardenPots(pots);
+            setListSize(listSize);
+            setTotalPage(totalPage);
+            setTotalElements(totalElements);
 
-        setRemain(remain);
-        setEmptyPotSize(emptyPotSize);
-        setEmptyPots(emptyPots);
+            const remain = totalElements % listSize;
+            const emptyPotSize = listSize - remain;
+            const emptyPots = Array.from({ length: emptyPotSize }, (_, index) => {
+                <EmptyPotItem key={index}/>
+            });
+    
+            setRemain(remain);
+            setEmptyPotSize(emptyPotSize);
+            setEmptyPots(emptyPots);
+
+            if (data.pots.length !== 0) {
+                const initPotId = data.pots[0].potId;
+                console.log(initPotId)
+                setSelectedPotId(initPotId);
+            }
+        })
+    }, [gardenId, page])
+
+
+    useEffect(() => {
+        console.log(gardenData);
     }, [gardenData])
 
-    const [selectedPotId, setSelectedPotId] = useState(1);
+    useEffect(() => {
+        console.log(potsData);
+    }, [potsData])
 
     useEffect(() => {
-        if (totalElements && totalElements !== 0) {
-            const initPotId = gardenPots[0].potId;
-            setSelectedPotId(initPotId)
-            console.log(selectedPotId)
+        console.log(selectedPotId)
+        if (selectedPotId !== 0) {
+            getPotById(selectedPotId).then((data) => {
+                setSelectedPotData(data);
+                console.log(data);
+            }).catch((error) => {
+                console.log(error);
+            });
         }
-    }, [gardenData])
+    }, [selectedPotId])
 
     /** isChanged=false, selectedPotId=potId */
     const handleSelectPot = (potId) => {
         setIsChanged(false);
         setSelectedPotId(potId);
     }
-  
-    useEffect(() => {
-        console.log(selectedPotId)
-    }, [selectedPotId])
   
     // 화분 추가를 위한 상태변수
     const [isChanged, setIsChanged] = useState(false);
@@ -119,7 +132,7 @@ export default function GardenPage() {
         document.body.style.overflow = isOpen ? "hidden" : "unset";
     };
 
-    if (gardenData) {
+    if (gardenData !== undefined) {
         return (
             <Wrapper>
                 {/** 정원 헤더 */}
@@ -139,21 +152,20 @@ export default function GardenPage() {
                     <ContentInner className="ContentInner">
                     <LeftContent className="LeftContent">
                         {page > totalPage || totalElements === 0 ?
-                        // TODO : gardenPot 배치함
-                        emptyPots.map((idx) => {
-                            return (
-                            <EmptyPotItem key={idx} onClick={handleOpenPotCreate} />
-                            )
-                        })
+                            emptyPots.map((idx) => {
+                                return (
+                                <EmptyPotItem key={idx} onClick={handleOpenPotCreate} />
+                                )
+                            })
                         : (gardenPots && gardenPots.map((pot, idx) => {
-                            console.log(gardenPots)
+                            //console.log(pot)
                             const potIndex = idx + 1;
                             return (
                                 <PotItem 
                                     key={potIndex}
                                     potName={pot.potName}
                                     startAt={pot.startAt}
-                                    potColor={pot.potColor}
+                                    potTagColor={pot.potTagColor}
                                     proceed={pot.proceed}
                                     potImageUrl={pot.potImageUrl}
                                     selected={selectedPotId === pot.potId}
@@ -166,7 +178,7 @@ export default function GardenPage() {
                     </LeftContent>
                     <RightContent className="RightContent">
                         {/* gardenPots 비어있으면 설명 컴포넌트 */}
-                        {totalElements === 0 ? 
+                        {(totalElements === 0 || !totalElements) ? 
                             (isChanged ? (
                                 <PotCreate />
                             ) : (
@@ -175,7 +187,7 @@ export default function GardenPage() {
                         ) : (isChanged ? (
                                 <PotCreate />
                             ) : (
-                                <TodoView potId={selectedPotId} AddTodoModalHandler={AddTodoModalHandler}/>
+                                <TodoView potId={selectedPotId}  AddTodoModalHandler={AddTodoModalHandler}/>
                             )
                         )}
                         {/* 투두 추가 모달, 수정 모달 여는 함수 전달 */}
@@ -205,20 +217,16 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    @media (max-width: 1280px) {
-        height: 800px;
-        width: 1120px;
-    }
 `;
 
 const Content = styled.div`
-    width: 100%;
+    width: 90%;
     height: 100%;
     display: flex;
     flex-direction: column;
     background-color: ${({ theme }) => theme.colors.green01};
     border-radius: 2.1vw;
+
     @media (max-width: 1280px) {
         border-radius: 20px;
     }
