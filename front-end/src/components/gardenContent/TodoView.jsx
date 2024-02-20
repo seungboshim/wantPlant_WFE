@@ -80,7 +80,7 @@ export default function TodoView({ potId, AddTodoModalHandler }) {
                                         goalId={goals.goalId}
                                         goalTitle={goals.goalTitle}
                                         todoList={goals.todoList}
-                                        onClick={AddTodoModalHandler}
+                                        AddTodoModalHandler={AddTodoModalHandler}
                                     />
                                 )
                             })}

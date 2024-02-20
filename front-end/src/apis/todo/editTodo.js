@@ -5,7 +5,7 @@ import { Server } from "../setting";
 export const postTodo = async({ goalId, title, date, time }) => {
     try {
         const response = await Server.post(`/api/todos`, {
-            "goalId": goalId,
+            "goalID": goalId,
             "title": title,
             "date": date,
             "time": time,

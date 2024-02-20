@@ -7,12 +7,50 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AiFillCalendar } from "react-icons/ai";
 import { postTodo } from "../../apis/todo/editTodo";
+import { useRecoilValue } from "recoil";
+import { CurrGoalIdAtom } from "../../recoil/atom";
 
-export default function AddTodoModal({ isOpen, AddTodoModalHandler }) {
+export default function AddTodoModal({ isOpen, AddTodoModalHandler, onSubmit }) {
     Modal.setAppElement("#root");
-    const [calenderDate, setCalenderDate] = useState("");
+    const [calenderDate, setCalenderDate] = useState(new Date());
     const [timeStartDate, setTimeStartDate] = useState(new Date());
     const [timeEndDate, setTimeEndDate] = useState(new Date());
+    const [todoText, setTodoText] = useState("");
+    const currGoalId = useRecoilValue(CurrGoalIdAtom);
+
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+      
+    const formatTime = (date) => {
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${hours}:${minutes}`;
+    };
+
+    const handleSubmit = () => {
+        const dateString = formatDate(calenderDate);
+        const timeString = formatTime(timeStartDate);
+
+        const formData = {
+            goalId: currGoalId,
+            title: todoText,
+            date: dateString,
+            time: timeString,
+        };
+        console.log(formData)
+        AddTodoModalHandler(false);
+        onSubmit(formData);
+    }
+
+    const handleChange = (e) => {
+        setTodoText(e.target.value);
+        console.log(todoText)
+        console.log(currGoalId)
+    }
 
     /* react-modal style props 속성 */
     const customStyles = {
@@ -60,7 +98,7 @@ export default function AddTodoModal({ isOpen, AddTodoModalHandler }) {
                 </ModalImageWrapper>
                 <ModalTitleWrapper>할 일을 추가해주세요.</ModalTitleWrapper>
                 <ModalTodoTextWrapper>
-                    <ModalGardenTodoTextInput placeholder="할 일을 적어주세요." />
+                    <ModalGardenTodoTextInput value={todoText} onChange={handleChange} placeholder="할 일을 적어주세요." />
                 </ModalTodoTextWrapper>
                 <ModalTodoDateWrapper>
                     <DatePicker
@@ -101,7 +139,7 @@ export default function AddTodoModal({ isOpen, AddTodoModalHandler }) {
                     </ModalTodoTimeRightWrapper>
                 </ModalTodoTimeContainer>
                 <ModalButtonWrapper>
-                    <ModalButton iscomplete="true" onClick={() => AddTodoModalHandler(false)}>
+                    <ModalButton iscomplete="true" onClick={handleSubmit}>
                         완료
                     </ModalButton>
                     <ModalButton onClick={() => AddTodoModalHandler(false)}>취소</ModalButton>

@@ -23,6 +23,7 @@ import { getPotById } from "../../apis/pot/getPot";
 import { getGoalsByPotId } from '../../apis/goal/getGoal';
 import { deleteGarden } from "../../apis/garden/editGarden";
 import { getEntireGardens } from "../../apis/garden/getGarden";
+import { postTodo } from "../../apis/todo/editTodo";
 
 import { useRecoilState } from "recoil";
 import { InitGardenAtom } from "../../recoil/atom";
@@ -176,7 +177,14 @@ export default function GardenPage() {
         }
     }
 
-
+    const handleAddTodo = (formData) => {
+        console.log(formData);
+        postTodo(formData).then((result) => {
+            console.log(result);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
 
     // 모달 관련
     const [isEditGardenModalOpen, setIsEditGardenModalOpen] = useState(false);
@@ -299,7 +307,7 @@ export default function GardenPage() {
     
                 {/** 모달 */}
                 <EditGardenModal isOpen={isEditGardenModalOpen} EditGardenModalHandler={EditGardenModalHandler} />
-                <AddTodoModal isOpen={isAddTodoModalOpen} AddTodoModalHandler={AddTodoModalHandler} />
+                <AddTodoModal isOpen={isAddTodoModalOpen} AddTodoModalHandler={AddTodoModalHandler} onSubmit={handleAddTodo}/>
                 <EditTodoModal isOpen={isEditTodoModalOpen} EditTodoModalHandler={EditTodoModalHandler} />
             </Wrapper>
         );

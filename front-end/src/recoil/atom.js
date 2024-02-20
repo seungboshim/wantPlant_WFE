@@ -29,3 +29,8 @@ export const NicknameAtom = atom({
     key: 'NicknameAtom',
     default: "",
 })
+
+export const CurrGoalIdAtom = atom({
+    key: 'CurrGoalIdAtom',
+    default: 0,
+})
