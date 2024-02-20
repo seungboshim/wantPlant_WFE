@@ -7,7 +7,7 @@ import ReverseModalButton from "../button/ReverseModalButton";
 import { postPot } from '../../apis/pot/editPot';
 
 /** 새 화분 생성 컴포넌트 */
-export default function PotCreate({ gardenId }) {
+export default function PotCreate({ gardenId, handleClose }) {
     const [potName, setPotName] = useState("");
 
     const [selectedColor, setSelectedColor] = useState("");
@@ -73,7 +73,7 @@ export default function PotCreate({ gardenId }) {
                 </PotInputContainer>
                 <PotCreateButton>
                     <ModalButton label="확인" onClick={handleSubmit} />
-                    <ReverseModalButton label="취소" />
+                    <ReverseModalButton label="취소" onClick={handleClose}/>
                 </PotCreateButton>
             </Container>
         </Wrapper>

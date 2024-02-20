@@ -122,6 +122,18 @@ export default function GardenPage() {
         setIsChanged(true);
     }
 
+    const handleClosePotCreate = () => {
+        if (gardenPots) {
+            setSelectedPotId(gardenPots[0].potId);
+            console.log(gardenPots[0].potId)
+        }
+        setIsChanged(false);
+    }
+
+    const handleClosePotCreateEmpty = () => {
+        setIsChanged(false);
+    }
+
     const [initGarden, setInitGarden] = useRecoilState(InitGardenAtom);
     const [entireGardens, setEntireGardens] = useState(0);
 
@@ -268,14 +280,14 @@ export default function GardenPage() {
                         {/* gardenPots 비어있으면 설명 컴포넌트 */}
                         {(totalElements === 0 || !totalElements) ? 
                             (isChanged ? (
-                                <PotCreate gardenId={gardenId} />
+                                <PotCreate gardenId={gardenId} handleClose={handleClosePotCreateEmpty}/>
                             ) : (
                                 <Information />
                             )
                         ) : (isChanged ? (
-                                <PotCreate gardenId={gardenId} />
+                                <PotCreate gardenId={gardenId} handleClose={handleClosePotCreate}/>
                             ) : (
-                                <TodoView potId={selectedPotId}  AddTodoModalHandler={AddTodoModalHandler}/>
+                                <TodoView potId={selectedPotId} AddTodoModalHandler={AddTodoModalHandler}/>
                             )
                         )}
                         {/* 투두 추가 모달, 수정 모달 여는 함수 전달 */}
