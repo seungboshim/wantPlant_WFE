@@ -5,7 +5,7 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useState } from "react";
 
 /** 화분 정보 -> 목표 */
-export default function GoalContainer({ goalId, goalTitle, todoList, AddTodoModalHandler }) {
+export default function GoalContainer({ goalId, goalTitle, todoList, AddTodoModalHandler, EditTodoModalHandler }) {
     // console.log(todoList)
 
     return (
@@ -21,6 +21,7 @@ export default function GoalContainer({ goalId, goalTitle, todoList, AddTodoModa
                         todoId={todo.todoId}
                         todoTitle={todo.todoTitle}
                         isComplete={todo.isComplete}
+                        EditTodoModalHandler={EditTodoModalHandler}
                     />
                 )
             })}

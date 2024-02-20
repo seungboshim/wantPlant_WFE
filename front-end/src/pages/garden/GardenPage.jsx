@@ -293,7 +293,11 @@ export default function GardenPage() {
                         ) : (isChanged ? (
                                 <PotCreate gardenId={gardenId} handleClose={handleClosePotCreate}/>
                             ) : (
-                                <TodoView potId={selectedPotId} AddTodoModalHandler={AddTodoModalHandler}/>
+                                <TodoView 
+                                    potId={selectedPotId}
+                                    AddTodoModalHandler={AddTodoModalHandler}
+                                    EditTodoModalHandler={EditTodoModalHandler}
+                                />
                             )
                         )}
                         {/* 투두 추가 모달, 수정 모달 여는 함수 전달 */}

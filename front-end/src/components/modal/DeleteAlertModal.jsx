@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import Modal from "react-modal";
 import logo_pot from "../../assets/images/logo_pot.svg";
+import dogCatNotice from "../../assets/images/dogcat_notice.svg";
 
 export default function DeleteAlertModal({
   isOpen,
@@ -72,11 +73,11 @@ const ModalContent = styled.div`
 const ModalImageWrapper = styled.div`
   width: 100%;
   height: 28%;
-  margin-bottom: 10px;
+  margin: 10px 0;
 `;
 
 const PotIcon = styled.img.attrs({
-  src: logo_pot,
+  src: dogCatNotice,
 })`
   width: 100%;
   height: 100%;

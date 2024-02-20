@@ -13,7 +13,7 @@ import GoalCreateButton from "./GoalCreateButton";
 import green07Plus from "../../assets/images/green07Plus.svg"
 
 /** potId 의 목표, 투두 조회 및 생성 컴포넌트 */
-export default function TodoView({ potId, AddTodoModalHandler }) {
+export default function TodoView({ potId, AddTodoModalHandler, EditTodoModalHandler }) {
     const [potData, setPotData] = useState();
     const [goalData, setGoalData] = useState();
 
@@ -81,6 +81,7 @@ export default function TodoView({ potId, AddTodoModalHandler }) {
                                         goalTitle={goals.goalTitle}
                                         todoList={goals.todoList}
                                         AddTodoModalHandler={AddTodoModalHandler}
+                                        EditTodoModalHandler={EditTodoModalHandler}
                                     />
                                 )
                             })}

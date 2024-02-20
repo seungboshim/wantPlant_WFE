@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { AiFillCalendar } from "react-icons/ai";
 import { FaRegTrashAlt } from "react-icons/fa";
 import DeleteAlertModal from "./DeleteAlertModal";
+import dogCatSwag from "../../assets/images/dogcat_swag.svg";
 
 export default function EditTodoModal({ isOpen, EditTodoModalHandler }) {
   Modal.setAppElement("#root");
@@ -61,9 +62,9 @@ export default function EditTodoModal({ isOpen, EditTodoModalHandler }) {
     <ModalContainer isOpen={isOpen} style={customStyles}>
       <ModalContent>
         <ModalImageWrapper>
-          <PotIcon alt="Pot Icon" />
+          <PotIcon alt="Dog Icon" />
         </ModalImageWrapper>
-        <ModalTitleWrapper>할 일을 추가해주세요.</ModalTitleWrapper>
+        <ModalTitleWrapper>할 일을 수정해주세요.</ModalTitleWrapper>
         <ModalTodoTextWrapper>
           <ModalGardenTodoTextInput placeholder="(원래 투두 내용)" />
         </ModalTodoTextWrapper>
@@ -146,15 +147,16 @@ const ModalContent = styled.div`
 
 /* ModalTitleImage */
 const ModalImageWrapper = styled.div`
-  width: 100%;
-  height: 18%;
-  margin-bottom: 10px;
+  display: flex;
+  width: fit-content;
+  height: 15%;
+  margin: 10px 0;
 `;
 
 const PotIcon = styled.img.attrs({
-  src: logo_pot,
+  src: dogCatSwag,
 })`
-  width: 100%;
+  width: fit-content;
   height: 100%;
 `;
 

@@ -7,7 +7,7 @@ import { patchTodoComplete } from "../../apis/todo/editTodo";
 import { getTodoById } from "../../apis/todo/getTodo";
 
 /** 화분 정보 -> 투두 */
-export default function TodoContainer({ todoId, todoTitle, isComplete }) {
+export default function TodoContainer({ todoId, todoTitle, isComplete, EditTodoModalHandler }) {
     // TODO : 누르면 complete 변경되는거 PATCH
     const [localIsComplete, setLocalIsComplete] = useState(isComplete);
 
@@ -50,7 +50,7 @@ export default function TodoContainer({ todoId, todoTitle, isComplete }) {
                     <WateringWrapper src={todoFill} />
                     <TodoTextWrapper>{todoTitle}</TodoTextWrapper>
                 </TodoTitleContainer>
-                <EditButton />
+                <EditButton onClick={EditTodoModalHandler} />
             </Container>
         )
     } else return (
@@ -59,7 +59,7 @@ export default function TodoContainer({ todoId, todoTitle, isComplete }) {
                 <WateringWrapper src={todoEmpty} />
                 <TodoTextWrapper>{todoTitle}</TodoTextWrapper>
             </TodoTitleContainer>
-            <EditButton />
+            <EditButton onClick={EditTodoModalHandler}/>
         </Container>
     )
 }
