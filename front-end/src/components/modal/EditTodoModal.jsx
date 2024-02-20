@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import Modal from "react-modal";
 import logo_pot from "../../assets/images/logo_pot.svg";
 import DatePicker from "react-datepicker";
@@ -8,6 +8,24 @@ import { AiFillCalendar } from "react-icons/ai";
 import { FaRegTrashAlt } from "react-icons/fa";
 import DeleteAlertModal from "./DeleteAlertModal";
 import dogCatSwag from "../../assets/images/dogcat_swag.svg";
+
+const fadeInAnimation = keyframes`
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+`;
+
+const fadeOutAnimation = keyframes`
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+`;
 
 export default function EditTodoModal({ isOpen, EditTodoModalHandler }) {
   Modal.setAppElement("#root");
@@ -134,7 +152,10 @@ export default function EditTodoModal({ isOpen, EditTodoModalHandler }) {
 }
 
 /* Modal */
-const ModalContainer = styled(Modal)``;
+const ModalContainer = styled(Modal)`
+    opacity: ${(props) => (props.isOpen ? 1 : 0)};
+    animation: ${(props) => (props.isOpen ? fadeInAnimation : fadeOutAnimation)} 0.25s ease-in-out;
+`;
 
 const ModalContent = styled.div`
   width: 100%;

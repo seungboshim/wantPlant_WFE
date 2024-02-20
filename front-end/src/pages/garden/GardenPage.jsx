@@ -308,9 +308,19 @@ export default function GardenPage() {
                 <GardenSecond gardenId={params.gardenId} />
     
                 {/** 모달 */}
-                <EditGardenModal isOpen={isEditGardenModalOpen} EditGardenModalHandler={EditGardenModalHandler} />
-                <AddTodoModal isOpen={isAddTodoModalOpen} AddTodoModalHandler={AddTodoModalHandler} onSubmit={handleAddTodo}/>
-                <EditTodoModal isOpen={isEditTodoModalOpen} EditTodoModalHandler={EditTodoModalHandler} />
+                <EditGardenModal 
+                    isOpen={isEditGardenModalOpen} 
+                    EditGardenModalHandler={EditGardenModalHandler} 
+                />
+                <AddTodoModal 
+                    isOpen={isAddTodoModalOpen}
+                    AddTodoModalHandler={AddTodoModalHandler} 
+                    onSubmit={handleAddTodo}
+                />
+                <EditTodoModal 
+                    isOpen={isEditTodoModalOpen} 
+                    EditTodoModalHandler={EditTodoModalHandler} 
+                />
             </Wrapper>
         );
     } else {

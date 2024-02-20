@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import Modal from "react-modal";
 import logo_pot from "../../assets/images/logo_pot.svg";
 import cat_thumbs from "../../assets/images/cat_thumbs.svg"
@@ -9,6 +9,24 @@ import { AiFillCalendar } from "react-icons/ai";
 import { postTodo } from "../../apis/todo/editTodo";
 import { useRecoilValue } from "recoil";
 import { CurrGoalIdAtom } from "../../recoil/atom";
+
+const fadeInAnimation = keyframes`
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+`;
+
+const fadeOutAnimation = keyframes`
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+`;
 
 export default function AddTodoModal({ isOpen, AddTodoModalHandler, onSubmit }) {
     Modal.setAppElement("#root");
@@ -150,7 +168,10 @@ export default function AddTodoModal({ isOpen, AddTodoModalHandler, onSubmit }) 
 }
 
 /* Modal */
-const ModalContainer = styled(Modal)``;
+const ModalContainer = styled(Modal)`
+    opacity: ${(props) => (props.isOpen ? 1 : 0)};
+    animation: ${(props) => (props.isOpen ? fadeInAnimation : fadeOutAnimation)} 0.25s ease-in-out;
+`;
 
 const ModalContent = styled.div`
     width: 100%;
