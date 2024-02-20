@@ -297,6 +297,7 @@ export default function GardenPage() {
                                     potId={selectedPotId}
                                     AddTodoModalHandler={AddTodoModalHandler}
                                     EditTodoModalHandler={EditTodoModalHandler}
+                                    EditGardenModalHandler={EditGardenModalHandler}
                                 />
                             )
                         )}
