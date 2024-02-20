@@ -25,6 +25,7 @@ export default function GardenPage() {
     // params = {gardenId: ***} 저장됨
     const params = useParams();
     const gardenId = params.gardenId;
+    console.log(gardenId)
 
     const [gardenData, setGardenData] = useState({});
     const [potsData, setPotsData] = useState({});
@@ -180,12 +181,12 @@ export default function GardenPage() {
                         {/* gardenPots 비어있으면 설명 컴포넌트 */}
                         {(totalElements === 0 || !totalElements) ? 
                             (isChanged ? (
-                                <PotCreate />
+                                <PotCreate gardenId={gardenId} />
                             ) : (
                                 <Information />
                             )
                         ) : (isChanged ? (
-                                <PotCreate />
+                                <PotCreate gardenId={gardenId} />
                             ) : (
                                 <TodoView potId={selectedPotId}  AddTodoModalHandler={AddTodoModalHandler}/>
                             )
