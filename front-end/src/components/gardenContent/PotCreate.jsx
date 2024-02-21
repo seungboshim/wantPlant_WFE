@@ -38,6 +38,7 @@ export default function PotCreate({ gardenId, handleClose }) {
         })
             .then((result) => {
                 console.log(result);
+                window.location.reload();
             })
             .catch((error) => {
                 console.log(error)
