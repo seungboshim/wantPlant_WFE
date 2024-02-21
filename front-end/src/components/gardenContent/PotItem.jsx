@@ -16,7 +16,7 @@ export default function PotItem({
                         <PotProgressBar className="PotProgressBar">
                             <PotProgressDealt width={proceed} color={potTagColor}/>
                         </PotProgressBar>
-                        <PotProgressText color={potTagColor}>{proceed}/10</PotProgressText>
+                        <PotProgressText color={potTagColor}>{proceed}/30</PotProgressText>
                     </PotProgressWrapper>
                 </PotInfoWrapper>
             </Wrapper>
@@ -122,7 +122,7 @@ const PotProgressBar = styled.div`
 `;
 
 const PotProgressDealt = styled.div`
-  width: ${({width}) => width*10}%;
+  width: ${({width}) => width*10/3}%;
   height: 100%;
   border-radius: 1.5vw;
   background-color: ${({ color, theme }) => theme.colors[color].bg};
