@@ -170,7 +170,7 @@ export default function GardenPage() {
                 // } else {
                 //     navigate(`/garden/add`);
                 // }
-                navigate(`garden/add`);
+                navigate(`/garden/add`);
             }).catch((error) => {
                 console.log(error)
             })
