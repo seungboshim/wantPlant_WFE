@@ -181,6 +181,7 @@ export default function GardenPage() {
         console.log(formData);
         postTodo(formData).then((result) => {
             console.log(result);
+            window.location.reload();
         }).catch((error) => {
             console.log(error);
         })
